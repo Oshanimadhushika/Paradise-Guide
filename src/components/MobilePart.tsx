@@ -64,6 +64,10 @@ const MobilePart: React.FC = () => {
     },
   ];
 
+  if (!isMounted) {
+    return null; // or a loading placeholder
+  }
+
   return (
     <section className="py-16 bg-gradient-to-br from-blue-100 via-green-50 to-emerald-100 overflow-hidden relative">
       {/* Background overlay gradients */}
@@ -103,30 +107,28 @@ const MobilePart: React.FC = () => {
                 </ul>
               </div>
 
-              {isMounted && (
-                <div className="flex justify-start space-x-8">
-                  {storeLinks.map((store, index) => (
-                    <div key={index} className="flex flex-col items-center space-y-3">
-                      <div className="relative h-10 w-32">
-                        <Image
-                          src={store.image}
-                          alt={store.alt}
-                          fill
-                          className="cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-105 object-contain"
-                        />
-                      </div>
-                      <QRCode
-                        value={store.url}
-                        color="#000000"
-                        style={{ background: "white" }}
-                        bordered={false}
-                        className="shadow-md rounded-lg p-2 bg-white/90"
-                        size={80}
+              <div className="flex justify-start space-x-8">
+                {storeLinks.map((store, index) => (
+                  <div key={index} className="flex flex-col items-center space-y-3">
+                    <div className="relative h-10 w-32">
+                      <Image
+                        src={store.image}
+                        alt={store.alt}
+                        fill
+                        className="cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-105 object-contain"
                       />
                     </div>
-                  ))}
-                </div>
-              )}
+                    <QRCode
+                      value={store.url}
+                      color="#000000"
+                      style={{ background: "white" }}
+                      bordered={false}
+                      className="shadow-md rounded-lg p-2 bg-white/90"
+                      size={80}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
@@ -150,4 +152,6 @@ const MobilePart: React.FC = () => {
   );
 };
 
-export default MobilePart;
+export default dynamic(() => Promise.resolve(MobilePart), {
+  ssr: false
+});

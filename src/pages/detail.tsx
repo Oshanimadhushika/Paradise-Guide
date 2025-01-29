@@ -6,6 +6,7 @@
 
 import { useLocation } from 'react-router-dom';
 import DetailPage from '@/components/DetailPage';
+import dynamic from 'next/dynamic';
 
 const Detail = () => {
   const location = useLocation();
@@ -18,4 +19,7 @@ const Detail = () => {
   return <DetailPage place={place} />;
 };
 
-export default Detail; 
+// Prevent SSR for this page
+export default dynamic(() => Promise.resolve(Detail), {
+  ssr: false
+}); 

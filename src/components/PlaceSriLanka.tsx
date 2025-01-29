@@ -12,6 +12,7 @@ import Yala from "../assets/dear_yala.png";
 import SriPadaya from "../assets/sripadaya.jpeg";
 import DetailPage from "./DetailPage";
 import { useNavigate } from 'react-router-dom';
+import dynamic from 'next/dynamic';
 
 interface Place {
   id: number;
@@ -134,7 +135,10 @@ const PlaceSriLanka: React.FC = () => {
   ];
 
   const handlePlaceClick = (place: Place) => {
-    navigate('/detail', { state: { place } });
+    navigate('/detail', { 
+      state: { place },
+      replace: false
+    });
   };
 
   return (
@@ -145,7 +149,7 @@ const PlaceSriLanka: React.FC = () => {
             Top Attractions Of Sri Lanka
           </h2>
           <button
-            onClick={() => navigate('/detail', { state: { place: places[0] } })}
+            onClick={() => handlePlaceClick(places[0])}
             className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300"
           >
             See all
@@ -182,4 +186,6 @@ const PlaceSriLanka: React.FC = () => {
   );
 };
 
-export default PlaceSriLanka;
+export default dynamic(() => Promise.resolve(PlaceSriLanka), {
+  ssr: false
+});

@@ -1,19 +1,32 @@
 import "@/styles/globals.css";
+import { useEffect, useState } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import type { AppProps } from "next/app";
-import { ConfigProvider } from 'antd'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ConfigProvider } from "antd";
 import Detail from './detail';
-import Home from ".";
+import Home from './index';
 
-export default function App({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
   return (
     <ConfigProvider>
-      <Router>
+      <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/detail" element={<Detail />} />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </ConfigProvider>
   );
 }
+
+export default MyApp;
