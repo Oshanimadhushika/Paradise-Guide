@@ -4,6 +4,7 @@ import About from "@/components/About";
 import PlaceSriLanka from "@/components/PlaceSriLanka";
 import MobilePart from "@/components/MobilePart";
 import Contact from "@/components/Contact";
+import Gallery from "@/components/Gallery";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,10 +22,11 @@ export default function Home() {
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow">
           <Hero />
-          <About />
-          <PlaceSriLanka />
+          <About/>
+          <PlaceSriLanka/>
           <MobilePart />
-          <Contact />
+          <Gallery/>
+          <Contact/>
         </main>
       </div>
     </div>

@@ -1,8 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
-import AliceCarousel, { Responsive } from "react-alice-carousel";
-import "react-alice-carousel/lib/alice-carousel.css";
 import { StaticImageData } from "next/image";
+import { ThreeDPhotoCarousel } from "@/components/ui/3d-carousel";
 import SeaGirl from "../assets/seaGirl.jpg";
 import Hikkaduwa from "../assets/hikkaduwa_swiming.png";
 import Dears from "../assets/dear_yala.png";
@@ -62,51 +61,6 @@ const About: React.FC = () => {
     },
   ];
 
-  const responsive: Responsive = {
-    0: { items: 1 },
-    768: { items: 3 },
-    1024: { items: 5, itemsFit: "contain" },
-  };
-
-  const renderSlideItem = (slide: Slide, index: number) => (
-    <div key={index} className="relative group px-2">
-      <div
-        className="image-container relative overflow-hidden rounded-lg shadow-lg cursor-pointer"
-        style={{
-          width: "100%",
-          paddingTop: "133.33%",
-          position: "relative",
-        }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={slide.url.src}
-          alt={slide.title}
-          className="absolute top-0 left-0 w-100 h-100 object-cover transition-transform duration-500 group-hover:scale-110"
-          style={{
-            position: "absolute",
-            top: "0",
-            left: "0",
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-          }}
-        />
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="absolute inset-0 p-4 flex flex-col justify-center items-center text-center">
-            <h3 className="text-white font-semibold text-lg mb-2">
-              {slide.title}
-            </h3>
-            <p className="text-white/90 text-sm line-clamp-3">
-              {slide.desc}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   return (
     <section className="py-16 bg-gray-50">
       <Container fluid className="px-4 lg:px-8">
@@ -123,28 +77,12 @@ const About: React.FC = () => {
           </Col>
         </Row>
 
-        {/* Slider Section */}
-        <Row>
-          <Col>
-            <div
-              className="carousel-wrapper"
-              style={{ maxWidth: "1800px", margin: "0 auto" }}
-            >
-              <AliceCarousel
-                mouseTracking
-                items={slides.map((slide, index) => renderSlideItem(slide, index))}
-                responsive={responsive}
-                autoPlay={true}
-                autoPlayInterval={3500}
-                autoPlayDirection="ltr"
-                disableDotsControls={false}
-                disableButtonsControls={false}
-                infinite={true}
-                controlsStrategy="alternate"
-              />
-            </div>
-          </Col>
-        </Row>
+        {/* 3D Carousel Section */}
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="min-h-[400px] flex flex-col justify-center rounded-lg">
+            <ThreeDPhotoCarousel images={slides} />
+          </div>
+        </div>
       </Container>
     </section>
   );
