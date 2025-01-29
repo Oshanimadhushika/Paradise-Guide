@@ -18,6 +18,7 @@ interface Slide {
 }
 
 const About: React.FC = () => {
+  // image
   const slides: Slide[] = [
     {
       url: SeaGirl,
