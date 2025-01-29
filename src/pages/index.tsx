@@ -17,14 +17,16 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable}`}>
-      <main>
-        <Hero />
-        <About />
-        <PlaceSriLanka />
-        <MobilePart />
-        <Contact />
-      </main>
+    <div className={`${geistSans.variable} ${geistMono.variable} font-sans`}>
+      <div className="flex flex-col min-h-screen">
+        <main className="flex-grow">
+          <Hero />
+          <About />
+          <PlaceSriLanka />
+          <MobilePart />
+          <Contact />
+        </main>
+      </div>
     </div>
   );
 }

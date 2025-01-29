@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "reactstrap";
-import { QRCode } from "antd";
-import Image from "next/image";
-import { StaticImageData } from "next/image";
+import Image, { StaticImageData } from "next/image";
+import dynamic from 'next/dynamic';
 import MobileImg from "../assets/mobile-pic.png";
 import AppStore from "../assets/appleStore.png";
 import PlayStore from "../assets/playStore.png";
+
+const QRCode = dynamic(() => import('antd').then(mod => mod.QRCode), {
+  ssr: false,
+  loading: () => <div className="w-20 h-20 bg-gray-100 rounded-lg" />
+});
 
 interface StoreLink {
   url: string;
@@ -19,6 +23,12 @@ interface Feature {
 }
 
 const MobilePart: React.FC = () => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const appStoreUrl = "https://apps.apple.com/app-url";
   const playStoreUrl = "https://play.google.com/store/app-url";
 
@@ -93,28 +103,30 @@ const MobilePart: React.FC = () => {
                 </ul>
               </div>
 
-              <div className="flex justify-start space-x-8">
-                {storeLinks.map((store, index) => (
-                  <div key={index} className="flex flex-col items-center space-y-3">
-                    <div className="relative h-10 w-32">
-                      <Image
-                        src={store.image}
-                        alt={store.alt}
-                        fill
-                        className="cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-105 object-contain"
+              {isMounted && (
+                <div className="flex justify-start space-x-8">
+                  {storeLinks.map((store, index) => (
+                    <div key={index} className="flex flex-col items-center space-y-3">
+                      <div className="relative h-10 w-32">
+                        <Image
+                          src={store.image}
+                          alt={store.alt}
+                          fill
+                          className="cursor-pointer hover:opacity-80 transition-all duration-300 hover:scale-105 object-contain"
+                        />
+                      </div>
+                      <QRCode
+                        value={store.url}
+                        color="#000000"
+                        style={{ background: "white" }}
+                        bordered={false}
+                        className="shadow-md rounded-lg p-2 bg-white/90"
+                        size={80}
                       />
                     </div>
-                    <QRCode
-                      value={store.url}
-                      color="#000000"
-                      style={{ background: "white" }}
-                      bordered={false}
-                      className="shadow-md rounded-lg p-2 bg-white/90"
-                      size={80}
-                    />
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
 
