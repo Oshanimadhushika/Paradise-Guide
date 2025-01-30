@@ -6,7 +6,7 @@ import Galle from "../assets/seaGirl.jpg";
 import Kandy from "../assets/kandyLake.jpeg";
 import Yala from "../assets/dear_yala.png";
 import SriPadaya from "../assets/sripadaya.jpeg";
-// Import more images for additional places
+import GalleFort from '../assets/galleFort.jpg';
 
 export interface Place {
   id: number;
@@ -73,7 +73,7 @@ export const places: Place[] = [
   {
     id: 4,
     name: "Galle Fort",
-    image: Galle,
+    image: GalleFort,
     tours: "45+ Tours",
     location: "Galle",
     rating: 4.9,
