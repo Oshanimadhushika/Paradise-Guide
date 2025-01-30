@@ -30,7 +30,7 @@ interface Place {
 }
 
 const PlaceSriLanka: React.FC = () => {
-  const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
+  // const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
   const navigate = useNavigate();
 
   const places: Place[] = [
@@ -149,7 +149,7 @@ const PlaceSriLanka: React.FC = () => {
             Top Attractions Of Sri Lanka
           </h2>
           <button
-            onClick={() => handlePlaceClick(places[0])}
+            onClick={() => navigate('/see-all')}
             className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300"
           >
             See all

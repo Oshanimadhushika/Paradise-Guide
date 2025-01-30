@@ -5,6 +5,7 @@ import type { AppProps } from "next/app";
 import { ConfigProvider } from "antd";
 import Detail from './detail';
 import Home from './index';
+import SeeAllPage from '@/components/SeeAllPage';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isMounted, setIsMounted] = useState(false);
@@ -23,6 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/detail" element={<Detail />} />
+          <Route path="/see-all" element={<SeeAllPage />} />
         </Routes>
       </BrowserRouter>
     </ConfigProvider>
