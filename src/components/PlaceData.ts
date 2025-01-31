@@ -6,7 +6,7 @@ import Galle from "../assets/seaGirl.jpg";
 import Kandy from "../assets/kandyLake.jpeg";
 import Yala from "../assets/dear_yala.png";
 import SriPadaya from "../assets/sripadaya.jpeg";
-import GalleFort from "../assets/galleFort.jpg";
+import GalleFort from "../assets/gallefort.jpg";
 
 export interface Place {
   id: number;
