@@ -80,7 +80,7 @@ const About: React.FC = () => {
 
         {/* 3D Carousel Section */}
         <div className="w-full max-w-6xl mx-auto">
-          <div className="min-h-[400px] flex flex-col justify-center rounded-lg">
+          <div className="fade-in min-h-[400px] flex flex-col justify-center rounded-lg">
             <ThreeDPhotoCarousel images={slides} />
           </div>
         </div>

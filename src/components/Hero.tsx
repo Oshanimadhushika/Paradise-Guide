@@ -41,7 +41,7 @@ const Hero: FC = () => {
   }, [imageUrls.length]);
 
   return (
-    <div className="relative h-screen w-full">
+    <section className="relative w-full h-screen overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -173,7 +173,7 @@ const Hero: FC = () => {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

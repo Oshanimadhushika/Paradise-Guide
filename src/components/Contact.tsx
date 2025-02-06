@@ -1,4 +1,4 @@
-import React, { FormEvent } from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import { Container } from "reactstrap";
 import {
   FaPhone,
@@ -10,6 +10,7 @@ import {
   FaLinkedin,
 } from "react-icons/fa";
 import Link from "next/link";
+import emailjs from '@emailjs/browser';
 
 interface SocialLinks {
   facebook: string;
@@ -34,6 +35,10 @@ interface ContactInfo {
 }
 
 const Contact: React.FC = () => {
+  const form = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+
   // Social media URLs
   const socialLinks: SocialLinks = {
     facebook: "https://facebook.com/paradiseguide",
@@ -74,14 +79,31 @@ const Contact: React.FC = () => {
     },
   ];
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
-    // Add your form submission logic here
-  };
+    if (!form.current) return;
 
-  const handleNewsletterSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Add your newsletter submission logic here
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    // This will send the email to your website's email address
+    emailjs.sendForm(
+      'service_qz7xalg',
+      'template_r7dhjyb',
+      form.current,
+      'wd_2Qwj84rFvUrjoG'
+    )
+      .then(() => {
+        setSubmitStatus('success');
+        if (form.current) form.current.reset();
+      })
+      .catch((error) => {
+        console.error('Email error:', error);
+        setSubmitStatus('error');
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
 
   return (
@@ -123,7 +145,7 @@ const Contact: React.FC = () => {
 
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-8">
+              <form ref={form} onSubmit={sendEmail} className="bg-white rounded-lg shadow-md p-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-gray-700 mb-2" htmlFor="name">
@@ -132,8 +154,10 @@ const Contact: React.FC = () => {
                     <input
                       type="text"
                       id="name"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      name="user_name"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="Your name"
+                      required
                     />
                   </div>
                   <div>
@@ -143,8 +167,10 @@ const Contact: React.FC = () => {
                     <input
                       type="email"
                       id="email"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      name="user_email"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="Your email"
+                      required
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -154,8 +180,10 @@ const Contact: React.FC = () => {
                     <input
                       type="text"
                       id="subject"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      name="subject"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="Message subject"
+                      required
                     />
                   </div>
                   <div className="md:col-span-2">
@@ -164,18 +192,29 @@ const Contact: React.FC = () => {
                     </label>
                     <textarea
                       id="message"
+                      name="message"
                       rows={4}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
                       placeholder="Your message"
+                      required
                     ></textarea>
                   </div>
                 </div>
                 <button
                   type="submit"
-                  className="mt-6 w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300"
+                  disabled={isSubmitting}
+                  className={`mt-6 w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300
+                    ${isSubmitting ? 'cursor-not-allowed bg-gray-400' : ''}`}
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
+
+                {submitStatus === 'success' && (
+                  <p className="text-green-600 text-center mt-4">Message sent successfully!</p>
+                )}
+                {submitStatus === 'error' && (
+                  <p className="text-red-600 text-center mt-4">Failed to send message. Please try again.</p>
+                )}
               </form>
             </div>
           </div>
@@ -258,14 +297,14 @@ const Contact: React.FC = () => {
             </div>
 
             {/* Newsletter */}
-            <div>
+            {/* <div>
               <h3 className="text-white text-lg font-semibold mb-4">
                 Newsletter
               </h3>
               <p className="text-gray-400 mb-4">
                 Subscribe to our newsletter for travel tips and updates.
               </p>
-              <form onSubmit={handleNewsletterSubmit} className="flex">
+              <form className="flex">
                 <input
                   type="email"
                   placeholder="Your email"
@@ -278,7 +317,7 @@ const Contact: React.FC = () => {
                   Subscribe
                 </button>
               </form>
-            </div>
+            </div> */}
           </div>
 
           {/* Bottom Footer */}

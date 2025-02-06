@@ -6,12 +6,14 @@ import { ConfigProvider } from "antd";
 import Detail from './detail';
 import Home from './index';
 import SeeAllPage from '@/components/SeeAllPage';
+import emailjs from '@emailjs/browser';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+    emailjs.init("wd_2Qwj84rFvUrjoG");
   }, []);
 
   if (!isMounted) {

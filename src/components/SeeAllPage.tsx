@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, Filter } from 'lucide-react';
 import { places, Place } from './PlaceData'; 
 import { ArrowLeft } from 'lucide-react';
+import { ScrollAnimations } from '@/components/ScrollAnimations';
 
 
 type Category = 'all' | 'beaches' | 'mountains' | 'heritage' | 'wildlife' | 'adventure';
@@ -32,18 +33,19 @@ const SeeAllPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
+      <ScrollAnimations />
       <Container className="max-w-7xl mx-auto px-4">
-      <button 
+        <div className="fade-in">
+          <button 
             onClick={() => navigate(-1)}
             className="flex items-center text-black mb-4 hover:opacity-80"
           >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back
           </button>
+        </div>
 
-
-        {/* Header */}
-        <div className="mb-8">
+        <div className="slide-left">
           <h1 className="text-3xl font-bold text-gray-800 mb-2 font-playfair">
             Discover Sri Lanka
           </h1>
@@ -52,44 +54,46 @@ const SeeAllPage = () => {
           </p>
         </div>
 
-        {/* Search and Filter Section */}
-        <div className="mb-8 space-y-4">
-          {/* Search Bar */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search places..."
-              className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
+        <div className="slide-right">
+          {/* Search and Filter Section */}
+          <div className="mb-8 space-y-4">
+            {/* Search Bar */}
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                type="text"
+                placeholder="Search places..."
+                className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
 
-          {/* Categories */}
-          <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id as Category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
-                  ${activeCategory === category.id
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
-                  }`}
-              >
-                {category.label}
-              </button>
-            ))}
+            {/* Categories */}
+            <div className="flex flex-wrap gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id as Category)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors
+                    ${activeCategory === category.id
+                      ? 'bg-blue-500 text-white'
+                      : 'bg-white text-gray-600 hover:bg-gray-100 border border-gray-200'
+                    }`}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Places Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {/* Places Grid with stagger and filter animations */}
+        <div className="stagger-group grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {filteredPlaces.map((place) => (
             <div
               key={place.id}
-              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
+              className="fade-in bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
               onClick={() => navigate('/detail', { state: { place } })}
             >
               <div className="relative h-48">
@@ -124,9 +128,9 @@ const SeeAllPage = () => {
           ))}
         </div>
 
-        {/* No Results Message */}
+        {/* No Results Message with animation */}
         {filteredPlaces.length === 0 && (
-          <div className="text-center py-12">
+          <div className="fade-in text-center py-12">
             <p className="text-gray-600">
               No places found matching your search criteria.
             </p>
