@@ -23,7 +23,7 @@ export default function Home() {
       <ScrollAnimations />
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow relative">
-          <div className="fade-in w-full h-screen">
+          <div className="scale-up w-full h-screen">
             <Hero />
           </div>
           <div className="slide-left w-full">

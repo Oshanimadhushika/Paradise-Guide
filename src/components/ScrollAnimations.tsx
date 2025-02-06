@@ -14,10 +14,10 @@ export const ScrollAnimations = () => {
         duration: 1,
         scrollTrigger: {
           trigger: element,
-          start: 'top 85%', // Changed from 80% to 85% to trigger earlier
+          start: 'top 85%', 
           end: 'bottom 15%',
           toggleActions: 'play none none reverse',
-          markers: false // Set to true for debugging
+          markers: false
         }
       });
     });
