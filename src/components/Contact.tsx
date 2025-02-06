@@ -296,6 +296,16 @@ const Contact: React.FC = () => {
               </ul>
             </div>
 
+            <div>
+            <h3 className="text-white text-lg font-semibold mb-4 font-playfair">
+                Paradise Guide
+              </h3>
+              <p className="text-gray-400 mb-4">
+                Your ultimate travel companion for exploring the beauty of Sri
+                Lanka.
+              </p>
+            </div>
+
             {/* Newsletter */}
             {/* <div>
               <h3 className="text-white text-lg font-semibold mb-4">
