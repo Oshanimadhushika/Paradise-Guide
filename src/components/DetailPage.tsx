@@ -1,22 +1,28 @@
 "use client";
 
-import React, { useState } from 'react';
-import { Star, ArrowLeft } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
-import Gallery from './Gallery';
-import { ScrollAnimations } from '@/components/ScrollAnimations';
+import React, { useEffect, useState } from "react";
+import { Star, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import Gallery from "./Gallery";
+import { ScrollAnimations } from "@/components/ScrollAnimations";
+import { IoMdShare } from "react-icons/io";
+import axios from "axios";
+import ShareModal from "./ShareModal";
 
 interface PlaceDetails {
   id: number;
-  name: string;
-  location: string;
-  rating: number;
-  reviews: number;
-  pricePerPerson: number;
+  location_id: string;
+  location_code: string;
+  district: string;
+  location_name: string;
   description: string;
-  about: string;
-  budget: string;
-  route: string;
+  ticket_availability: number;
+  latitude: string;
+  longitude: string;
+  distance: number;
+  duration: number;
+  warning_data: string;
+  contact_number: string;
 }
 
 interface DetailPageProps {
@@ -24,9 +30,51 @@ interface DetailPageProps {
 }
 
 const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
+  // console.log("data passed", place);
+
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('gallery');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState("gallery");
+
+  const [detailData, setDetailData] = useState<PlaceDetails | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => setIsModalVisible(true);
+  const handleCancel = () => setIsModalVisible(false);
+
+  const locationSlug = place.location_code
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[^a-z0-9-]/g, "");
+  const url = `https://paradiseguide.netlify.app/detail/${locationSlug}`;
+  const title = "Check out this amazing page!";
+  const imageUrl = "";
+
+  useEffect(() => {
+    const fetchPlaceDetails = async () => {
+      if (!place.location_code) return;
+
+      try {
+     
+        const apiUrl = `https://paradise.aventureit.com/api/location/data`;
+
+        const response = await axios.post(apiUrl, {
+          location_id: place.location_id,
+          location_code: locationSlug,
+        });
+
+        if (response.data.success) {
+          setDetailData(response.data.output);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlaceDetails();
+  }, [place.location_code]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -35,7 +83,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
         <div className="max-w-7xl mx-auto">
           <div className="fade-in">
-            <button 
+            <button
               onClick={() => navigate(-1)}
               className="flex items-center text-white mb-4 hover:opacity-80"
             >
@@ -44,18 +92,34 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
             </button>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h1 className="text-2xl font-bold">{place.location}</h1>
-                <h2 className="text-4xl font-bold mt-2 font-playfair">{place.name}</h2>
+                <h1 className="text-2xl font-bold">{detailData?.district}</h1>
+                <h2 className="text-4xl font-bold mt-2 font-playfair">
+                  {detailData?.location_name}
+                </h2>
               </div>
               <div className="text-right">
-                <div className="flex items-center justify-end">
+                {/* <div className="flex items-center justify-end">
                   <Star className="w-6 h-6 text-yellow-400 fill-current" />
-                  <span className="text-xl font-bold ml-1">{place.rating}</span>
-                  <span className="text-sm ml-1">({place.reviews})</span>
-                </div>
-                <div className="text-2xl font-bold mt-1">
-                  ${place.pricePerPerson}
+                  <span className="text-xl font-bold ml-1">{detailData?.district}</span>
+                  <span className="text-sm ml-1">({detailData?.district})</span>
+                </div> */}
+                {/* <div className="text-2xl font-bold mt-1">
+                  ${detailData?.district}
                   <span className="text-sm font-normal">/Person</span>
+                </div> */}
+
+                <div className="mt-2">
+                  <button className="flex items-center text-white hover:text-gray-800" onClick={showModal}>
+                    <IoMdShare className="w-10 h-10 mr-2" />
+                  </button>
+
+                  <ShareModal
+                    visible={isModalVisible}
+                    onClose={handleCancel}
+                    url={url}
+                    title={title}
+                    imageUrl={imageUrl}
+                  />
                 </div>
               </div>
             </div>
@@ -78,13 +142,13 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
       <div className="slide-right border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4">
           <nav className="flex space-x-8">
-            {['gallery', 'about', 'budget', 'route'].map((tab) => (
+            {["gallery", "about", "important", "route"].map((tab) => (
               <button
                 key={tab}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === tab
-                    ? 'border-blue-500 text-blue-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? "border-blue-500 text-blue-600"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
                 }`}
                 onClick={() => setActiveTab(tab)}
               >
@@ -97,24 +161,54 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {activeTab === 'gallery' && (
+        {activeTab === "gallery" && (
           <div className="scale-up">
             <Gallery />
           </div>
         )}
-        {activeTab === 'about' && (
+        {activeTab === "about" && (
           <div className="fade-in prose max-w-none">
-            <p className=" text-gray-600">{place.about}</p>
+            <p className=" text-gray-600 font-serif">
+              {detailData?.description}
+            </p>
           </div>
         )}
-        {activeTab === 'budget' && (
+        {activeTab === "important" && (
           <div className="slide-left prose max-w-none whitespace-pre-line">
-            <p className="text-gray-600">{place.budget}</p>
+            <p className="text-black font-serif">
+              📌{}
+              {detailData?.warning_data}
+            </p>
+            <p className="text-black font-serif">
+              📌{}Contact Number:{" "}
+              <span className="ml-2">{detailData?.contact_number}</span>
+            </p>
+            <p className="text-black font-serif">
+              📌{}Tickets:{detailData?.ticket_availability}
+            </p>
+            <p className="text-black font-serif">
+              📌{}Tickets:{detailData?.ticket_availability}
+            </p>
           </div>
         )}
-        {activeTab === 'route' && (
+        {activeTab === "route" && (
           <div className="slide-right prose max-w-none">
-            <p className="text-gray-600">{place.route}</p>
+            <p className="text-gray-600">
+              <span className="font-semibold">📍{}Latitude:</span>{" "}
+              {detailData?.latitude}
+            </p>
+            <p className="text-gray-600">
+              <span className="font-semibold">📍{}Longitude:</span>{" "}
+              {detailData?.longitude}
+            </p>
+            <p className="text-gray-600">
+              <span className="font-semibold">📍{}Distance:</span>{" "}
+              {detailData?.distance} km
+            </p>
+            <p className="text-gray-600">
+              <span className="font-semibold">📍{}Duration:</span>{" "}
+              {detailData?.duration} hours
+            </p>
           </div>
         )}
       </div>

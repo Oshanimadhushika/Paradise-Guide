@@ -1,8 +1,4 @@
-// "use client";
 
-// import DetailPage from '@/components/DetailPage';
-// import { useRouter } from 'next/router';
-// import { useEffect, useState } from 'react';
 
 import { useLocation } from 'react-router-dom';
 import DetailPage from '@/components/DetailPage';
