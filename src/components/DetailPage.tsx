@@ -62,7 +62,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
           </div>
 
           {/* Search Bar */}
-          <div className="slide-left relative max-w-xl mx-auto mt-8">
+          {/* <div className="slide-left relative max-w-xl mx-auto mt-8">
             <input
               type="text"
               placeholder="Search places in Sri Lanka..."
@@ -70,7 +70,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-          </div>
+          </div> */}
         </div>
       </div>
 

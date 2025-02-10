@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // images: {
+  //   disableStaticImages: false,
+  // },
   images: {
-    disableStaticImages: false,
+    domains: ['firebasestorage.googleapis.com'], 
   },
   transpilePackages: ['antd', '@ant-design', 'rc-util', 'rc-pagination', 'rc-picker'],
 }
