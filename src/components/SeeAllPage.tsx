@@ -161,39 +161,7 @@ const SeeAllPage = () => {
           <div className="text-center text-gray-500">Loading...</div>
         ) : paginatedPlaces.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {/* {paginatedPlaces.map((place) => (
-
-              
-              <div
-                key={place.location_id}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
-                onClick={() => navigate(`/detail/${locationSlug}`, { state: { place } })}
-              >
-                <div className="relative h-48">
-                  <Image
-                    src={place.thumbnail_path}
-                    alt={place.location_name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-bold text-gray-800 mb-1">
-                    {place.location_name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-2">{place.city}</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600 text-sm">{place.tag}</span>
-                    <span className="text-blue-600 font-semibold">
-                      {place.distance}m away
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))} */}
-
             {paginatedPlaces.map((place) => {
-              // Generate the locationSlug for the current place
               const locationSlug = place.location_code
                 .toLowerCase()
                 .replace(/\s+/g, "-")
