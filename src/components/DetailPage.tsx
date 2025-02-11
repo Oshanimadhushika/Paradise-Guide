@@ -8,6 +8,8 @@ import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
 import axios from "axios";
 import ShareModal from "./ShareModal";
+import { useParams } from "react-router-dom";
+
 
 interface PlaceDetails {
   id: number;
@@ -32,6 +34,9 @@ interface DetailPageProps {
 const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
   // console.log("data passed", place);
 
+
+const { locationSlug } = useParams();
+
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("gallery");
 
@@ -42,17 +47,18 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
 
-  const locationSlug = place.location_code
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
+  // const locationSlug = place.location_code
+  //   .toLowerCase()
+  //   .replace(/\s+/g, "-")
+  //   .replace(/[^a-z0-9-]/g, "");
   const url = `https://paradiseguide.netlify.app/detail/${locationSlug}`;
   const title = "Check out this amazing page!";
   const imageUrl = "";
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
-      if (!place.location_code) return;
+      // if (!place.location_code) return;
+      if (!locationSlug) return;
 
       try {
      
@@ -74,7 +80,7 @@ const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
     };
 
     fetchPlaceDetails();
-  }, [place.location_code]);
+  }, [locationSlug]);
 
   return (
     <div className="min-h-screen bg-gray-50">

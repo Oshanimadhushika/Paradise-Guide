@@ -26,7 +26,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Routes>
           <Route path="/" element={<Home />} />
           {/* <Route path="/detail" element={<Detail/>} /> */}
-          <Route path="/detail/:locationSlug" element={<Detail />} />
+          {/* <Route path="/detail/:locationSlug" element={<Detail />} /> */}
+          <Route path="/detail/:locationSlug" element={<Detail/>} />
+
           <Route path="/see-all" element={<SeeAllPage />} />
         </Routes>
       </BrowserRouter>
