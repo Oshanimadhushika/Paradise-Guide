@@ -106,6 +106,20 @@ const SeeAllPage = () => {
     setCurrentPage(page);
   };
 
+
+  const handlePlaceClick = (place: any) => {
+    const locationSlug = place.location_code
+      .toLowerCase()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+  
+    // Use URLSearchParams to encode the place object
+    const queryParams = new URLSearchParams();
+    queryParams.set("place", encodeURIComponent(JSON.stringify(place)));
+  
+    navigate(`/detail/${locationSlug}?${queryParams.toString()}`);
+  };
+  
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <ScrollAnimations />
@@ -162,18 +176,25 @@ const SeeAllPage = () => {
         ) : paginatedPlaces.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {paginatedPlaces.map((place) => {
-              const locationSlug = place.location_code
-                .toLowerCase()
-                .replace(/\s+/g, "-")
-                .replace(/[^a-z0-9-]/g, "");
+              // const locationSlug = place.location_code
+              //   .toLowerCase()
+              //   .replace(/\s+/g, "-")
+              //   .replace(/[^a-z0-9-]/g, "");
 
               return (
                 <div
                   key={place.location_id}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
-                  onClick={() =>
-                    navigate(`/detail/${locationSlug}`, { state: { place } })
-                  }
+                  // onClick={() =>
+                  //   navigate(`/detail/${locationSlug}`, { state: { place } })
+                  // }
+
+                  onClick={() => handlePlaceClick(place)}
+
+                  // onClick={() => {
+                  //   const placeString = encodeURIComponent(JSON.stringify(place));
+                  //   navigate(`/detail/${locationSlug}?data=${placeString}`);
+                  // }}
                 >
                   <div className="relative h-48">
                     <Image

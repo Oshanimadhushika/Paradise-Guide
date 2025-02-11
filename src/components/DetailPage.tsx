@@ -2,14 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import { Star, ArrowLeft } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Gallery from "./Gallery";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
 import axios from "axios";
 import ShareModal from "./ShareModal";
-import { useParams } from "react-router-dom";
-
 
 interface PlaceDetails {
   id: number;
@@ -31,11 +29,14 @@ interface DetailPageProps {
   place: PlaceDetails;
 }
 
-const DetailPage: React.FC<DetailPageProps> = ({ place }) => {
-  // console.log("data passed", place);
+const DetailPage: React.FC<DetailPageProps> = () => {
 
-
-const { locationSlug } = useParams();
+  const { locationSlug } = useParams();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const placeData = queryParams.get("place")
+    ? JSON.parse(decodeURIComponent(queryParams.get("place")!))
+    : null;
 
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("gallery");
@@ -51,21 +52,24 @@ const { locationSlug } = useParams();
   //   .toLowerCase()
   //   .replace(/\s+/g, "-")
   //   .replace(/[^a-z0-9-]/g, "");
-  const url = `https://paradiseguide.netlify.app/detail/${locationSlug}`;
+
+  // const url = `https://paradiseguide.netlify.app/detail/${locationSlug}`;
+  const url = `https://paradiseguide.netlify.app/detail/${locationSlug}?place=${encodeURIComponent(
+    JSON.stringify(placeData)
+  )}`;
   const title = "Check out this amazing page!";
   const imageUrl = "";
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
-      // if (!place.location_code) return;
-      if (!locationSlug) return;
+      if (!placeData.location_code) return;
 
       try {
      
         const apiUrl = `https://paradise.aventureit.com/api/location/data`;
 
         const response = await axios.post(apiUrl, {
-          location_id: place.location_id,
+          location_id: placeData.location_id,
           location_code: locationSlug,
         });
 
@@ -80,7 +84,7 @@ const { locationSlug } = useParams();
     };
 
     fetchPlaceDetails();
-  }, [locationSlug]);
+  }, [placeData.location_code]);
 
   return (
     <div className="min-h-screen bg-gray-50">
