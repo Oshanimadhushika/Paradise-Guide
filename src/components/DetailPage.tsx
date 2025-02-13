@@ -8,6 +8,7 @@ import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
 import axios from "axios";
 import ShareModal from "./ShareModal";
+import { Helmet } from "react-helmet";
 
 interface PlaceDetails {
   id: number;
@@ -23,27 +24,22 @@ interface PlaceDetails {
   duration: number;
   warning_data: string;
   contact_number: string;
+  gallery: {
+    image_path: string;
+  }[];
 }
 
-// interface DetailPageProps {
-//   place: PlaceDetails;
-// }
 
-const DetailPage: React.FC= () => {
 
+const DetailPage: React.FC = () => {
   const { location_id, location_code } = useParams();
 
-  console.log("detail page",location_id, location_code);
-  
-  console.log("Params from useParams:", location_id, location_code);  
-  console.log("Current URL:", window.location.href); 
+  // console.log("detail page", location_id, location_code);
 
-  // const { locationSlug } = useParams();
-  // const location = useLocation();
-  // const queryParams = new URLSearchParams(location.search);
-  // const placeData = queryParams.get("place")
-  //   ? JSON.parse(decodeURIComponent(queryParams.get("place")!))
-  //   : null;
+  // console.log("Params from useParams:", location_id, location_code);
+  // console.log("Current URL:", window.location.href);
+
+
 
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("gallery");
@@ -55,25 +51,11 @@ const DetailPage: React.FC= () => {
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
 
-  // const locationSlug = place.location_code
-  //   .toLowerCase()
-  //   .replace(/\s+/g, "-")
-  //   .replace(/[^a-z0-9-]/g, "");
 
-
-  const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
-
-
-  // const url = `https://paradiseguide.netlify.app/detail/${location_code}`;
-  // const url = `https://paradiseguide.netlify.app/detail/${locationSlug}?place=${encodeURIComponent(
-  //   JSON.stringify(placeData)
-  // )}`;
-  const title = "Check out this amazing page!";
-  const imageUrl = "";
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
-      if (!location_code ) return;
+      if (!location_code) return;
 
       try {
         const apiUrl = `https://paradise.aventureit.com/api/location/data`;
@@ -84,9 +66,8 @@ const DetailPage: React.FC= () => {
 
         if (response.data.success) {
           setDetailData(response.data.output);
-        }else{
+        } else {
           console.error("Failed!:", response);
-
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -98,8 +79,26 @@ const DetailPage: React.FC= () => {
     fetchPlaceDetails();
   }, [location_code]);
 
+  console.log("detaildata", detailData);
+
+  // const url = `  http://localhost:3000/detail/${location_id}/${location_code}`;
+
+  const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
+  const title = "Check out this amazing page!";
+  const imageUrl = detailData?.gallery?.[0]?.image_path || "";
+
+  console.log("image",imageUrl);
+  
   return (
     <div className="min-h-screen bg-gray-50">
+      <Helmet>
+        {/* Open Graph Meta Tags */}
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:image:alt" content={detailData?.location_name} />
+        <meta property="og:title" content={detailData?.location_name} />
+        <meta property="og:description" content={detailData?.description} />
+        <meta property="og:url" content={url} />
+      </Helmet>
       <ScrollAnimations />
       {/* Header Section */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
@@ -120,23 +119,17 @@ const DetailPage: React.FC= () => {
                 </h2>
               </div>
               <div className="text-right">
-                {/* <div className="flex items-center justify-end">
-                  <Star className="w-6 h-6 text-yellow-400 fill-current" />
-                  <span className="text-xl font-bold ml-1">{detailData?.district}</span>
-                  <span className="text-sm ml-1">({detailData?.district})</span>
-                </div> */}
-                {/* <div className="text-2xl font-bold mt-1">
-                  ${detailData?.district}
-                  <span className="text-sm font-normal">/Person</span>
-                </div> */}
-
+             
                 <div className="mt-2">
-                  <button className="flex items-center text-white hover:text-gray-800" onClick={showModal}>
+                  <button
+                    className="flex items-center text-white hover:text-gray-800"
+                    onClick={showModal}
+                  >
                     <IoMdShare className="w-10 h-10 mr-2" />
                   </button>
 
                   <ShareModal
-                  detailData={detailData}
+                    detailData={detailData}
                     visible={isModalVisible}
                     onClose={handleCancel}
                     url={url}
@@ -148,16 +141,7 @@ const DetailPage: React.FC= () => {
             </div>
           </div>
 
-          {/* Search Bar */}
-          {/* <div className="slide-left relative max-w-xl mx-auto mt-8">
-            <input
-              type="text"
-              placeholder="Search places in Sri Lanka..."
-              className="w-full px-6 py-3 rounded-full bg-white text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div> */}
+        
         </div>
       </div>
 

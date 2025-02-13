@@ -107,23 +107,11 @@ const SeeAllPage = () => {
   };
 
 
-  // const handlePlaceClick = (place: any) => {
-  //   const locationSlug = place.location_code
-  //     .toLowerCase()
-  //     .replace(/\s+/g, "-")
-  //     .replace(/[^a-z0-9-]/g, "");
-  
-  //   // Use URLSearchParams to encode the place object
-  //   const queryParams = new URLSearchParams();
-  //   queryParams.set("place", encodeURIComponent(JSON.stringify(place)));
-  
-  //   navigate(`/detail/${locationSlug}?${queryParams.toString()}`);
-  // };
+ 
   const handlePlaceClick = (place: any) => {
-    // const { location_id, location_code } = place;
     navigate(`/detail/${place.location_id}/${place.location_code}`);
 
-    console.log("seeAll page",place.location_id, place.location_code);
+    // console.log("seeAll page",place.location_id, place.location_code);
 
   };
   
@@ -185,11 +173,7 @@ const SeeAllPage = () => {
         ) : paginatedPlaces.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {paginatedPlaces.map((place) => {
-              // const locationSlug = place.location_code
-              //   .toLowerCase()
-              //   .replace(/\s+/g, "-")
-              //   .replace(/[^a-z0-9-]/g, "");
-
+             
               return (
                 <div
                   key={place.location_id}
@@ -200,10 +184,7 @@ const SeeAllPage = () => {
 
                   onClick={() => handlePlaceClick(place)}
 
-                  // onClick={() => {
-                  //   const placeString = encodeURIComponent(JSON.stringify(place));
-                  //   navigate(`/detail/${locationSlug}?data=${placeString}`);
-                  // }}
+                 
                 >
                   <div className="relative h-48">
                     <Image
