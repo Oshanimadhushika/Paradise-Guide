@@ -2,13 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import { Star, ArrowLeft } from "lucide-react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useRouter } from "next/navigation";
+// import { useParams } from "next/navigation";
 import Gallery from "./Gallery";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
 import axios from "axios";
 import ShareModal from "./ShareModal";
 import { Helmet } from "react-helmet";
+import Head from "next/head";
 
 interface PlaceDetails {
   id: number;
@@ -29,19 +32,22 @@ interface PlaceDetails {
   }[];
 }
 
-
-
 const DetailPage: React.FC = () => {
   const { location_id, location_code } = useParams();
+  // const params = useParams();
+  // const location_id = params?.location_id;
+  // const location_code = params?.location_code;
+
+  console.log("params id code", location_id, location_code);
+
+  const router = useRouter();
 
   // console.log("detail page", location_id, location_code);
 
   // console.log("Params from useParams:", location_id, location_code);
   // console.log("Current URL:", window.location.href);
 
-
-
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("gallery");
 
   const [detailData, setDetailData] = useState<PlaceDetails | null>(null);
@@ -50,8 +56,6 @@ const DetailPage: React.FC = () => {
 
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
-
-
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
@@ -79,33 +83,43 @@ const DetailPage: React.FC = () => {
     fetchPlaceDetails();
   }, [location_code]);
 
-  console.log("detaildata", detailData);
+  const isBrowser = typeof window !== "undefined";
+  const url = isBrowser
+    ? `https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`
+    : "";
 
   // const url = `  http://localhost:3000/detail/${location_id}/${location_code}`;
 
-  const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
+  // const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
   const title = "Check out this amazing page!";
   const imageUrl = detailData?.gallery?.[0]?.image_path || "";
 
-  console.log("image",imageUrl);
-  
+  console.log("image", imageUrl);
+
   return (
     <div className="min-h-screen bg-gray-50">
-      <Helmet>
-        {/* Open Graph Meta Tags */}
+      {/* <Helmet>
         <meta property="og:image" content={imageUrl} />
         <meta property="og:image:alt" content={detailData?.location_name} />
         <meta property="og:title" content={detailData?.location_name} />
         <meta property="og:description" content={detailData?.description} />
         <meta property="og:url" content={url} />
-      </Helmet>
+      </Helmet> */}
+
+      <Head>
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={detailData?.description} />
+        <meta property="og:image" content={imageUrl} />
+        <meta property="og:url" content={url} />
+        <meta property="og:type" content="website" />
+      </Head>
       <ScrollAnimations />
       {/* Header Section */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
         <div className="max-w-7xl mx-auto">
           <div className="fade-in">
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => router.back()}
               className="flex items-center text-white mb-4 hover:opacity-80"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
@@ -119,7 +133,6 @@ const DetailPage: React.FC = () => {
                 </h2>
               </div>
               <div className="text-right">
-             
                 <div className="mt-2">
                   <button
                     className="flex items-center text-white hover:text-gray-800"
@@ -140,8 +153,6 @@ const DetailPage: React.FC = () => {
               </div>
             </div>
           </div>
-
-        
         </div>
       </div>
 

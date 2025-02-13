@@ -7,6 +7,8 @@ import { Search, ArrowLeft } from "lucide-react";
 import { Pagination } from "antd";
 import "antd/dist/reset.css";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
+import { useRouter } from "next/navigation";
+
 
 type Category =
   | "all"
@@ -17,7 +19,8 @@ type Category =
   | "adventure";
 
 const SeeAllPage = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
+  // const navigate = useNavigate();
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category>("all");
@@ -109,7 +112,7 @@ const SeeAllPage = () => {
 
  
   const handlePlaceClick = (place: any) => {
-    navigate(`/detail/${place.location_id}/${place.location_code}`);
+    router.push(`/detail/${place.location_id}/${place.location_code}`);
 
     // console.log("seeAll page",place.location_id, place.location_code);
 
@@ -122,8 +125,8 @@ const SeeAllPage = () => {
       <ScrollAnimations />
       <Container className="max-w-7xl mx-auto px-4">
         <button
-          onClick={() => navigate(-1)}
-          className="flex items-center text-black mb-4 hover:opacity-80"
+              onClick={() => router.back()}
+              className="flex items-center text-black mb-4 hover:opacity-80"
         >
           <ArrowLeft className="w-5 h-5 mr-2" />
           Back

@@ -27,7 +27,7 @@ const ShareModal: React.FC<ShareModalProps> = ({ visible, onClose, url, title, i
   return (
     <Modal
       title="Share This Page"
-      visible={visible}
+      open={visible}
       onCancel={onClose}
       footer={[
         <Button key="cancel" onClick={onClose}>
