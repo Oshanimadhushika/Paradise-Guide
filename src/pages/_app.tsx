@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import type { AppProps } from "next/app";
 import { ConfigProvider } from "antd";
-// import Detail from './detail';
 import Home from './index';
 import SeeAllPage from '@/components/SeeAllPage';
 import emailjs from '@emailjs/browser';
@@ -28,7 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Route path="/" element={<Home />} />
           {/* <Route path="/detail" element={<Detail/>} /> */}
           {/* <Route path="/detail/:locationSlug" element={<Detail />} /> */}
-          {/* <Route path="/detail/:locationSlug" element={<Detail/>} /> */}
+
           <Route path="/detail/:location_id/:location_code" element={<DetailPage/>} />
 
 
