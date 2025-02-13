@@ -107,18 +107,27 @@ const SeeAllPage = () => {
   };
 
 
+  // const handlePlaceClick = (place: any) => {
+  //   const locationSlug = place.location_code
+  //     .toLowerCase()
+  //     .replace(/\s+/g, "-")
+  //     .replace(/[^a-z0-9-]/g, "");
+  
+  //   // Use URLSearchParams to encode the place object
+  //   const queryParams = new URLSearchParams();
+  //   queryParams.set("place", encodeURIComponent(JSON.stringify(place)));
+  
+  //   navigate(`/detail/${locationSlug}?${queryParams.toString()}`);
+  // };
   const handlePlaceClick = (place: any) => {
-    const locationSlug = place.location_code
-      .toLowerCase()
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, "");
-  
-    // Use URLSearchParams to encode the place object
-    const queryParams = new URLSearchParams();
-    queryParams.set("place", encodeURIComponent(JSON.stringify(place)));
-  
-    navigate(`/detail/${locationSlug}?${queryParams.toString()}`);
+    // const { location_id, location_code } = place;
+    navigate(`/detail/${place.location_id}/${place.location_code}`);
+
+    console.log("seeAll page",place.location_id, place.location_code);
+
   };
+  
+  
   
   return (
     <div className="min-h-screen bg-gray-50 py-8">

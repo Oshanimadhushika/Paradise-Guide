@@ -3,10 +3,11 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import type { AppProps } from "next/app";
 import { ConfigProvider } from "antd";
-import Detail from './detail';
+// import Detail from './detail';
 import Home from './index';
 import SeeAllPage from '@/components/SeeAllPage';
 import emailjs from '@emailjs/browser';
+import DetailPage from "@/components/DetailPage";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [isMounted, setIsMounted] = useState(false);
@@ -27,7 +28,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Route path="/" element={<Home />} />
           {/* <Route path="/detail" element={<Detail/>} /> */}
           {/* <Route path="/detail/:locationSlug" element={<Detail />} /> */}
-          <Route path="/detail/:locationSlug" element={<Detail/>} />
+          {/* <Route path="/detail/:locationSlug" element={<Detail/>} /> */}
+          <Route path="/detail/:location_id/:location_code" element={<DetailPage/>} />
+
 
           <Route path="/see-all" element={<SeeAllPage />} />
         </Routes>

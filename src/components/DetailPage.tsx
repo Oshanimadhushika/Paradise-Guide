@@ -25,18 +25,25 @@ interface PlaceDetails {
   contact_number: string;
 }
 
-interface DetailPageProps {
-  place: PlaceDetails;
-}
+// interface DetailPageProps {
+//   place: PlaceDetails;
+// }
 
-const DetailPage: React.FC<DetailPageProps> = () => {
+const DetailPage: React.FC= () => {
 
-  const { locationSlug } = useParams();
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const placeData = queryParams.get("place")
-    ? JSON.parse(decodeURIComponent(queryParams.get("place")!))
-    : null;
+  const { location_id, location_code } = useParams();
+
+  console.log("detail page",location_id, location_code);
+  
+  console.log("Params from useParams:", location_id, location_code);  
+  console.log("Current URL:", window.location.href); 
+
+  // const { locationSlug } = useParams();
+  // const location = useLocation();
+  // const queryParams = new URLSearchParams(location.search);
+  // const placeData = queryParams.get("place")
+  //   ? JSON.parse(decodeURIComponent(queryParams.get("place")!))
+  //   : null;
 
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("gallery");
@@ -53,28 +60,33 @@ const DetailPage: React.FC<DetailPageProps> = () => {
   //   .replace(/\s+/g, "-")
   //   .replace(/[^a-z0-9-]/g, "");
 
-  // const url = `https://paradiseguide.netlify.app/detail/${locationSlug}`;
-  const url = `https://paradiseguide.netlify.app/detail/${locationSlug}?place=${encodeURIComponent(
-    JSON.stringify(placeData)
-  )}`;
+
+  const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
+
+
+  // const url = `https://paradiseguide.netlify.app/detail/${location_code}`;
+  // const url = `https://paradiseguide.netlify.app/detail/${locationSlug}?place=${encodeURIComponent(
+  //   JSON.stringify(placeData)
+  // )}`;
   const title = "Check out this amazing page!";
   const imageUrl = "";
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
-      if (!placeData.location_code) return;
+      if (!location_code ) return;
 
       try {
-     
         const apiUrl = `https://paradise.aventureit.com/api/location/data`;
-
         const response = await axios.post(apiUrl, {
-          location_id: placeData.location_id,
-          location_code: locationSlug,
+          location_id: location_id,
+          location_code: location_code,
         });
 
         if (response.data.success) {
           setDetailData(response.data.output);
+        }else{
+          console.error("Failed!:", response);
+
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -84,7 +96,7 @@ const DetailPage: React.FC<DetailPageProps> = () => {
     };
 
     fetchPlaceDetails();
-  }, [placeData.location_code]);
+  }, [location_code]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -124,6 +136,7 @@ const DetailPage: React.FC<DetailPageProps> = () => {
                   </button>
 
                   <ShareModal
+                  detailData={detailData}
                     visible={isModalVisible}
                     onClose={handleCancel}
                     url={url}
