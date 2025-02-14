@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import {  ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Gallery from "./Gallery";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
@@ -35,13 +35,11 @@ interface DetailPageProps {
   location_code: any;
 }
 
-
-const DetailPage: React.FC<DetailPageProps> = ({ location_id, location_code }) => {
-
-
-
+const DetailPage: React.FC<DetailPageProps> = ({
+  location_id,
+  location_code,
+}) => {
   const router = useRouter();
-
 
   const [activeTab, setActiveTab] = useState("gallery");
 
@@ -78,23 +76,36 @@ const DetailPage: React.FC<DetailPageProps> = ({ location_id, location_code }) =
     fetchPlaceDetails();
   }, [location_code]);
 
-
-
   const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
   const title = "Check out this amazing page!";
   const imageUrl = detailData?.gallery?.[0]?.image_path || "";
 
+  console.log("image", imageUrl);
 
   return (
     <div className="min-h-screen bg-gray-50">
-    
-
       <Helmet>
         <meta property="og:title" content={title} />
         <meta property="og:description" content={detailData?.description} />
-        <meta property="og:image" content={imageUrl} />
+        <meta
+          property="og:image"
+          content={
+            imageUrl ||
+            "https://t4.ftcdn.net/jpg/01/06/96/17/360_F_106961771_HVTebWdMKQfvBoDokS7kIqGadXz8GT3N.jpg"
+          }
+        />{" "}
         <meta property="og:url" content={url} />
         <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title || "Paradise Guide"} />
+        {/* <meta
+          name="twitter:description"
+          content={detailData?.description || "Default description"}
+        /> */}
+        <meta
+          name="twitter:image"
+          content={imageUrl || "https://defaultimageurl.com/default.jpg"}
+        />
       </Helmet>
       <ScrollAnimations />
       {/* Header Section */}
