@@ -1,10 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Star, ArrowLeft } from "lucide-react";
-import { useParams } from "react-router-dom";
+import {  ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-// import { useParams } from "next/navigation";
 import Gallery from "./Gallery";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
@@ -32,22 +30,19 @@ interface PlaceDetails {
   }[];
 }
 
-const DetailPage: React.FC = () => {
-  const { location_id, location_code } = useParams();
-  // const params = useParams();
-  // const location_id = params?.location_id;
-  // const location_code = params?.location_code;
+interface DetailPageProps {
+  location_id: any;
+  location_code: any;
+}
 
-  console.log("params id code", location_id, location_code);
+
+const DetailPage: React.FC<DetailPageProps> = ({ location_id, location_code }) => {
+
+
 
   const router = useRouter();
 
-  // console.log("detail page", location_id, location_code);
 
-  // console.log("Params from useParams:", location_id, location_code);
-  // console.log("Current URL:", window.location.href);
-
-  // const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("gallery");
 
   const [detailData, setDetailData] = useState<PlaceDetails | null>(null);
@@ -83,36 +78,24 @@ const DetailPage: React.FC = () => {
     fetchPlaceDetails();
   }, [location_code]);
 
-  const isBrowser = typeof window !== "undefined";
-  const url = isBrowser
-    ? `https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`
-    : "";
 
-  // const url = `  http://localhost:3000/detail/${location_id}/${location_code}`;
 
-  // const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
+  const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
   const title = "Check out this amazing page!";
   const imageUrl = detailData?.gallery?.[0]?.image_path || "";
 
-  console.log("image", imageUrl);
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* <Helmet>
-        <meta property="og:image" content={imageUrl} />
-        <meta property="og:image:alt" content={detailData?.location_name} />
-        <meta property="og:title" content={detailData?.location_name} />
-        <meta property="og:description" content={detailData?.description} />
-        <meta property="og:url" content={url} />
-      </Helmet> */}
+    
 
-      <Head>
+      <Helmet>
         <meta property="og:title" content={title} />
         <meta property="og:description" content={detailData?.description} />
         <meta property="og:image" content={imageUrl} />
         <meta property="og:url" content={url} />
         <meta property="og:type" content="website" />
-      </Head>
+      </Helmet>
       <ScrollAnimations />
       {/* Header Section */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">

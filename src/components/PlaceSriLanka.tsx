@@ -10,9 +10,11 @@ import Galle from "../assets/seaGirl.jpg";
 import Kandy from "../assets/kandyLake.jpeg";
 import Yala from "../assets/dear_yala.png";
 import SriPadaya from "../assets/sripadaya.jpeg";
-import DetailPage from "./DetailPage";
 import { useNavigate } from 'react-router-dom';
 import dynamic from 'next/dynamic';
+
+import { useRouter } from 'next/router';
+
 
 interface Place {
   id: number;
@@ -30,8 +32,11 @@ interface Place {
 }
 
 const PlaceSriLanka: React.FC = () => {
-  // const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const navigate = useNavigate();
+  const router = useRouter();
+
+  const goToSeeAll = () => {
+    router.push('/see-all');
+  };
 
   const places: Place[] = [
     {
@@ -134,12 +139,12 @@ const PlaceSriLanka: React.FC = () => {
     },
   ];
 
-  const handlePlaceClick = (place: Place) => {
-    navigate('/detail', { 
-      state: { place },
-      replace: false
-    });
-  };
+  // const handlePlaceClick = (place: Place) => {
+  //   navigate('/detail', { 
+  //     state: { place },
+  //     replace: false
+  //   });
+  // };
 
   return (
     <section className="py-12 bg-gray-50">
@@ -149,7 +154,8 @@ const PlaceSriLanka: React.FC = () => {
             Top Attractions Of Sri Lanka
           </h2>
           <button
-            onClick={() => navigate('/see-all')}
+            // onClick={() => navigate('/see-all')}
+            onClick={goToSeeAll}
             className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300"
           >
             See all
@@ -161,7 +167,7 @@ const PlaceSriLanka: React.FC = () => {
             <div
               key={place.id}
               className="flex items-center bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:shadow-gray-200 cursor-pointer"
-              onClick={() => handlePlaceClick(place)}
+              // onClick={() => handlePlaceClick(place)}
             >
               <div className="flex-shrink-0 relative w-24 h-24">
                 <Image
