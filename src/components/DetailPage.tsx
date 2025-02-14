@@ -27,6 +27,7 @@ interface PlaceDetails {
   contact_number: string;
   gallery: {
     image_path: string;
+    credit_by: string;
   }[];
 }
 
@@ -98,10 +99,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title || "Paradise Guide"} />
-        {/* <meta
-          name="twitter:description"
-          content={detailData?.description || "Default description"}
-        /> */}
         <meta
           name="twitter:image"
           content={imageUrl || "https://defaultimageurl.com/default.jpg"}
@@ -173,11 +170,37 @@ const DetailPage: React.FC<DetailPageProps> = ({
 
       {/* Content Section */}
       <div className="max-w-7xl mx-auto px-4 py-6">
-        {activeTab === "gallery" && (
+        {activeTab === "gallery" && detailData?.gallery && (
           <div className="scale-up">
-            <Gallery />
+            {/* Gallery Header (On top of the images) */}
+            <div className="relative mb-4 text-center">
+              <h3 className="text-gray-500 font-bold text-2xl font-playfair">
+                Gallery Shots Collection
+              </h3>
+              <p className="text-gray-400 text-sm mt-2">
+                Explore the breathtaking beauty through our curated collection
+                of stunning visuals and immersive moments.
+              </p>
+            </div>
+
+            {/* Image Gallery Grid */}
+            <div className="flex flex-wrap gap-4 justify-center pb-5">
+              {detailData.gallery.map((item, index) => (
+                <div
+                  key={index}
+                  className={`relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group`}
+                >
+                  <img
+                    src={item.image_path}
+                    alt={`Gallery image ${item.credit_by}`}
+                    className="w-full h-full object-cover rounded-lg transition-transform transform group-hover:scale-105 group-hover:rotate-3 group-hover:opacity-80"
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         )}
+
         {activeTab === "about" && (
           <div className="fade-in prose max-w-none">
             <p className=" text-gray-600 font-serif">
@@ -188,10 +211,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
         {activeTab === "important" && (
           <div className="slide-left prose max-w-none whitespace-pre-line">
             <p className="text-black font-serif">
-              📌{}
-              {detailData?.warning_data}
-            </p>
-            <p className="text-black font-serif">
               📌{}Contact Number:{" "}
               <span className="ml-2">{detailData?.contact_number}</span>
             </p>
@@ -200,6 +219,10 @@ const DetailPage: React.FC<DetailPageProps> = ({
             </p>
             <p className="text-black font-serif">
               📌{}Tickets:{detailData?.ticket_availability}
+            </p>
+            <p className="text-black font-serif">
+              📌{}
+              {detailData?.warning_data}
             </p>
           </div>
         )}
@@ -226,7 +249,14 @@ const DetailPage: React.FC<DetailPageProps> = ({
       </div>
 
       {/* Book Now Button */}
-      <div className="fade-in fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
+      {/* <div className="fade-in fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
+        <div className="max-w-7xl mx-auto flex justify-center">
+          <button className="w-1/3 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors">
+            Book Now
+          </button>
+        </div>
+      </div> */}
+      <div className=" fade-in  sticky bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 z-10">
         <div className="max-w-7xl mx-auto flex justify-center">
           <button className="w-1/3 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors">
             Book Now
