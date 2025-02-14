@@ -4,8 +4,9 @@ import {
   FacebookShareButton,
   WhatsappShareButton,
   LinkedinShareButton,
+  TwitterShareButton,
 } from "react-share";
-import { FacebookIcon, WhatsappIcon, LinkedinIcon } from "react-share";
+import { FacebookIcon, WhatsappIcon, LinkedinIcon, TwitterIcon } from "react-share";
 
 interface ShareModalProps {
   visible: boolean;
@@ -59,6 +60,15 @@ const ShareModal: React.FC<ShareModalProps> = ({
         >
           <LinkedinIcon size={32} round />
         </LinkedinShareButton>
+
+        <TwitterShareButton
+        url={url}
+        title={title}
+        hashtags={['paradise_guide']} 
+        onClick={handleShareClick}
+      >
+        <TwitterIcon size={32} round />
+      </TwitterShareButton>
       </div>
     </Modal>
   );
