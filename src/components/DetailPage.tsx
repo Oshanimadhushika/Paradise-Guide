@@ -3,12 +3,10 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
-import Gallery from "./Gallery";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
 import axios from "axios";
 import ShareModal from "./ShareModal";
-import { Helmet } from "react-helmet";
 import Head from "next/head";
 
 interface PlaceDetails {
