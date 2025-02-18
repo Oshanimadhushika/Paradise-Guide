@@ -80,11 +80,12 @@ const SeeAllPage = () => {
 
   // **Fix Search Function**
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value.toLowerCase());
+    setSearchQuery(event.target.value.toLowerCase()); 
   };
 
   // **Filter Places by Search and Category**
   const filteredPlaces = places.filter((place) => {
+
     const matchesSearch =
       place.location_name.toLowerCase().includes(searchQuery) ||
       place.city.toLowerCase().includes(searchQuery);
