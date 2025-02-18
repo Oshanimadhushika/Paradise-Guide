@@ -80,55 +80,45 @@ const DetailPage: React.FC<DetailPageProps> = ({
 
   const url = `https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
   const title = detailData?.location_name;
-  // const thumbnail =
-  //   detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
+  const thumbnail =
+    detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
   const description = detailData?.description.split("\n")[0];
-  const thumbnail="https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
-
-  // console.log("image", imageUrl);
+  // const thumbnail="https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* <Helmet>
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={detailData?.description} />
+      <Head>
+        <title>{title} - Paradise Guide</title>
+        <meta property="og:title" content={title || "Paradise Guide"} />
+        <meta
+          property="og:description"
+          content={description || "Explore beautiful places on Paradise Guide."}
+        />
         <meta
           property="og:image"
           content={
-            imageUrl ||
-            "https://t4.ftcdn.net/jpg/01/06/96/17/360_F_106961771_HVTebWdMKQfvBoDokS7kIqGadXz8GT3N.jpg"
+            thumbnail ||
+            "https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
           }
-        />{" "}
-        <meta property="og:url" content={url} />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title || "Paradise Guide"} />
-        <meta
-          name="twitter:image"
-          content={imageUrl || "https://defaultimageurl.com/default.jpg"}
         />
-
-          </Helmet> */}
-
-      <Head>
-        <title>{title} - Paradise Guide</title>
-        <meta name="description" content={description} />
-
-        {/* Open Graph Meta Tags */}
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content="https://th.bing.com/th/id/R.822f4c2f2390224d19ba8add17291cfd?rik=dAZYKTxCq8xf3Q&pid=ImgRaw&r=0" />
         <meta
           property="og:url"
           content={`https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`}
         />
         <meta property="og:type" content="website" />
-
-        {/* Twitter Card Meta Tags */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={thumbnail} />
+        <meta name="twitter:title" content={title || "Paradise Guide"} />
+        <meta
+          name="twitter:description"
+          content={description || "Explore beautiful places on Paradise Guide."}
+        />
+        <meta
+          name="twitter:image"
+          content={
+            thumbnail ||
+            "https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
+          }
+        />
       </Head>
       <ScrollAnimations />
       {/* Header Section */}
@@ -165,7 +155,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
                     url={url}
                     title={title as string}
                     imageUrl={thumbnail}
-                    description={description as string}
+                    // description={description as string}
                   />
                 </div>
               </div>
@@ -276,14 +266,8 @@ const DetailPage: React.FC<DetailPageProps> = ({
       </div>
 
       {/* Book Now Button */}
-      {/* <div className="fade-in fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto flex justify-center">
-          <button className="w-1/3 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors">
-            Book Now
-          </button>
-        </div>
-      </div> */}
-      <div className=" fade-in  sticky bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 z-10">
+
+      <div className="fade-in fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 z-10">
         <div className="max-w-7xl mx-auto flex justify-center">
           <button className="w-1/3 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors">
             Book Now
