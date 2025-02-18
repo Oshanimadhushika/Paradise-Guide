@@ -31,12 +31,12 @@ interface PlaceDetails {
 }
 
 interface DetailPageProps {
-  location_id: any;
+  // location_id: any;
   location_code: any;
 }
 
 const DetailPage: React.FC<DetailPageProps> = ({
-  location_id,
+  // location_id,
   location_code,
 }) => {
   const router = useRouter();
@@ -57,7 +57,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
       try {
         const apiUrl = `https://paradise.aventureit.com/api/location/data`;
         const response = await axios.post(apiUrl, {
-          location_id: location_id,
+          location_id: 0,
           location_code: location_code,
         });
 
@@ -76,18 +76,18 @@ const DetailPage: React.FC<DetailPageProps> = ({
     fetchPlaceDetails();
   }, [location_code]);
 
-  const url = `https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
+  const url = `https://paradiseguide.netlify.app/place/${location_code}`;
   const title = detailData?.location_name;
+
   const thumbnail =
     detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
   const description = detailData?.description.split("\n")[0];
-  // const thumbnail="https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
 
   return (
     <div className="min-h-screen bg-gray-50">
       <Head>
         <title>{title} - Paradise Guide</title>
-        <meta property="og:title" content={title || "Paradise Guide"} />
+        <meta property="og:title" content={title} />
         <meta
           property="og:description"
           content={description || "Explore beautiful places on Paradise Guide."}
@@ -101,7 +101,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
         />
         <meta
           property="og:url"
-          content={`https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`}
+          content={`https://paradiseguide.netlify.app/place/${location_code}`}
         />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
@@ -119,6 +119,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
         />
       </Head>
       <ScrollAnimations />
+
       {/* Header Section */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
         <div className="max-w-7xl mx-auto">
@@ -145,7 +146,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
                   >
                     <IoMdShare className="w-10 h-10 mr-2" />
                   </button>
-
                   <ShareModal
                     detailData={detailData}
                     visible={isModalVisible}
@@ -153,7 +153,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
                     url={url}
                     title={title as string}
                     imageUrl={thumbnail}
-                    // description={description as string}
                   />
                 </div>
               </div>
@@ -187,7 +186,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
       <div className="max-w-7xl mx-auto px-4 py-6">
         {activeTab === "gallery" && detailData?.gallery && (
           <div className="scale-up">
-            {/* Gallery Header (On top of the images) */}
             <div className="relative mb-4 text-center">
               <h3 className="text-gray-500 font-bold text-2xl font-playfair">
                 Gallery Shots Collection
@@ -198,7 +196,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
               </p>
             </div>
 
-            {/* Image Gallery Grid */}
             <div className="flex flex-wrap gap-4 justify-center pb-5">
               {detailData.gallery.map((item, index) => (
                 <div
@@ -230,14 +227,13 @@ const DetailPage: React.FC<DetailPageProps> = ({
               <span className="ml-2">{detailData?.contact_number}</span>
             </p>
             <p className="text-black font-serif">
-              📌{}Tickets:{detailData?.ticket_availability}
+              📌{}Tickets: {detailData?.ticket_availability}
             </p>
             <p className="text-black font-serif">
-              📌{}Tickets:{detailData?.ticket_availability}
+              📌{}Tickets: {detailData?.ticket_availability}
             </p>
             <p className="text-black font-serif">
-              📌{}
-              {detailData?.warning_data}
+              📌{} {detailData?.warning_data}
             </p>
           </div>
         )}
@@ -263,9 +259,8 @@ const DetailPage: React.FC<DetailPageProps> = ({
         )}
       </div>
 
-      {/* Book Now Button */}
-
-      <div className="fade-in fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 z-10">
+      {/* Fixed Book Now Button */}
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-white border-t border-gray-200 z-50">
         <div className="max-w-7xl mx-auto flex justify-center">
           <button className="w-1/3 bg-red-500 text-white py-3 rounded-lg font-semibold hover:bg-red-600 transition-colors">
             Book Now

@@ -79,7 +79,7 @@ const mediaItems: MediaItem[] = [  {
     type: "image",
     title: "Traditional Culture",
     desc: "Kandyan dance and cultural performances",
-    url: "https://1.bp.blogspot.com/-FVuy9Ba4DHI/X2Rh5QjWxMI/AAAAAAAAAYw/tXe-u-wA9sIsVpOzrGEUUjJWr_IQYhecQCPcBGAYYCw/s1280/L6791-5--1597140535705258.jpg",
+    url: "https://chariot.tours/wp-content/uploads/2023/07/50179148886_56663493af_o-1-1024x683.jpg",
     span: "md:col-span-2 md:row-span-1 sm:col-span-1 sm:row-span-1",
   },
 ];

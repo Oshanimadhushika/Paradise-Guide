@@ -109,7 +109,7 @@ const SeeAllPage = () => {
   };
 
   const handlePlaceClick = (place: any) => {
-    router.push(`/detail/${place.location_id}/${place.location_code}`);
+    router.push(`/place/${place.location_code}`);
   };
 
   return (

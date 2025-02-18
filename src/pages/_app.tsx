@@ -17,7 +17,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   return (
-  
     <ConfigProvider>
       <Component {...pageProps} />
     </ConfigProvider>
