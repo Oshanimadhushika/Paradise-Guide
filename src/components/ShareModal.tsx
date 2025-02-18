@@ -90,6 +90,7 @@ interface ShareModalProps {
   title: string;
   imageUrl: string;
   detailData: any;
+  description:string
 }
 
 const ShareModal: React.FC<ShareModalProps> = ({
@@ -98,6 +99,7 @@ const ShareModal: React.FC<ShareModalProps> = ({
   url,
   title,
   imageUrl,
+  description,
   detailData,
 }) => {
   const handleShare = (platform: string) => {
@@ -111,7 +113,7 @@ const ShareModal: React.FC<ShareModalProps> = ({
     if (platform === "facebook") {
       // Facebook Share URL including image as thumbnail
       window.open(
-        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&picture=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(detailData?.description)}`,
+        `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&picture=${encodeURIComponent(imageUrl)}&description=${encodeURIComponent(description)}`,
         "_blank"
       );
     } else if (platform === "twitter") {
@@ -129,7 +131,7 @@ const ShareModal: React.FC<ShareModalProps> = ({
     } else if (platform === "linkedin") {
       // LinkedIn Share URL including image as thumbnail
       window.open(
-        `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(detailData?.description)}&source=${encodeURIComponent(imageUrl)}`,
+        `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}&summary=${encodeURIComponent(description)}&source=${encodeURIComponent(imageUrl)}`,
         "_blank"
       );
     }

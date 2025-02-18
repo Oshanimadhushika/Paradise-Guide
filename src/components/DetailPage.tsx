@@ -117,7 +117,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content="https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0" />
+        <meta property="og:image" content="https://th.bing.com/th/id/R.822f4c2f2390224d19ba8add17291cfd?rik=dAZYKTxCq8xf3Q&pid=ImgRaw&r=0" />
         <meta
           property="og:url"
           content={`https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`}
@@ -165,6 +165,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
                     url={url}
                     title={title as string}
                     imageUrl={thumbnail}
+                    description={description as string}
                   />
                 </div>
               </div>
