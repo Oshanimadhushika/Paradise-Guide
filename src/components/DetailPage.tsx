@@ -80,9 +80,10 @@ const DetailPage: React.FC<DetailPageProps> = ({
 
   const url = `https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
   const title = detailData?.location_name;
-  const thumbnail =
-    detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
+  // const thumbnail =
+  //   detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
   const description = detailData?.description.split("\n")[0];
+  const thumbnail="https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
 
   // console.log("image", imageUrl);
 
@@ -116,10 +117,10 @@ const DetailPage: React.FC<DetailPageProps> = ({
         {/* Open Graph Meta Tags */}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:image" content={thumbnail} />
+        <meta property="og:image" content="https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0" />
         <meta
           property="og:url"
-          content={`https://paradiseguide.netlify.app/detail/${location_code}`}
+          content={`https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`}
         />
         <meta property="og:type" content="website" />
 
