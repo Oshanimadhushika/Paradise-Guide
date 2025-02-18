@@ -28,6 +28,7 @@ interface PlaceDetails {
   gallery: {
     image_path: string;
     credit_by: string;
+    image_type: number;
   }[];
 }
 
@@ -77,15 +78,17 @@ const DetailPage: React.FC<DetailPageProps> = ({
     fetchPlaceDetails();
   }, [location_code]);
 
-  const url = `  https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
-  const title = "Check out this amazing page!";
-  const imageUrl = detailData?.gallery?.[0]?.image_path || "";
+  const url = `https://paradiseguide.netlify.app/detail/${location_id}/${location_code}`;
+  const title = detailData?.location_name;
+  const thumbnail =
+    detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
+  const description = detailData?.description.split("\n")[0];
 
-  console.log("image", imageUrl);
+  // console.log("image", imageUrl);
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Helmet>
+      {/* <Helmet>
         <meta property="og:title" content={title} />
         <meta property="og:description" content={detailData?.description} />
         <meta
@@ -103,7 +106,29 @@ const DetailPage: React.FC<DetailPageProps> = ({
           name="twitter:image"
           content={imageUrl || "https://defaultimageurl.com/default.jpg"}
         />
-      </Helmet>
+
+          </Helmet> */}
+
+      <Head>
+        <title>{title} - Paradise Guide</title>
+        <meta name="description" content={description} />
+
+        {/* Open Graph Meta Tags */}
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={thumbnail} />
+        <meta
+          property="og:url"
+          content={`https://paradiseguide.netlify.app/detail/${location_code}`}
+        />
+        <meta property="og:type" content="website" />
+
+        {/* Twitter Card Meta Tags */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={thumbnail} />
+      </Head>
       <ScrollAnimations />
       {/* Header Section */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
@@ -137,8 +162,8 @@ const DetailPage: React.FC<DetailPageProps> = ({
                     visible={isModalVisible}
                     onClose={handleCancel}
                     url={url}
-                    title={title}
-                    imageUrl={imageUrl}
+                    title={title as string}
+                    imageUrl={thumbnail}
                   />
                 </div>
               </div>
