@@ -6,16 +6,22 @@ import MobilePart from "@/components/MobilePart";
 import Contact from "@/components/Contact";
 import Gallery from "@/components/Gallery";
 import { ScrollAnimations } from '@/components/ScrollAnimations';
+import { Metadata } from "next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+// export const metadata:Metadata= {
+//   title: 'Sri Lanka',
+//   description: 'Sri Lanka is a beautiful island country located in South Asia.',
+// }
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// const geistSans = Geist({
+//   variable: "--font-geist-sans",
+//   subsets: ["latin"],
+// });
+
+// const geistMono = Geist_Mono({
+//   variable: "--font-geist-mono",
+//   subsets: ["latin"],
+// });
 
 interface MediaItem {
   id: number;
@@ -86,7 +92,8 @@ const mediaItems: MediaItem[] = [  {
 
 export default function Home() {
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} font-sans overflow-hidden`}>
+    // <div className={`${geistSans.variable} ${geistMono.variable} font-sans overflow-hidden`}>
+    <div>
       <ScrollAnimations />
       <div className="flex flex-col min-h-screen">
         <main className="flex-grow relative">

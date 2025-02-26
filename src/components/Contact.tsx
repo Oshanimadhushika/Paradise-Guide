@@ -1,4 +1,6 @@
-import React, { FormEvent, useRef, useState } from "react";
+"use client"
+
+import React, { useRef, useState } from "react";
 import { Container } from "reactstrap";
 import {
   FaPhone,

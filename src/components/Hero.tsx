@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useEffect, useMemo, useState } from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { HiMenuAlt3, HiX } from "react-icons/hi";

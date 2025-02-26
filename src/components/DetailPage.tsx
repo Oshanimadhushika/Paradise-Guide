@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
 import axios from "axios";
-import ShareModal from "./ShareModal";
+// import ShareModal from "./ShareModal";
 import Head from "next/head";
+import Link from "next/link";
+import ShareModal from "./ShareModal";
 
 interface PlaceDetails {
   id: number;
@@ -31,13 +33,14 @@ interface PlaceDetails {
 }
 
 interface DetailPageProps {
-  // location_id: any;
   location_code: any;
+  // detailData: PlaceDetails | null;
 }
 
 const DetailPage: React.FC<DetailPageProps> = ({
   // location_id,
   location_code,
+  // detailData,
 }) => {
   const router = useRouter();
 
@@ -76,61 +79,33 @@ const DetailPage: React.FC<DetailPageProps> = ({
     fetchPlaceDetails();
   }, [location_code]);
 
-  const url = `https://paradiseguide.netlify.app/place/${location_code}`;
-  const title = detailData?.location_name;
+  // const url = `https://paradiseguide.netlify.app/place/${location_code}`;
+  // const title = detailData?.location_name;
 
-  const thumbnail =
-    detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
-  const description = detailData?.description.split("\n")[0];
+  // const thumbnail =
+  //   detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
+  // const description = detailData?.description.split("\n")[0];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Head>
-        <title>{title} - Paradise Guide</title>
-        <meta property="og:title" content={title} />
-        <meta
-          property="og:description"
-          content={description || "Explore beautiful places on Paradise Guide."}
-        />
-        <meta
-          property="og:image"
-          content={
-            thumbnail ||
-            "https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
-          }
-        />
-        <meta
-          property="og:url"
-          content={`https://paradiseguide.netlify.app/place/${location_code}`}
-        />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title || "Paradise Guide"} />
-        <meta
-          name="twitter:description"
-          content={description || "Explore beautiful places on Paradise Guide."}
-        />
-        <meta
-          name="twitter:image"
-          content={
-            thumbnail ||
-            "https://th.bing.com/th/id/R.80048c94faacac8b7ff6af18efa3d92a?rik=Ac82coHKVHLVyg&riu=http%3a%2f%2fwonderfulengineering.com%2fwp-content%2fuploads%2f2016%2f01%2fnature-wallpapers-8.jpg&ehk=GoUR7nA3jNm0gIdWFJoMVL1iu%2bJuWOU7Nu7KkgKZzeQ%3d&risl=&pid=ImgRaw&r=0"
-          }
-        />
-      </Head>
       <ScrollAnimations />
 
       {/* Header Section */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
         <div className="max-w-7xl mx-auto">
           <div className="fade-in">
-            <button
+            {/* <button
               onClick={() => router.back()}
               className="flex items-center text-white mb-4 hover:opacity-80"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back
-            </button>
+            </button> */}
+
+            <a href="/see-all" className="flex items-center">
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              Back
+            </a>
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h1 className="text-2xl font-bold">{detailData?.district}</h1>
@@ -150,9 +125,7 @@ const DetailPage: React.FC<DetailPageProps> = ({
                     detailData={detailData}
                     visible={isModalVisible}
                     onClose={handleCancel}
-                    url={url}
-                    title={title as string}
-                    imageUrl={thumbnail}
+                   
                   />
                 </div>
               </div>

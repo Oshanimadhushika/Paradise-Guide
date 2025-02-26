@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Container } from "reactstrap";
@@ -6,7 +7,8 @@ import { Search, ArrowLeft } from "lucide-react";
 import { Pagination } from "antd";
 import "antd/dist/reset.css";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type Category =
   | "all"
@@ -17,7 +19,7 @@ type Category =
   | "adventure";
 
 const SeeAllPage = () => {
-  const router = useRouter();
+  // const router = useRouter();
   // const navigate = useNavigate();
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -80,12 +82,11 @@ const SeeAllPage = () => {
 
   // **Fix Search Function**
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value.toLowerCase()); 
+    setSearchQuery(event.target.value.toLowerCase());
   };
 
   // **Filter Places by Search and Category**
   const filteredPlaces = places.filter((place) => {
-
     const matchesSearch =
       place.location_name.toLowerCase().includes(searchQuery) ||
       place.city.toLowerCase().includes(searchQuery);
@@ -108,20 +109,20 @@ const SeeAllPage = () => {
     setCurrentPage(page);
   };
 
-  const handlePlaceClick = (place: any) => {
-    router.push(`/place/${place.location_code}`);
-  };
+  // const handlePlaceClick = (place: any) => {
+  //   router.push(`/place/${place.location_code}`);
+  // };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <ScrollAnimations />
       <Container className="max-w-7xl mx-auto px-4">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center text-black mb-4 hover:opacity-80"
-        >
-          <ArrowLeft className="w-5 h-5 mr-2" />
-          Back
+        
+        <button>
+          <a href="/" className="flex items-center text-black">
+            <ArrowLeft className="w-5 h-5 mr-2" />
+            Back
+          </a>
         </button>
 
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
@@ -167,16 +168,12 @@ const SeeAllPage = () => {
           <div className="text-center text-gray-500">Loading...</div>
         ) : paginatedPlaces.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {paginatedPlaces.map((place) => {
-              return (
-                <div
-                  key={place.location_id}
+          
+            {paginatedPlaces.map((place) => (
+              <button key={place.location_id}>
+                <a
+                  href={`/place/${place.location_code}`}
                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
-                  // onClick={() =>
-                  //   navigate(`/detail/${locationSlug}`, { state: { place } })
-                  // }
-
-                  onClick={() => handlePlaceClick(place)}
                 >
                   <div className="relative h-48">
                     <Image
@@ -198,9 +195,9 @@ const SeeAllPage = () => {
                       </span>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                </a>
+              </button>
+            ))}
           </div>
         ) : (
           <div className="text-center py-12">
