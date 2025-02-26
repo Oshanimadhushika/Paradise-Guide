@@ -39,7 +39,7 @@ export async function generateMetadata({
 
   const postData = await fetchPost(params.location_code);
 
-  console.log("Fetched Post Data:", postData); 
+  console.log("Fetched Post Data:", postData);
 
   if (!postData) {
     console.warn("Metadata generation failed: No valid post data.");
@@ -47,10 +47,10 @@ export async function generateMetadata({
   }
 
   return {
-    title: postData.title || "Paradise Guide",
+    title: postData.location_name || "Paradise Guide",
     description: "Explore the beauty of this place.",
     openGraph: {
-      title: postData.title || "Paradise Guide",
+      title: postData.location_name || "Paradise Guide",
       // description: postData.description || "Explore the beauty of this place.",
       description: "Explore the beauty of this place.",
 
@@ -58,7 +58,11 @@ export async function generateMetadata({
       site_name: "paradise_guide",
       images: [
         {
-          url: `https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain`,
+          // url:postData.gallery.image_path ||`https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain`,
+          url:
+            postData?.gallery?.[0]?.image_path ||
+            "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
+
           width: 1260,
           height: 720,
         },
@@ -120,7 +124,3 @@ export default function GetDetailsEachPlace({
 
   return <DetailPage location_code={params.location_code} />;
 }
-
-
-
-
