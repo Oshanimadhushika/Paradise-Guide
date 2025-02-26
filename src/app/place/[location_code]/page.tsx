@@ -61,7 +61,7 @@ export async function generateMetadata({ params }:any) {
       images: [
         // WhatsApp image
         {
-          url: postData?.gallery?.[0]?.image_path + "?w=300&h=200" || "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
+          url: postData?.gallery?.[0]?.image_path + "?w=1200&h=630" || "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
           width: 1200,
           height: 630,
         },
