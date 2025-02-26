@@ -17,7 +17,7 @@ const ShareModal = ({ visible, onClose, detailData }: any) => {
   if (!visible || !detailData) return null;
 
   const url = `https://paradiseguide.netlify.app/place/${detailData?.location_code}`;
-  const title = detailData?.title || "Paradise Guide";
+  const title = detailData?.location_name || "Paradise Guide";
 
   return (
     <Modal
@@ -29,7 +29,7 @@ const ShareModal = ({ visible, onClose, detailData }: any) => {
       className="rounded-lg"
     >
       <div className="text-center">
-        <Title level={4}>{detailData?.title}</Title>
+        <Title level={4}>{detailData?.location_name}</Title>
 
         <div className="flex justify-center gap-4 mt-4">
           <FacebookShareButton url={url} title={title}>
