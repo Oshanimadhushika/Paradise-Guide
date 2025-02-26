@@ -62,8 +62,8 @@ export async function generateMetadata({ params }:any) {
         // WhatsApp image
         {
           url: postData?.gallery?.[0]?.image_path + "?w=300&h=200" || "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
-          width: 300,
-          height: 200,
+          width: 1200,
+          height: 630,
         },
         // Default image for Facebook, Twitter, LinkedIn, etc.
         {
