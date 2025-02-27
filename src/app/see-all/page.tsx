@@ -7,8 +7,7 @@ import { Search, ArrowLeft } from "lucide-react";
 import { Pagination } from "antd";
 import "antd/dist/reset.css";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
-// import { useRouter } from "next/navigation";
-import Link from "next/link";
+// import Link from "next/link";
 
 type Category =
   | "all"
@@ -19,8 +18,6 @@ type Category =
   | "adventure";
 
 const SeeAllPage = () => {
-  // const router = useRouter();
-  // const navigate = useNavigate();
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState<Category>("all");
@@ -109,15 +106,10 @@ const SeeAllPage = () => {
     setCurrentPage(page);
   };
 
-  // const handlePlaceClick = (place: any) => {
-  //   router.push(`/place/${place.location_code}`);
-  // };
-
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <ScrollAnimations />
       <Container className="max-w-7xl mx-auto px-4">
-        
         <button>
           <a href="/" className="flex items-center text-black">
             <ArrowLeft className="w-5 h-5 mr-2" />
@@ -168,7 +160,6 @@ const SeeAllPage = () => {
           <div className="text-center text-gray-500">Loading...</div>
         ) : paginatedPlaces.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          
             {paginatedPlaces.map((place) => (
               <button key={place.location_id}>
                 <a
@@ -206,13 +197,6 @@ const SeeAllPage = () => {
             </p>
           </div>
         )}
-
-        {/* {selectedPlace && (
-        <DetailPage
-        location_id={selectedPlace.location_id}
-        location_code={selectedPlace.location_code}
-        />
-      )} */}
 
         {/* Pagination */}
         <div className="flex justify-center mt-8">

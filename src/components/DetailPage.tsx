@@ -6,9 +6,7 @@ import { useRouter } from "next/navigation";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { IoMdShare } from "react-icons/io";
 import axios from "axios";
-// import ShareModal from "./ShareModal";
-import Head from "next/head";
-import Link from "next/link";
+// import Link from "next/link";
 import ShareModal from "./ShareModal";
 
 interface PlaceDetails {
@@ -79,13 +77,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
     fetchPlaceDetails();
   }, [location_code]);
 
-  // const url = `https://paradiseguide.netlify.app/place/${location_code}`;
-  // const title = detailData?.location_name;
-
-  // const thumbnail =
-  //   detailData?.gallery.find((img) => img.image_type === 1)?.image_path || "";
-  // const description = detailData?.description.split("\n")[0];
-
   return (
     <div className="min-h-screen bg-gray-50">
       <ScrollAnimations />
@@ -94,14 +85,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6">
         <div className="max-w-7xl mx-auto">
           <div className="fade-in">
-            {/* <button
-              onClick={() => router.back()}
-              className="flex items-center text-white mb-4 hover:opacity-80"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back
-            </button> */}
-
             <a href="/see-all" className="flex items-center">
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back
@@ -125,7 +108,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
                     detailData={detailData}
                     visible={isModalVisible}
                     onClose={handleCancel}
-                   
                   />
                 </div>
               </div>

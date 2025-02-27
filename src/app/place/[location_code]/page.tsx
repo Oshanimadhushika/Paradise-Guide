@@ -29,11 +29,11 @@ const fetchPost = async (locationCode: string) => {
   }
 };
 
+export async function generateMetadata({ params }: any) {
+  const locationCode = params?.location_code;
 
-export async function generateMetadata({ params }:any) {
-  const locationCode = params?.location_code; 
-
-  if (!locationCode) return { title: "Not Found", description: "Place not found." };
+  if (!locationCode)
+    return { title: "Not Found", description: "Place not found." };
 
   const postData = await fetchPost(locationCode);
 
@@ -48,26 +48,22 @@ export async function generateMetadata({ params }:any) {
     openGraph: {
       title: postData.location_name || "Paradise Guide",
       description: "Explore the beauty of this place.",
-      url: `https://paradiseguide.netlify.app/place/${locationCode}`, // Use extracted variable
+      url: `https://paradiseguide.netlify.app/place/${locationCode}`,
       site_name: "paradise_guide",
-      // images: [
-      //   {
-      //     url: postData?.gallery?.[0]?.image_path || "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
-      //     width: 1000,
-      //     height: 720,
-      //   },
-      // ],
-
       images: [
         // WhatsApp image
         {
-          url: postData?.gallery?.[0]?.image_path + "?w=1200&h=630" || "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
+          url:
+            postData?.gallery?.[0]?.image_path + "?w=1200&h=630" ||
+            "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
           width: 1200,
           height: 630,
         },
         // Default image for Facebook, Twitter, LinkedIn, etc.
         {
-          url: postData?.gallery?.[0]?.image_path || "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
+          url:
+            postData?.gallery?.[0]?.image_path ||
+            "https://th.bing.com/th/id/OIP.gASMlPqsrIt_9q8Y76PZKgHaFj?rs=1&pid=ImgDetMain",
           width: 1260,
           height: 720,
         },
@@ -78,12 +74,10 @@ export async function generateMetadata({ params }:any) {
   };
 }
 
-
 export default async function GetDetailsEachPlace({ params }: any) {
-  const locationCode = params?.location_code; 
+  const locationCode = params?.location_code;
 
   if (!locationCode) return <p>Loading...</p>;
 
   return <DetailPage location_code={locationCode} />;
 }
-
