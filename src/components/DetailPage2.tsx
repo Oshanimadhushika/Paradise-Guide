@@ -115,7 +115,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       {/* Hero Section */}
 
       <section
-        className="w-full h-auto bg-cover bg-center "
+        className="w-full h-full bg-cover bg-center "
         style={{
           backgroundImage:
             "url('https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg')",
@@ -200,7 +200,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             {facilityData.map((facility, index) => (
               <div
                 key={index}
-                className="flex flex-row items-center justify-center gap-3 border-r border-gray-300 px-2"
+                className="flex flex-row items-center justify-center gap-3 border-r md:border-none border-gray-300 px-2"
               >
                 <span className="text-3xl text-start">{facility.icon}</span>
                 <div className="flex flex-col text-center text-sm ">
@@ -285,7 +285,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Mobile Mockup */}
-          <div className="w-60 md:w-[295px] h-auto flex justify-center order-3 md:order-nonee">
+          <div className="w-60 md:w-[295px] h-auto flex justify-center order-3 md:order-none">
             <Image
               src={MobileImg}
               alt="Download on the App Store"
