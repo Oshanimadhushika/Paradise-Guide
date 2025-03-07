@@ -134,7 +134,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Content & Carousel */}
-          <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full mt-20">
+          <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full mt-20 md:mt-40">
             {/* Text Content */}
             <div className="text-white p-6 w-full md:w-1/2">
               <h1 className="text-4xl font-bold leading-tight">
@@ -196,18 +196,20 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <Divider className="my-2 bg-gray-300 mb-3" />
 
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center p-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-start p-4">
             {facilityData.map((facility, index) => (
               <div
                 key={index}
-                className="flex flex-row items-center justify-center gap-3  border-none sm:border-none md:border-r border-gray-300 px-2"
+                className="flex flex-row items-start  gap-3  border-none sm:border-none md:border-r lg:border-r xl:border-r border-gray-300 px-2"
               >
                 <span className="text-3xl text-center">{facility.icon}</span>
-                <div className="flex flex-col text-start text-sm ">
+                <div className="flex flex-col items-start justify-start text-sm ">
                   <p className=" text-gray-700 font-semibold mt-2">
                     {facility.title}
                   </p>
-                  <p className="text-gray-700 ">{facility.description}</p>
+                  <p className="text-gray-700 flex items-start justify-start ">
+                    {facility.description}
+                  </p>
                 </div>
               </div>
             ))}
