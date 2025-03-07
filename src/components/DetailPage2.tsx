@@ -103,9 +103,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
     { url: DearYala, span: " col-span-6 md:col-span-2 md:row-span-2" },
     { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
     { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
-
-
     { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
+    { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
+
 
   ];
 
@@ -245,7 +245,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               key={index}
               className={`relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group`}
             >
-              <img
+              <Image
                 src={image.url}
                 alt={`Gallery image ${index + 1}`}
                 className="w-full h-full object-cover rounded-lg transition-transform transform group-hover:scale-105 group-hover:rotate-3 group-hover:opacity-80"
