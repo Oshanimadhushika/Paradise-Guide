@@ -16,9 +16,32 @@ import MobileImg from "../assets/mobileImg.png";
 import QRCodeComponent from "./QRCodeComponent";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 import { Divider } from "antd";
+import axios from "axios";
+
 
 interface DetailPageProps {
   location_code: any;
+}
+
+interface PlaceDetails {
+  id: number;
+  location_id: string;
+  location_code: string;
+  district: string;
+  location_name: string;
+  description: string;
+  ticket_availability: number;
+  latitude: string;
+  longitude: string;
+  distance: number;
+  duration: number;
+  warning_data: string;
+  contact_number: string;
+  gallery: {
+    image_path: string;
+    credit_by: string;
+    image_type: number;
+  }[];
 }
 
 const attractions = [
@@ -47,6 +70,34 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const carouselRef = useRef<AliceCarousel>(null);
   const [year, setYear] = useState<number | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const [detailData, setDetailData] = useState<PlaceDetails | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlaceDetails = async () => {
+      if (!location_code) return;
+
+      try {
+        const apiUrl = `https://paradise.aventureit.com/api/location/data`;
+        const response = await axios.post(apiUrl, {
+          location_id: 0,
+          location_code: location_code,
+        });
+
+        if (response.data.success) {
+          setDetailData(response.data.output);
+        } else {
+          console.error("Failed!:", response);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlaceDetails();
+  }, [location_code]);
 
   useEffect(() => {
     setYear(new Date().getFullYear());
