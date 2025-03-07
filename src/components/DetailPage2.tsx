@@ -115,7 +115,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       {/* Hero Section */}
 
       <section
-        className="w-full h-screen bg-cover bg-center flex flex-col"
+        className="w-full h-screen bg-cover bg-center"
         style={{
           backgroundImage:
             "url('https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg')",
@@ -151,11 +151,11 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
             {/* Attractions Carousel */}
             {isMounted && (
-              <div className="p-4 w-full md:w-1/2">
+              <div className="p-1 md:p-4 w-full md:w-1/2">
                 <h3 className="text-white text-xl font-semibold mb-3 text-right">
                   Attractions Nearby
                 </h3>
-                <div className="relative">
+                <div className="">
                   <AliceCarousel
                     ref={carouselRef}
                     items={items}
@@ -169,20 +169,21 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                     infinite
                     mouseTracking
                   />
-                  <div className="flex justify-end items-center gap-4 mt-4">
-                    <button
-                      onClick={slidePrev}
-                      className="p-3 border border-white rounded-full shadow-lg"
-                    >
-                      <FaArrowLeft className="text-gray-100" />
-                    </button>
-                    <button
-                      onClick={slideNext}
-                      className="p-3 border border-white rounded-full shadow-lg"
-                    >
-                      <FaArrowRight className="text-gray-100" />
-                    </button>
-                  </div>
+                </div>
+
+                <div className="flex justify-end items-center gap-4 mt-4">
+                  <button
+                    onClick={slidePrev}
+                    className="p-3 border border-white rounded-full shadow-lg"
+                  >
+                    <FaArrowLeft className="text-gray-100" />
+                  </button>
+                  <button
+                    onClick={slideNext}
+                    className="p-3 border border-white rounded-full shadow-lg"
+                  >
+                    <FaArrowRight className="text-gray-100" />
+                  </button>
                 </div>
               </div>
             )}
@@ -269,7 +270,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         {/* Grid Layout */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
           {/* Left QR Code */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center w-1/2">
             <div>
               <QRCodeComponent value={appStoreUrl} />
             </div>
@@ -297,7 +298,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Google Play Button */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center w-1/2">
             <div>
               <QRCodeComponent value={playStoreUrl} />
             </div>
