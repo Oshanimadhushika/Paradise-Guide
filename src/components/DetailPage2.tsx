@@ -279,17 +279,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
         </div>
 
-        {/* Footer */}
-        {/* <div className="text-center text-gray-500 text-sm mt-8">
-          © 2025 Paradise Guide |{" "}
-          <a href="#" className="underline">
-            Privacy Policy
-          </a>{" "}
-          |{" "}
-          <a href="#" className="underline">
-            Cookies Policy
-          </a>
-        </div> */}
+      
       </div>
 
       {/* Footer */}
