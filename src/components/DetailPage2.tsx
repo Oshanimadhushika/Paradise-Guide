@@ -151,7 +151,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
             {/* Attractions Carousel */}
             {isMounted && (
-              <div className="p-1 md:p-4 w-full md:w-1/2">
+              <div className="p-5 md:p-4 w-full md:w-1/2">
                 <h3 className="text-white text-xl font-semibold mb-3 text-right">
                   Attractions Nearby
                 </h3>
@@ -198,16 +198,32 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
             {facilityData.map((facility, index) => (
+              // <div
+              //   key={index}
+              //   className="flex flex-row items-center justify-center gap-3 border-none md:border-r border-gray-300 px-2"
+              // >
+              //   <span className="text-3xl">{facility.icon}</span>
+              //   <div className="flex flex-col text-center text-sm ">
+              //     <p className=" text-gray-700 font-semibold mt-2">
+              //       {facility.title}
+              //     </p>
+              //     <p className="text-gray-700 ">{facility.description}</p>
+              //   </div>
+              // </div>
+
               <div
                 key={index}
-                className="flex flex-row items-center justify-center gap-3 border-r md:border-none border-gray-300 px-2"
+                className="flex items-center justify-center gap-3 border-none md:border-r border-gray-300 px-2"
               >
-                <span className="text-3xl text-start">{facility.icon}</span>
-                <div className="flex flex-col text-center text-sm ">
-                  <p className=" text-gray-700 font-semibold mt-2">
+                {/* Icon (Kept Centered Vertically) */}
+                <span className="text-3xl flex-shrink-0">{facility.icon}</span>
+
+                {/* Text Content (Title & Description in Column) */}
+                <div className="flex flex-col text-left text-sm">
+                  <p className="text-gray-700 font-semibold">
                     {facility.title}
                   </p>
-                  <p className="text-gray-700 ">{facility.description}</p>
+                  <p className="text-gray-700">{facility.description}</p>
                 </div>
               </div>
             ))}
