@@ -102,6 +102,11 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
     { url: DearYala, span: "col-span-12 md:col-span-4 md:row-span-9" },
     { url: DearYala, span: " col-span-6 md:col-span-2 md:row-span-2" },
     { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
+    { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
+
+
+    { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
+
   ];
 
   const appStoreUrl = "https://apps.apple.com/app-url";
@@ -220,7 +225,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </h2>
         <Divider className="my-2 bg-gray-300 mb-3" />
 
-        <div className="grid grid-cols-12 grid-rows-12 gap-1 px-20 ">
+        {/* <div className="grid grid-cols-12 grid-rows-12 gap-1 px-20 ">
           {galleryImages.map((image, index) => (
             <div
               key={index}
@@ -230,6 +235,20 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                 src={image.url}
                 alt={`Gallery ${index + 1}`}
                 className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
+          ))}
+        </div> */}
+        <div className="flex flex-wrap gap-4 justify-center pb-5">
+          {galleryImages.map((image, index) => (
+            <div
+              key={index}
+              className={`relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group`}
+            >
+              <img
+                src={image.url}
+                alt={`Gallery image ${index + 1}`}
+                className="w-full h-full object-cover rounded-lg transition-transform transform group-hover:scale-105 group-hover:rotate-3 group-hover:opacity-80"
               />
             </div>
           ))}
