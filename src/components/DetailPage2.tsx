@@ -126,7 +126,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           <Image
             src={ParadiseGuideLogo}
             alt="Paradise Guide Logo"
-            width={50}
+            width={100}
             height={50}
           />
         </div>
@@ -218,7 +218,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <h2 className="text-xl font-semibold mb-4 text-gray-500 px-20">
           Gallery
         </h2>
-        <Divider className="my-2" />
+        <Divider className="my-2 bg-gray-300 mb-3" />
 
         <div className="grid grid-cols-12 grid-rows-12 gap-1 px-20 ">
           {galleryImages.map((image, index) => (
@@ -267,7 +267,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Mobile Mockup */}
-          <div className="w-72 md:w-[294.8px] flex justify-center">
+          <div className="w-60 md:w-[294.8px] flex justify-center">
             <Image
               src={MobileImg}
               alt="Download on the App Store"
