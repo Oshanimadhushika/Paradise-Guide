@@ -136,7 +136,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           {/* Content & Carousel */}
           <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full">
             {/* Text Content */}
-            <div className="text-white p-6 md:w-1/2">
+            <div className="text-white p-6 w-full md:w-1/2">
               <h1 className="text-4xl font-bold leading-tight">
                 Galle Dutch Fort
               </h1>
@@ -191,7 +191,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </section>
 
       {/* Facilities Section */}
-      <div className=" py-4 mt-10 px-4 pl-20">
+      <div className=" py-4 mt-10 px-4 ">
         <Divider className="my-2 bg-gray-300 mb-3" />
 
         <div className="container mx-auto px-6">
@@ -286,12 +286,13 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Mobile Mockup */}
-          <div className="w-60 md:w-[294.8px] flex justify-center">
+          <div className="w-60 md:w-[295px] h-auto flex justify-center">
             <Image
               src={MobileImg}
               alt="Download on the App Store"
-              width={150}
-              height={50}
+              className="w-full"
+              // width={150}
+              // height={50}
             />
           </div>
 
