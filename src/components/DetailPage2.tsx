@@ -33,6 +33,13 @@ const attractions = [
     imgUrl:
       "https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg",
   },
+
+  {
+    title: "Galle Beach",
+    location: "Galle - Southern Province",
+    imgUrl:
+      "https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg",
+  },
 ];
 
 const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
@@ -90,10 +97,10 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   ];
 
   const galleryImages = [
-    { url: DearYala, span: "md:col-span-8 md:row-span-11" },
-    { url: DearYala, span: "md:col-span-4 md:row-span-9" },
-    { url: DearYala, span: "md:col-span-2 md:row-span-2" },
-    { url: DearYala, span: "md:col-span-2 md:row-span-2" },
+    { url: DearYala, span: " col-span-12 md:col-span-8 md:row-span-11" },
+    { url: DearYala, span: "col-span-12 md:col-span-4 md:row-span-9" },
+    { url: DearYala, span: " col-span-6 md:col-span-2 md:row-span-2" },
+    { url: DearYala, span: "col-span-6 md:col-span-2 md:row-span-2" },
   ];
 
   const appStoreUrl = "https://apps.apple.com/app-url";
@@ -102,77 +109,82 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
-      <section className=" w-full h-screen">
-        <div className="w-full inset-0">
+
+      <section
+        className="relative w-full h-screen bg-cover bg-center"
+        style={{
+          backgroundImage:
+            "url('https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg')",
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/40"></div>
+
+        {/* Logo */}
+        <div className="absolute top-10 left-10 md:left-20 md:top-10 flex justify-center md:justify-start w-full">
           <Image
-            src="https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg"
-            alt="Galle Dutch Fort"
-            layout="fill"
-            objectFit="cover"
-            priority
-            quality={100}
-            className="w-full"
+            src="/logo.png"
+            alt="Paradise Guide Logo"
+            width={150}
+            height={50}
           />
-          <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
-        {/* logo */}
-        <div className="absolute top-10 left-20 text-white">
-          <Image src={ParadiseGuideLogo} alt="Logo" width={150} height={50} />
-        </div>
-        <div className="flex flex-row justify-between items-end pt-64">
-          {/* Text Content */}
-          <div className=" z-10 text-white p-10 w-1/3 ">
-            <h1 className="text-4xl mt-32 font-bold leading-tight">
-              Galle Dutch Fort
-            </h1>
-            <p className="mt-4 text-lg">
-              Galle Fort in Sri Lanka, built by the Portuguese in 1588, is a
-              UNESCO World Heritage Site...
-            </p>
-            <button className="mt-6 px-6 py-3 text-white border border-white font-semibold rounded-full shadow-lg hover:bg-gray-200">
-              Read More
-            </button>
-          </div>
+        {/* Content & Carousel Section */}
+        <div className="absolute inset-0 flex items-end px-6 md:px-20 pb-16">
+          <div className="grid grid-cols-12 gap-6 w-full">
+            {/* Text Content */}
+            <div className="col-span-12 md:col-span-6 text-white p-8 z-10">
+              <h1 className="text-4xl font-bold leading-tight">
+                Galle Dutch Fort
+              </h1>
+              <p className="mt-4 text-lg">
+                Galle Fort in Sri Lanka, built by the Portuguese in 1588, is a
+                UNESCO World Heritage Site...
+              </p>
+              <button className="mt-6 px-6 py-3 text-white border border-white font-semibold rounded-full shadow-lg hover:bg-gray-200">
+                Read More
+              </button>
+            </div>
 
-          {/* Attractions Nearby */}
-          {isMounted && (
-            <div className=" p-4 rounded-lg w-[500px]">
-              <h3 className="flex justify-end text-white text-xl font-semibold mb-3">
-                Attractions Nearby
-              </h3>
-              <div className="relative">
-                <AliceCarousel
-                  ref={carouselRef}
-                  items={items}
-                  disableDotsControls
-                  disableButtonsControls
-                  responsive={{
-                    0: { items: 1 },
-                    600: { items: 2 },
-                    1024: { items: 3 },
-                  }}
-                  infinite
-                  mouseTracking
-                  controlsStrategy="responsive"
-                />
-                <div className="flex justify-end items-center gap-4">
-                  <button
-                    onClick={slidePrev}
-                    className="p-3 border border-white rounded-full shadow-lg"
-                  >
-                    <FaArrowLeft className="text-gray-100" />
-                  </button>
-                  <button
-                    onClick={slideNext}
-                    className="p-3 border border-white rounded-full shadow-lg"
-                  >
-                    <FaArrowRight className="text-gray-100" />
-                  </button>
+            {/* Attractions Carousel */}
+            {isMounted && (
+              <div className="col-span-12 md:col-span-6 p-4">
+                <h3 className="text-white text-xl font-semibold mb-3 text-right">
+                  Attractions Nearby
+                </h3>
+                <div className="relative">
+                  <AliceCarousel
+                    ref={carouselRef}
+                    items={items}
+                    disableDotsControls
+                    disableButtonsControls
+                    responsive={{
+                      0: { items: 1 },
+                      600: { items: 2 },
+                      1024: { items: 3 },
+                    }}
+                    infinite
+                    mouseTracking
+                  />
+                  <div className="flex justify-end items-center gap-4 mt-4">
+                    <button
+                      onClick={slidePrev}
+                      className="p-3 border border-white rounded-full shadow-lg"
+                    >
+                      <FaArrowLeft className="text-gray-100" />
+                    </button>
+                    <button
+                      onClick={slideNext}
+                      className="p-3 border border-white rounded-full shadow-lg"
+                    >
+                      <FaArrowRight className="text-gray-100" />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </section>
 
@@ -252,7 +264,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Mobile Mockup */}
-          <div className="w-60 md:w-72">
+          <div className="w-72 md:w-[294.8px] flex justify-center">
             <Image
               src={MobileImg}
               alt="Download on the App Store"
@@ -278,8 +290,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             </div>
           </div>
         </div>
-
-      
       </div>
 
       {/* Footer */}
