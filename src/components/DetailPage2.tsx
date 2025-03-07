@@ -115,7 +115,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       {/* Hero Section */}
 
       <section
-        className="w-full h-full bg-cover bg-center "
+        className="w-full h-full md:h-screen bg-cover bg-center "
         style={{
           backgroundImage:
             "url('https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg')",
@@ -196,11 +196,11 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <Divider className="my-2 bg-gray-300 mb-3" />
 
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center p-3">
             {facilityData.map((facility, index) => (
               <div
                 key={index}
-                className="flex flex-row items-center justify-center gap-3 border-none md:border-r border-gray-300 px-2"
+                className="flex flex-row items-center justify-center gap-3  border-none sm:border-none md:border-r border-gray-300 px-2"
               >
                 <span className="text-3xl text-center">{facility.icon}</span>
                 <div className="flex flex-col text-start text-sm ">
@@ -210,8 +210,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                   <p className="text-gray-700 ">{facility.description}</p>
                 </div>
               </div>
-
-            
             ))}
           </div>
         </div>
