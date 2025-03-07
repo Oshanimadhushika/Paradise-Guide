@@ -4,7 +4,7 @@ const nextConfig = {
   //   disableStaticImages: false,
   // },
   images: {
-    domains: ['firebasestorage.googleapis.com'], 
+    domains: ['firebasestorage.googleapis.com',"img.traveltriangle.com"], 
   },
   transpilePackages: ['antd', '@ant-design', 'rc-util', 'rc-pagination', 'rc-picker'],
 }

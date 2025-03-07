@@ -47,7 +47,6 @@ const DetailPage: React.FC<DetailPageProps> = ({
   const [detailData, setDetailData] = useState<PlaceDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
-
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
 
