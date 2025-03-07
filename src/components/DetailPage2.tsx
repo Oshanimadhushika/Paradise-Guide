@@ -117,82 +117,74 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       {/* Hero Section */}
 
       <section
-        className="relative w-full h-screen bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg')",
-        }}
-      >
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/40"></div>
+      className="w-full h-screen bg-cover bg-center flex flex-col"
+      style={{
+        backgroundImage:
+          "url('https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg')",
+      }}
+    >
+      {/* Dark Overlay */}
+      <div className="w-full h-full bg-black/40 flex flex-col">
 
         {/* Logo */}
-        <div className="absolute top-10 left-10 md:left-20 md:top-10 flex justify-center md:justify-start w-full">
-          <Image
-            src={ParadiseGuideLogo}
-            alt="Paradise Guide Logo"
-            width={100}
-            height={50}
-          />
+        <div className="w-full flex justify-center md:justify-start p-6 md:p-10">
+          <Image src={ParadiseGuideLogo} alt="Paradise Guide Logo" width={110} height={50} />
         </div>
 
-        {/* Content & Carousel Section */}
-        <div className="absolute inset-0 flex items-end px-6 md:px-20 pb-16">
-          <div className="grid grid-cols-12 gap-6 w-full">
-            {/* Text Content */}
-            <div className="col-span-12 md:col-span-6 text-white p-8 z-10">
-              <h1 className="text-4xl font-bold leading-tight">
-                Galle Dutch Fort
-              </h1>
-              <p className="mt-4 text-lg">
-                Galle Fort in Sri Lanka, built by the Portuguese in 1588, is a
-                UNESCO World Heritage Site...
-              </p>
-              <button className="mt-6 px-6 py-3 text-white border border-white font-semibold rounded-full shadow-lg hover:bg-gray-200">
-                Read More
-              </button>
-            </div>
+        {/* Content & Carousel */}
+        <div className="flex flex-col md:flex-row justify-between items-end px-6 md:px-20 pb-16 gap-6 w-full">
+          {/* Text Content */}
+          <div className="text-white p-6 md:w-1/2">
+            <h1 className="text-4xl font-bold leading-tight">Galle Dutch Fort</h1>
+            <p className="mt-4 text-lg">
+              Galle Fort in Sri Lanka, built by the Portuguese in 1588, is a
+              UNESCO World Heritage Site...
+            </p>
+            <button className="mt-6 px-6 py-3 text-white border border-white font-semibold rounded-full shadow-lg hover:bg-gray-200">
+              Read More
+            </button>
+          </div>
 
-            {/* Attractions Carousel */}
-            {isMounted && (
-              <div className="col-span-12 md:col-span-6 p-4">
-                <h3 className="text-white text-xl font-semibold mb-3 text-right">
-                  Attractions Nearby
-                </h3>
-                <div className="relative">
-                  <AliceCarousel
-                    ref={carouselRef}
-                    items={items}
-                    disableDotsControls
-                    disableButtonsControls
-                    responsive={{
-                      0: { items: 1 },
-                      600: { items: 2 },
-                      1024: { items: 3 },
-                    }}
-                    infinite
-                    mouseTracking
-                  />
-                  <div className="flex justify-end items-center gap-4 mt-4">
-                    <button
-                      onClick={slidePrev}
-                      className="p-3 border border-white rounded-full shadow-lg"
-                    >
-                      <FaArrowLeft className="text-gray-100" />
-                    </button>
-                    <button
-                      onClick={slideNext}
-                      className="p-3 border border-white rounded-full shadow-lg"
-                    >
-                      <FaArrowRight className="text-gray-100" />
-                    </button>
-                  </div>
+          {/* Attractions Carousel */}
+          {isMounted && (
+            <div className="p-4 md:w-1/2">
+              <h3 className="text-white text-xl font-semibold mb-3 text-right">
+                Attractions Nearby
+              </h3>
+              <div className="relative">
+                <AliceCarousel
+                  ref={carouselRef}
+                  items={items}
+                  disableDotsControls
+                  disableButtonsControls
+                  responsive={{
+                    0: { items: 1 },
+                    600: { items: 2 },
+                    1024: { items: 3 },
+                  }}
+                  infinite
+                  mouseTracking
+                />
+                <div className="flex justify-end items-center gap-4 mt-4">
+                  <button
+                    onClick={slidePrev}
+                    className="p-3 border border-white rounded-full shadow-lg"
+                  >
+                    <FaArrowLeft className="text-gray-100" />
+                  </button>
+                  <button
+                    onClick={slideNext}
+                    className="p-3 border border-white rounded-full shadow-lg"
+                  >
+                    <FaArrowRight className="text-gray-100" />
+                  </button>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Facilities Section */}
       <div className="border-t border-b border-gray-300 py-4 mt-10 px-4 pl-20">
