@@ -151,7 +151,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
             {/* Attractions Carousel */}
             {isMounted && (
-              <div className="p-5 md:p-4 w-full md:w-1/2">
+              <div className="p-4 w-full md:w-1/2">
                 <h3 className="text-white text-xl font-semibold mb-3 text-right">
                   Attractions Nearby
                 </h3>
