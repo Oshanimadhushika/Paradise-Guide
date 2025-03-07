@@ -276,20 +276,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </h2>
         <Divider className="my-2 bg-gray-300 mb-3" />
 
-        {/* <div className="grid grid-cols-12 grid-rows-12 gap-1 px-20 ">
-          {galleryImages.map((image, index) => (
-            <div
-              key={index}
-              className={`relative overflow-hidden rounded-xl ${image.span} group cursor-pointer`}
-            >
-              <Image
-                src={image.url}
-                alt={`Gallery ${index + 1}`}
-                className="w-full h-full object-cover rounded-lg"
-              />
-            </div>
-          ))}
-        </div> */}
         <div className="flex flex-wrap gap-4 justify-center pb-5">
           {galleryImages.map((image, index) => (
             <div
@@ -367,10 +353,12 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </div>
 
       {/* Footer */}
-      <footer className="flex flex-col md:flex-row  px-24 bg-black text-white items-center py-4">
-        <p className="text-start">Paradise Guide © {year ?? "..."}</p>
-        <p className="text-center">Paradise Guide © {year ?? "..."}</p>
-        <p className="text-end">Paradise Guide © {year ?? "..."}</p>
+      <footer className="flex flex-col md:flex-row gap-10 px-24 bg-black text-white items-center py-4 text-center md:text-start">
+        <p className="md:text-start w-full">Paradise Guide © {year ?? "..."}</p>
+        <p className="md:text-center w-full">
+          Paradise Guide © {year ?? "..."}
+        </p>
+        <p className="md:text-end w-full">Paradise Guide © {year ?? "..."}</p>
       </footer>
     </div>
   );
