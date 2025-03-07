@@ -115,14 +115,14 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       {/* Hero Section */}
 
       <section
-        className="w-full h-screen bg-cover bg-center"
+        className="w-full h-screen bg-cover bg-center bg-black/40"
         style={{
           backgroundImage:
             "url('https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg')",
         }}
       >
         {/* Dark Overlay */}
-        <div className="w-full h-full bg-black/40 flex flex-col">
+        {/* <div className="w-full h-full bg-black/40 flex flex-col"> */}
           {/* Logo */}
           <div className="w-full flex justify-center md:justify-start p-6 md:p-10">
             <Image
@@ -188,7 +188,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               </div>
             )}
           </div>
-        </div>
+        {/* </div> */}
       </section>
 
       {/* Facilities Section */}
