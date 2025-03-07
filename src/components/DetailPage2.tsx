@@ -200,7 +200,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             {facilityData.map((facility, index) => (
               <div
                 key={index}
-                className="flex flex-row items-start gap-3 border-r border-gray-300"
+                className="flex flex-row items-start gap-3 border-r border-gray-300 px-2"
               >
                 <span className="text-3xl">{facility.icon}</span>
                 <div className="flex flex-col items-start text-sm justify-start">
