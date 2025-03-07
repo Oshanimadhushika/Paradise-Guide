@@ -316,7 +316,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </div>
 
       {/* Footer */}
-      <footer className="flex flex-row  px-24 bg-black text-white items-center py-4">
+      <footer className="flex flex-col md:flex-row  px-24 bg-black text-white items-center py-4">
         <p className="text-start">Paradise Guide © {year ?? "..."}</p>
         <p className="text-center">Paradise Guide © {year ?? "..."}</p>
         <p className="text-end">Paradise Guide © {year ?? "..."}</p>
