@@ -14,11 +14,11 @@ import AppStore from "../assets/appleStore.png";
 import PlayStore from "../assets/playStore.png";
 import MobileImg from "../assets/mobileImg.png";
 import QRCodeComponent from "./QRCodeComponent";
+import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 
 interface DetailPageProps {
   location_code: any;
 }
-
 
 const attractions = [
   {
@@ -99,8 +99,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const appStoreUrl = "https://apps.apple.com/app-url";
   const playStoreUrl = "https://play.google.com/store/app-url";
 
-
-
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
@@ -119,7 +117,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </div>
 
         {/* logo */}
-        <div className="absolute top-10 left-20 text-white">logo</div>
+        <div className="absolute top-10 left-20 text-white">
+          <Image src={ParadiseGuideLogo} alt="Logo" width={150} height={50} />
+        </div>
         <div className="flex flex-row justify-between items-end pt-64">
           {/* Text Content */}
           <div className=" z-10 text-white p-10 w-1/3 ">
@@ -222,8 +222,8 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </div>
 
       {/* mobile part */}
-      <div className="px-4 md:px-20 py-10">
-        <h2 className="text-center text-2xl md:text-3xl font-bold mb-2">
+      <div className="px-4 md:px-20 pt-10">
+        <h2 className="text-center text-2xl md:text-3xl font-bold mb-2 text-black">
           Unlock More with Our Mobile App!
         </h2>
         <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
@@ -233,9 +233,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </p>
 
         {/* Grid Layout */}
-        <div className="grid grid-cols-12 gap-4  items-center text-center">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
           {/* Left QR Code */}
-          <div className="col-span-12 md:col-span-4  justify-center">
+          <div className="flex flex-col items-center">
             <div>
               <QRCodeComponent value={appStoreUrl} />
             </div>
@@ -252,7 +252,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Mobile Mockup */}
-          <div className="col-span-12 md:col-span-4 flex justify-center">
+          <div className="w-60 md:w-72">
             <Image
               src={MobileImg}
               alt="Download on the App Store"
@@ -262,7 +262,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Google Play Button */}
-          <div className="col-span-12 md:col-span-4  justify-center">
+          <div className="flex flex-col items-center">
             <div>
               <QRCodeComponent value={playStoreUrl} />
             </div>
