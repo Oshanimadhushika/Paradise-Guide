@@ -192,7 +192,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </section>
 
       {/* Facilities Section */}
-      <div className=" py-4 mt-10 px-4 ">
+      <div className=" px-10 mt-10  ">
         <Divider className="my-2 bg-gray-300 mb-3" />
 
         <div className="container mx-auto px-6">
@@ -203,7 +203,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                 className="flex flex-row items-center justify-center gap-3 border-r border-gray-300 px-2"
               >
                 <span className="text-3xl text-start">{facility.icon}</span>
-                <div className="flex flex-col text-end text-sm ">
+                <div className="flex flex-col text-center text-sm ">
                   <p className=" text-gray-700 font-semibold mt-2">
                     {facility.title}
                   </p>
