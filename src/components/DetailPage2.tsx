@@ -15,6 +15,7 @@ import PlayStore from "../assets/playStore.png";
 import MobileImg from "../assets/mobileImg.png";
 import QRCodeComponent from "./QRCodeComponent";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
+import { Divider } from "antd";
 
 interface DetailPageProps {
   location_code: any;
@@ -123,9 +124,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         {/* Logo */}
         <div className="absolute top-10 left-10 md:left-20 md:top-10 flex justify-center md:justify-start w-full">
           <Image
-            src="/logo.png"
+            src={ParadiseGuideLogo}
             alt="Paradise Guide Logo"
-            width={150}
+            width={50}
             height={50}
           />
         </div>
@@ -217,7 +218,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <h2 className="text-xl font-semibold mb-4 text-gray-500 px-20">
           Gallery
         </h2>
-        <div className="grid grid-cols-12 grid-rows-12 gap-1 px-20">
+        <Divider className="my-2" />
+
+        <div className="grid grid-cols-12 grid-rows-12 gap-1 px-20 ">
           {galleryImages.map((image, index) => (
             <div
               key={index}
