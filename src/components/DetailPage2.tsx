@@ -121,13 +121,13 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         src={item.imgUrl}
         alt={item.title}
         width={400}
-        height={250}
+        height={300}
         priority
       />
-      <p className="text-black px-2 bg-white text-sm text-md">
-        {item.title}
-      </p>
-      <p className="text-gray-700 px-2 bg-white text-[12px] text-xs ">{item.location}</p>
+      <div className="bg-white p-2 text-start">
+        <p className="text-gray-600  text-sm font-semibold">{item.title}</p>
+        <p className="text-gray-500 text-xs ">{item.location}</p>
+      </div>
     </div>
   ));
 
@@ -216,7 +216,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             <div className="flex justify-center md:justify-end w-full md:w-auto">
               <button
                 onClick={showModal}
-                className="border-2 border-white text-white font-bold px-4 py-2 flex items-center space-x-2 hover:bg-gray-400 hover:text-black transition-all rounded-full"
+                className="border-2 border-white text-white font-bold px-4 py-2 flex items-center space-x-2  hover:text-gray-400 hover:border-gray-400 transition-all rounded-full"
               >
                 <IoMdShare className="w-5 h-5 mr-2" />
                 <span className="hidden md:inline">Share</span>
@@ -245,7 +245,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
               <button
                 onClick={scrollToSection}
-                className="mt-6 px-6 py-3 text-white border border-white font-semibold rounded-full shadow-lg hover:bg-gray-500  hover:text-black "
+                className="mt-6 px-6 py-3 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
               >
                 Read More
               </button>
