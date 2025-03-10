@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import Image, { StaticImageData } from "next/image";
-// import DearYala from "../assets/dear_yala.png";
+import Image from "next/image";
 import AliceCarousel from "react-alice-carousel";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import "react-alice-carousel/lib/alice-carousel.css";
@@ -117,27 +116,31 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const slideNext = () => carouselRef.current?.slideNext();
 
   const items = attractions.map((item) => (
-    <div key={item.title} className="p-2">
+    <div key={item.title} className="p-3">
       <Image
         src={item.imgUrl}
         alt={item.title}
         width={400}
         height={250}
         priority
-        className="rounded-lg"
       />
-      <p className="text-black pl-2 bg-white text-sm font-semibold">
+      <p className="text-black px-2 bg-white text-sm text-md">
         {item.title}
       </p>
-      <p className="text-gray-700 pl-2 bg-white text-[12px]">{item.location}</p>
+      <p className="text-gray-700 px-2 bg-white text-[12px] text-xs ">{item.location}</p>
     </div>
   ));
+
+  const parkingAvailability = detailData?.parking_availability || [];
+
+  const parkingDescription =
+    parkingAvailability.length > 0 ? "Available" : "Unavailable";
 
   const facilityData = [
     {
       icon: <ParkingIcon />,
       title: "Parking Facilities",
-      description: "Available",
+      description: parkingDescription,
     },
     {
       icon: <WashRoomIcon />,
@@ -152,7 +155,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
     {
       icon: <SafetyIcon />,
       title: "Safety Level",
-      description: detailData?.safety_level || "Unknown",
+      description: detailData?.safety_level || "Not mentioned",
     },
     {
       icon: <ShopIcon />,
@@ -167,7 +170,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
     {
       icon: <VisitorsIcon />,
       title: "Daily Visitors",
-      description: detailData?.daily_visitors || "Data not available",
+      description: detailData?.daily_visitors || "Not mentioned",
     },
   ];
 
@@ -228,7 +231,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Content & Carousel */}
-          <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full mt-20 md:mt-32 lg:mt-44  pb-2">
+          <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full mt-20 md:mt-40 lg:mt-48 pb-2">
             {/* Text Content */}
             <div className="text-white p-6 w-full md:w-1/2">
               <h1 className="text-4xl font-bold leading-tight">
@@ -326,7 +329,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <Divider className="my-2 bg-gray-300 mb-3" />
 
         <div className="flex flex-wrap gap-4 justify-center pb-5">
-          {detailData?.gallery?.map((item, index) => (
+          {detailData?.gallery?.slice(0, 8).map((item, index) => (
             <div
               key={index}
               className={`relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group`}
@@ -351,7 +354,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <p className="text-center text-gray-600 max-w-2xl mx-auto mb-8">
           Looking for more nearby locations, exciting events, top facilities,
           and fun activities? Our mobile app brings you an enhanced experience
-          with exclusive features tailored just for you.
+          with exclusive features tailored just for you. Stay updated with
+          real-time recommendations, discover hidden gems, and explore
+          everything around you effortlessly.
         </p>
 
         {/* Grid Layout */}
@@ -367,8 +372,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               <Image
                 src={AppStore}
                 alt="Download on the App Store"
-                // width={150}
-                // height={50}
                 className="w-full h-auto"
               />
             </div>
@@ -380,8 +383,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               src={MobileImg}
               alt="Download on the App Store"
               className="w-full"
-              // width={150}
-              // height={50}
             />
           </div>
 
@@ -396,8 +397,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               <Image
                 src={PlayStore}
                 alt="Download on the App Store"
-                // width={150}
-                // height={50}
                 className="w-full h-auto"
               />
             </div>
@@ -407,11 +406,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
       {/* Footer */}
       <footer className="flex flex-col md:flex-row gap-10 px-24 bg-black text-white items-center py-4 text-center md:text-start">
-        <p className="md:text-start w-full">Paradise Guide © {year ?? "..."}</p>
-        <p className="md:text-center w-full">
-          Paradise Guide © {year ?? "..."}
-        </p>
-        <p className="md:text-end w-full">Paradise Guide © {year ?? "..."}</p>
+        <p className="md:text-start w-full">PARADISE GUIDE © {year ?? "..."}</p>
+        <p className="md:text-center w-full">PRIVACY POLICY</p>
+        <p className="md:text-end w-full">COOKIES POLICY</p>
       </footer>
     </div>
   );
