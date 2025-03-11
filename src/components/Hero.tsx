@@ -1,15 +1,17 @@
-"use client"
+"use client";
 
 import React, { useEffect, useMemo, useState } from "react";
 import { FaFacebookF, FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { HiMenuAlt3, HiX } from "react-icons/hi";
 import Image, { StaticImageData } from "next/image";
-import type { FC } from 'react';
+import type { FC } from "react";
 import Tiger_hed from "../assets/tiger_hed.jpeg";
 import Tea_plants from "../assets/tea_plants_hed.jpg";
 import Kandy_Perahara from "../assets/kandy-perahera-cover-1.jpg";
 import Trees from "../assets/about_2.jpeg";
 import Daladha_1_hed from "../assets/daladha_hed.png";
+import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
+import Link from "next/link";
 
 // Define types for images
 interface ImageAsset {
@@ -58,21 +60,30 @@ const Hero: FC = () => {
 
       {/* Navbar */}
       <nav className="absolute top-0 left-0 w-full px-8 py-6 flex justify-between items-center bg-gradient-to-b from-black/50 to-transparent z-50">
-        <div className="text-2xl font-playfair text-white font-bold">
-          SL Guide
+        <div>
+          <button onClick={() => (window.location.href = "/")}>
+            <Image
+              src={ParadiseGuideLogo}
+              alt="Paradise Guide Logo"
+              width={110}
+              height={50}
+            />
+          </button>
         </div>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-8">
-          {["Home", "Destinations", "About", "Gallery", "Contact"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-white/90 hover:text-white transition-colors duration-300 text-sm uppercase tracking-wider"
-            >
-              {item}
-            </a>
-          ))}
+          {["Home", "Destinations", "About", "Gallery", "Contact"].map(
+            (item) => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-white/90 hover:text-white transition-colors duration-300 text-sm uppercase tracking-wider"
+              >
+                {item}
+              </a>
+            )
+          )}
         </div>
 
         <div className="hidden md:block">
@@ -107,21 +118,28 @@ const Hero: FC = () => {
           </button>
 
           <div className="absolute top-6 left-8">
-            <span className="text-2xl font-playfair text-white font-bold">
-              SL Guide
-            </span>
+            <Link href="/">
+              <Image
+                src={ParadiseGuideLogo}
+                alt="Paradise Guide Logo"
+                width={110}
+                height={50}
+              />
+            </Link>
           </div>
 
           <div className="flex flex-col items-center justify-center h-full gap-8">
-            {["Home", "Destinations", "About", "Gallery", "Contact"].map((item) => (
-              <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-white/90 hover:text-white transition-colors duration-300 text-lg uppercase tracking-wider"
-              >
-                {item}
-              </a>
-            ))}
+            {["Home", "Destinations", "About", "Gallery", "Contact"].map(
+              (item) => (
+                <a
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="text-white/90 hover:text-white transition-colors duration-300 text-lg uppercase tracking-wider"
+                >
+                  {item}
+                </a>
+              )
+            )}
             <button className="px-6 py-3 border border-white/30 text-white hover:bg-white/10 transition-all duration-300 rounded-md text-lg mt-4">
               Book Now
             </button>
@@ -179,4 +197,4 @@ const Hero: FC = () => {
   );
 };
 
-export default Hero; 
+export default Hero;

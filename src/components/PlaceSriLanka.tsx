@@ -11,9 +11,6 @@ import Kandy from "../assets/kandyLake.jpeg";
 import Yala from "../assets/dear_yala.png";
 import SriPadaya from "../assets/sripadaya.jpeg";
 import Link from "next/link";
-// import dynamic from 'next/dynamic';
-
-// import { useRouter } from 'next/router';
 
 interface Place {
   id: number;
@@ -31,12 +28,6 @@ interface Place {
 }
 
 const PlaceSriLanka: React.FC = () => {
-  // const router = useRouter();
-
-  // const goToSeeAll = () => {
-  //   router.push('/see-all');
-  // };
-
   const places: Place[] = [
     {
       id: 1,
@@ -160,13 +151,6 @@ const PlaceSriLanka: React.FC = () => {
     },
   ];
 
-  // const handlePlaceClick = (place: Place) => {
-  //   navigate('/detail', {
-  //     state: { place },
-  //     replace: false
-  //   });
-  // };
-
   return (
     <section className="py-12 bg-gray-50">
       <Container className="max-w-7xl mx-auto px-4">
@@ -174,20 +158,11 @@ const PlaceSriLanka: React.FC = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
             Top Attractions Of Sri Lanka
           </h2>
-          {/* <button
-            // onClick={() => navigate('/see-all')}
-            onClick={goToSeeAll}
-            className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300"
-          >
-            See all
-          </button> */}
-          <button>
-            <Link href="/see-all">
-              <span className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300 cursor-pointer">
-                See all
-              </span>
-            </Link>
-          </button>
+          <Link href="/see-all">
+            <button className="text-blue-600 hover:text-blue-700 font-medium transition-colors duration-300 whitespace-nowrap">
+              See all
+            </button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
@@ -195,7 +170,6 @@ const PlaceSriLanka: React.FC = () => {
             <div
               key={place.id}
               className="flex items-center bg-white rounded-lg shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:shadow-gray-200 cursor-pointer"
-              // onClick={() => handlePlaceClick(place)}
             >
               <div className="flex-shrink-0 relative w-24 h-24">
                 <Image
@@ -221,7 +195,3 @@ const PlaceSriLanka: React.FC = () => {
 };
 
 export default PlaceSriLanka;
-
-// export default dynamic(() => Promise.resolve(PlaceSriLanka), {
-//   ssr: false
-// });

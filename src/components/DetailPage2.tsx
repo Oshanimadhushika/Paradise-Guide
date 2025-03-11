@@ -18,6 +18,8 @@ import { Divider } from "antd";
 import axios from "axios";
 import { IoMdShare } from "react-icons/io";
 import ShareModal from "./ShareModal";
+import Link from "next/link";
+import { trackEvent } from "@/lib/gtag";
 
 interface DetailPageProps {
   location_code: any;
@@ -177,15 +179,27 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const appStoreUrl = "https://apps.apple.com/app-url";
   const playStoreUrl = "https://play.google.com/store/app-url";
 
-  const description = detailData?.description || "";
-
   const scrollToSection = () => {
     const section = document.getElementById("mobileAppSection");
 
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
+
+    trackEvent(
+      "read_more_attraction",
+      "User Interaction",
+      "Read More Button Click"
+    );
   };
+
+  const rawDescription = detailData?.description || "";
+
+  const cleanDescription = () => {
+    return rawDescription.replace(/^#[^\n]*\n/, "").trim();
+  };
+
+  const finalDescription = cleanDescription().slice(0, 350);
 
   return (
     <div className="w-full bg-white">
@@ -204,18 +218,35 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           <div className="w-full flex justify-between items-center p-5 ">
             {/* Logo */}
             <div className="flex justify-center md:justify-start w-full md:w-auto">
-              <Image
-                src={ParadiseGuideLogo}
-                alt="Paradise Guide Logo"
-                width={110}
-                height={50}
-              />
+              <button onClick={() => (window.location.href = "/")}>
+                <Image
+                  src={ParadiseGuideLogo}
+                  alt="Paradise Guide Logo"
+                  width={110}
+                  height={50}
+                />
+              </button>
+              {/* <Link href="/">
+                <Image
+                  src={ParadiseGuideLogo}
+                  alt="Paradise Guide Logo"
+                  width={110}
+                  height={50}
+                />
+              </Link> */}
             </div>
 
             {/* Share Button */}
             <div className="flex justify-center md:justify-end w-full md:w-auto">
               <button
-                onClick={showModal}
+                onClick={() => {
+                  trackEvent(
+                    "share_attraction",
+                    "User Interaction",
+                    detailData?.location_name
+                  );
+                  showModal();
+                }}
                 className="border-2 border-white text-white font-bold px-4 py-2 flex items-center space-x-2  hover:text-gray-400 hover:border-gray-400 transition-all rounded-full"
               >
                 <IoMdShare className="w-5 h-5 mr-2" />
@@ -231,16 +262,18 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Content & Carousel */}
-          <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full mt-20 md:mt-40 lg:mt-48 pb-2">
+          <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full mt-20 md:mt-24 lg:mt-52 xl:mt-72 pb-2">
             {/* Text Content */}
             <div className="text-white p-6 w-full md:w-1/2">
-              <h1 className="text-4xl font-bold leading-tight">
+              <h1 className="text-4xl font-bold leading-tight font-serif">
                 {detailData?.location_name}
               </h1>
 
-              <div className="mt-4 text-lg  p-2">
-                {description.slice(0, 200)}
-                {description.length > 200 && "..."}{" "}
+              <div className="mt-4 text-lg">
+                {finalDescription.split("\n").map((line, index) => (
+                  <span key={index}>{line}</span>
+                ))}
+                {cleanDescription().length > 350 && "...."}
               </div>
 
               <button
@@ -323,7 +356,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
       {/* Gallery Section */}
       <div className="p-10">
-        <h2 className="text-xl font-semibold mb-4 text-gray-500 px-20">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-500 px-20 font-serif">
           Gallery
         </h2>
         <Divider className="my-2 bg-gray-300 mb-3" />
@@ -405,7 +438,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </div>
 
       {/* Footer */}
-      <footer className="flex flex-col md:flex-row gap-10 px-24 bg-black text-white items-center py-4 text-center md:text-start">
+      <footer className="flex flex-col md:flex-row gap-10 px-24 bg-black text-white items-center py-4 text-center md:text-start text-sm">
         <p className="md:text-start w-full">PARADISE GUIDE © {year ?? "..."}</p>
         <p className="md:text-center w-full">PRIVACY POLICY</p>
         <p className="md:text-end w-full">COOKIES POLICY</p>

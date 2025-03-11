@@ -7,7 +7,7 @@ import { Search, ArrowLeft } from "lucide-react";
 import { Pagination } from "antd";
 import "antd/dist/reset.css";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
-// import Link from "next/link";
+import Link from "next/link";
 
 type Category =
   | "all"
@@ -111,10 +111,13 @@ const SeeAllPage = () => {
       <ScrollAnimations />
       <Container className="max-w-7xl mx-auto px-4">
         <button>
-          <a href="/" className="flex items-center text-black">
+          <button
+            onClick={() => (window.location.href = "/")}
+            className="flex items-center text-black"
+          >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back
-          </a>
+          </button>
         </button>
 
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
@@ -178,7 +181,9 @@ const SeeAllPage = () => {
                     <h3 className="text-lg font-bold text-gray-800 mb-1">
                       {place.location_name}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-2">{place.city}</p>
+                    <p className="text-gray-600 text-sm mb-2 font-playfair">
+                      {place.city}
+                    </p>
                     <div className="flex items-center justify-between">
                       <span className="text-gray-600 text-sm">{place.tag}</span>
                       <span className="text-blue-600 font-semibold">

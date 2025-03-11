@@ -13,7 +13,8 @@ export default {
         foreground: "var(--foreground)",
       },
       fontFamily: {
-        playfair: ['Playfair Display', 'serif'],
+        playfair: ["Playfair Display", "serif"],
+        inter: ["Inter", "sans-serif"],
       },
     },
   },
