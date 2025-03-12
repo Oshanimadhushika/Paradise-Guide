@@ -20,6 +20,8 @@ import { IoMdShare } from "react-icons/io";
 import ShareModal from "./ShareModal";
 import Link from "next/link";
 import { trackEvent } from "@/lib/gtag";
+import AppStoreQr from "@/assets/svgs/AppStoreQr";
+import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 
 interface DetailPageProps {
   location_code: any;
@@ -82,6 +84,8 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
+  const appStoreUrl = "https://apps.apple.com/app-url";
+  const playStoreUrl = "https://play.google.com/store/app-url";
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
@@ -117,18 +121,25 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const slidePrev = () => carouselRef.current?.slidePrev();
   const slideNext = () => carouselRef.current?.slideNext();
 
-  const items = attractions.map((item) => (
-    <div key={item.title} className="p-3">
+  const items = attractions.map((item, index) => (
+    <div
+      key={item.title}
+      className=" w-full md:w-[200px] md:min-w-[200px] flex-shrink-0 "
+      // style={{
+      //   marginRight: index === attractions.length - 1 ? "0px" : "10px",
+      // }}
+    >
       <Image
         src={item.imgUrl}
         alt={item.title}
-        width={400}
-        height={300}
+        width={200}
+        height={200}
+        className="w-full md:w-[200px] h-[200px]   object-cover"
         priority
       />
-      <div className="bg-white p-2 text-start">
-        <p className="text-gray-600  text-sm font-semibold">{item.title}</p>
-        <p className="text-gray-500 text-xs ">{item.location}</p>
+      <div className="bg-white p-2 text-start h-[50px]">
+        <p className="text-gray-600 text-sm font-semibold">{item.title}</p>
+        <p className="text-gray-500 text-xs">{item.location}</p>
       </div>
     </div>
   ));
@@ -152,7 +163,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           ? "Undefined"
           : detailData?.washroom_availability === 2
           ? "Available"
-          : "Not available",
+          : "Not Available",
     },
     {
       icon: <SafetyIcon />,
@@ -167,7 +178,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           ? "Undefined"
           : detailData?.shops_availability === 2
           ? "Available"
-          : "Not available",
+          : "Not Available",
     },
     {
       icon: <VisitorsIcon />,
@@ -175,9 +186,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       description: detailData?.daily_visitors || "Not mentioned",
     },
   ];
-
-  const appStoreUrl = "https://apps.apple.com/app-url";
-  const playStoreUrl = "https://play.google.com/store/app-url";
 
   const scrollToSection = () => {
     const section = document.getElementById("mobileAppSection");
@@ -206,15 +214,14 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       {/* Hero Section */}
 
       <section
-        className="w-full h-full md:h-screen bg-cover bg-center "
+        className="relative w-full h-full lg:h-screen bg-cover bg-center "
         style={{
           backgroundImage: detailData?.gallery?.[0]?.image_path
             ? `url("${detailData.gallery[0].image_path}")`
             : `url("https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg")`,
         }}
       >
-        {/* Dark Overlay */}
-        <div className="w-full h-full bg-black/40 flex flex-col">
+        <div className="w-full h-full flex flex-col">
           <div className="w-full flex justify-between items-center p-5 ">
             {/* Logo */}
             <div className="flex justify-center md:justify-start w-full md:w-auto">
@@ -226,14 +233,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                   height={50}
                 />
               </button>
-              {/* <Link href="/">
-                <Image
-                  src={ParadiseGuideLogo}
-                  alt="Paradise Guide Logo"
-                  width={110}
-                  height={50}
-                />
-              </Link> */}
             </div>
 
             {/* Share Button */}
@@ -262,96 +261,103 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Content & Carousel */}
-          <div className="flex flex-col md:flex-row justify-between items-end px-6  gap-6 w-full mt-20 md:mt-24 lg:mt-52 xl:mt-72 pb-2">
-            {/* Text Content */}
-            <div className="text-white p-6 w-full md:w-1/2">
-              <h1 className="text-4xl font-bold leading-tight font-serif">
-                {detailData?.location_name}
-              </h1>
+          <div className="w-full flex justify-center bg-black/40 p-3 mt-auto">
+            <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
+              {/* Text Content */}
+              <div className="text-white p-6 lg:p-2 w-full lg:w-1/2">
+                <h1 className="text-4xl font-bold leading-tight font-serif">
+                  {detailData?.location_name}
+                </h1>
 
-              <div className="mt-4 text-lg">
-                {finalDescription.split("\n").map((line, index) => (
-                  <span key={index}>{line}</span>
-                ))}
-                {cleanDescription().length > 350 && "...."}
+                <Divider className="my-2 bg-gray-200 mb-3" />
+
+                <div className="mt-4 text-lg">
+                  {finalDescription.split("\n").map((line, index) => (
+                    <span key={index}>{line}</span>
+                  ))}
+                  {cleanDescription().length > 350 && "...."}
+                </div>
+
+                <button
+                  onClick={scrollToSection}
+                  className="mt-4 px-6 py-2 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
+                >
+                  Read More
+                </button>
               </div>
 
-              <button
-                onClick={scrollToSection}
-                className="mt-6 px-6 py-3 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
-              >
-                Read More
-              </button>
+              {/* Attractions Carousel */}
+              {isMounted && (
+                <div className="p-2 w-full lg:w-1/2">
+                  <h3 className="text-white text-xl font-semibold mb-3 text-center md:text-right pr-0 md:pr-9">
+                    Attractions Nearby
+                  </h3>
+                  <div className="">
+                    <AliceCarousel
+                      ref={carouselRef}
+                      items={items}
+                      disableDotsControls
+                      disableButtonsControls
+                      responsive={{
+                        0: { items: 1 },
+                        600: { items: 3 },
+                        1024: { items: 2 },
+                        1440: { items: 3 },
+                      }}
+                      infinite
+                      mouseTracking
+                    />
+                  </div>
+
+                  <div className="flex justify-end items-center gap-4 mt-4 pr-0 md:pr-9">
+                    <button
+                      onClick={slidePrev}
+                      className="p-3 border border-white rounded-full shadow-lg"
+                    >
+                      <FaArrowLeft className="text-gray-100" />
+                    </button>
+                    <button
+                      onClick={slideNext}
+                      className="p-3 border border-white rounded-full shadow-lg"
+                    >
+                      <FaArrowRight className="text-gray-100" />
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-
-            {/* Attractions Carousel */}
-            {isMounted && (
-              <div className="p-4 w-full md:w-1/2">
-                <h3 className="text-white text-xl font-semibold mb-3 text-right">
-                  Attractions Nearby
-                </h3>
-                <div className="">
-                  <AliceCarousel
-                    ref={carouselRef}
-                    items={items}
-                    disableDotsControls
-                    disableButtonsControls
-                    responsive={{
-                      0: { items: 1 },
-                      600: { items: 2 },
-                      1024: { items: 3 },
-                    }}
-                    infinite
-                    mouseTracking
-                  />
-                </div>
-
-                <div className="flex justify-end items-center gap-4 mt-4">
-                  <button
-                    onClick={slidePrev}
-                    className="p-3 border border-white rounded-full shadow-lg"
-                  >
-                    <FaArrowLeft className="text-gray-100" />
-                  </button>
-                  <button
-                    onClick={slideNext}
-                    className="p-3 border border-white rounded-full shadow-lg"
-                  >
-                    <FaArrowRight className="text-gray-100" />
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </section>
 
       {/* Facilities Section */}
       <div className=" px-10 mt-10  ">
-        <Divider className="my-2 bg-gray-300 mb-3" />
+        <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-start p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-6 text-start p-4">
             {facilityData.map((facility, index) => (
-              <div
-                key={index}
-                className="flex flex-row items-start  gap-3 border-r border-gray-300  px-2"
-              >
-                <span className="text-3xl text-center">{facility.icon}</span>
-                <div className="flex flex-col items-start justify-start text-sm ">
-                  <p className=" text-gray-700 font-semibold mt-2">
-                    {facility.title}
-                  </p>
-                  <p className="text-gray-700 flex items-start justify-start ">
+              <div key={index} className="flex items-center gap-3 px-2">
+                {/* Icon */}
+                <span className="text-3xl">{facility.icon}</span>
+
+                {/* Text */}
+                <div className="flex flex-col text-sm">
+                  <p className="text-gray-400 ">{facility.title}</p>
+                  <p className="text-gray-400 font-semibold">
                     {facility.description}
                   </p>
                 </div>
+
+                {index !== facilityData.length - 1 && (
+                  <span className="hidden md:block w-px bg-gray-300 border border-gray-300 h-full ml-2"></span>
+                )}
               </div>
             ))}
           </div>
         </div>
 
-        <Divider className="my-2 bg-gray-300 mb-3" />
+        <Divider className="my-2 bg-dividerGrayColour mb-3" />
       </div>
 
       {/* Gallery Section */}
@@ -359,7 +365,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <h2 className="text-2xl font-semibold mb-4 text-gray-500 px-20 font-serif">
           Gallery
         </h2>
-        <Divider className="my-2 bg-gray-300 mb-3" />
+        <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
         <div className="flex flex-wrap gap-4 justify-center pb-5">
           {detailData?.gallery?.slice(0, 8).map((item, index) => (
@@ -397,7 +403,8 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           {/* Left QR Code */}
           <div className="flex flex-col items-center w-[202px] order-1 md:order-none">
             <div>
-              <QRCodeComponent value={appStoreUrl} />
+              {/* <QRCodeComponent value={appStoreUrl} /> */}
+              <AppStoreQr />
             </div>
 
             {/* App Store Button */}
@@ -422,7 +429,8 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           {/* Google Play Button */}
           <div className="flex flex-col items-center  w-[202px] order-2 md:order-none">
             <div>
-              <QRCodeComponent value={playStoreUrl} />
+              {/* <QRCodeComponent value={playStoreUrl} /> */}
+              <PlayStoreQr />
             </div>
 
             {/* App Store Button */}

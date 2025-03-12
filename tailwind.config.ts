@@ -11,8 +11,13 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        border: "var(--boder)",
+        dividerGrayColour:"var(--divider-gray)",
+        textColourOne:"var(--text-colour-one)",
+
       },
       fontFamily: {
+        // sans: ["SF Pro Display", "sans-serif"], 
         playfair: ["Playfair Display", "serif"],
         inter: ["Inter", "sans-serif"],
       },

@@ -3,9 +3,8 @@
 import React from "react";
 import dynamic from "next/dynamic";
 
-// Dynamically import QRCode from Ant Design (no SSR needed)
 const QRCode = dynamic(() => import("antd").then((mod) => mod.QRCode), {
-  ssr: false, // This is fine here because this file is a client component
+  ssr: false, 
 });
 
 interface QRCodeComponentProps {

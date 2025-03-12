@@ -1,4 +1,3 @@
-import DetailPage from "@/components/DetailPage";
 import DetailPage2 from "@/components/DetailPage2";
 
 const fetchPost = async (locationCode: string) => {
@@ -80,7 +79,5 @@ export default async function GetDetailsEachPlace({ params }: any) {
 
   if (!locationCode) return <p>Loading...</p>;
 
-  // return <DetailPage location_code={locationCode} />;
   return <DetailPage2 location_code={locationCode} />;
-
 }
