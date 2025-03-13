@@ -265,7 +265,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
               {/* Text Content */}
               <div className="text-white p-6 lg:p-2 w-full lg:w-1/2">
-                <h1 className="text-4xl font-bold leading-tight font-serif">
+                <h1 className="text-[48px] font-extrabold leading-tight">
                   {detailData?.location_name}
                 </h1>
 
@@ -289,7 +289,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               {/* Attractions Carousel */}
               {isMounted && (
                 <div className="p-2 w-full lg:w-1/2">
-                  <h3 className="text-white text-xl font-semibold mb-3 text-center md:text-right pr-0 md:pr-9">
+                  <h3 className="text-white text-2xl font-bold mb-3 text-center md:text-right pr-0 md:pr-9">
                     Attractions Nearby
                   </h3>
                   <div className="">
@@ -337,21 +337,20 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-6 text-start p-4">
             {facilityData.map((facility, index) => (
-              <div key={index} className="flex items-center gap-3 px-2">
-                {/* Icon */}
+              <div key={index} className="flex items-center justify-center md:justify-start gap-3 px-4">
                 <span className="text-3xl">{facility.icon}</span>
 
-                {/* Text */}
-                <div className="flex flex-col text-sm">
-                  <p className="text-gray-400 ">{facility.title}</p>
-                  <p className="text-gray-400 font-semibold">
+                <div className="flex flex-col ">
+                  <p className="text-gray-400 text-base  whitespace-normal xl:whitespace-nowrap">{facility.title}</p>
+                  <p className="text-gray-400 font-semibold text-lg  whitespace-normal xl:whitespace-nowrap">
                     {facility.description}
                   </p>
-                </div>
 
-                {index !== facilityData.length - 1 && (
-                  <span className="hidden md:block w-px bg-gray-300 border border-gray-300 h-full ml-2"></span>
+                </div>
+ {index !== facilityData.length - 1 && (
+                  <span className=" hidden md:block w-px bg-gray-300 border border-gray-300 h-full ml-2 justify-end"></span>
                 )}
+               
               </div>
             ))}
           </div>
@@ -360,9 +359,10 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
       </div>
 
+    
       {/* Gallery Section */}
       <div className="p-10">
-        <h2 className="text-2xl font-semibold mb-4 text-gray-500 px-20 font-serif">
+        <h2 className="text-[48px] font-bold mb-4 text-gray-500 px-20 ">
           Gallery
         </h2>
         <Divider className="my-2 bg-dividerGrayColour mb-3" />

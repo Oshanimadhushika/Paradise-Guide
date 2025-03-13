@@ -2,14 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @font-face {
-  font-family: "SF Pro Display";
-  src: url("/fonts/SF-Pro-Display.woff2") format("woff2"),
-       url("/fonts/SF-Pro-Display.woff") format("woff"),
-       url("/fonts/SF-Pro-Display.ttf") format("truetype");
-  font-weight: normal;
+@font-face {
+  font-family: "SF Pro";
+  src: url("/public/fonts/SF-Pro.ttf") format("truetype");
+  font-weight: 700;
   font-style: normal;
-} */
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("/public/fonts/SF-Pro-Italic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
 
 :root {
   --background: #ffffff;
@@ -30,7 +35,6 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  /* font-family: "SF Pro Display", sans-serif; */
-  /* font-family: Arial, Helvetica, sans-serif; */
-  font-family: "Inter", sans-serif;
+   font-family: "SF Pro", sans-serif;
+  /* font-family: "Inter", sans-serif; */
 }
