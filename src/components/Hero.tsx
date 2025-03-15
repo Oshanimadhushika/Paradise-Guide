@@ -206,7 +206,6 @@ import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 import CoconuntTree from "../assets/coconuntTree.png";
-import Tea_plants from "../assets/tea_plants_hed.jpg";
 import Kandy_Perahara from "../assets/kandy-perahera-cover-1.jpg";
 import Trees from "../assets/about_2.jpeg";
 import Daladha_1_hed from "../assets/daladha_hed.png";
