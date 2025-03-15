@@ -110,7 +110,7 @@ const SeeAllPage = () => {
     <div className="min-h-screen bg-gray-50 py-8">
       <ScrollAnimations />
       <Container className="max-w-7xl mx-auto px-4">
-        <button>
+        <div>
           <button
             onClick={() => (window.location.href = "/")}
             className="flex items-center text-black"
@@ -118,7 +118,7 @@ const SeeAllPage = () => {
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back
           </button>
-        </button>
+        </div>
 
         <h1 className="text-3xl font-bold text-gray-800 mb-2">
           Discover Sri Lanka

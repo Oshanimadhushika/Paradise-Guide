@@ -125,9 +125,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
     <div
       key={item.title}
       className=" w-full md:w-[200px] md:min-w-[200px] flex-shrink-0 "
-      // style={{
-      //   marginRight: index === attractions.length - 1 ? "0px" : "10px",
-      // }}
     >
       <Image
         src={item.imgUrl}
@@ -335,22 +332,25 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-6 text-start p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-5 text-start p-4">
             {facilityData.map((facility, index) => (
-              <div key={index} className="flex items-center justify-center md:justify-start gap-3 px-4">
+              <div
+                key={index}
+                className="flex items-center justify-center md:justify-start gap-3 px-4"
+              >
                 <span className="text-3xl">{facility.icon}</span>
 
                 <div className="flex flex-col ">
-                  <p className="text-gray-400 text-base  whitespace-normal xl:whitespace-nowrap">{facility.title}</p>
+                  <p className="text-gray-400 text-base  whitespace-normal xl:whitespace-nowrap">
+                    {facility.title}
+                  </p>
                   <p className="text-gray-400 font-semibold text-lg  whitespace-normal xl:whitespace-nowrap">
                     {facility.description}
                   </p>
-
                 </div>
- {index !== facilityData.length - 1 && (
+                {index !== facilityData.length - 1 && (
                   <span className=" hidden md:block w-px bg-gray-300 border border-gray-300 h-full ml-2 justify-end"></span>
                 )}
-               
               </div>
             ))}
           </div>
@@ -359,7 +359,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
       </div>
 
-    
       {/* Gallery Section */}
       <div className="p-10">
         <h2 className="text-[48px] font-bold mb-4 text-gray-500 px-20 ">
@@ -378,7 +377,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                 alt={`Gallery image ${item.credit_by}`}
                 className="w-full h-full object-cover rounded-lg transition-transform transform group-hover:scale-105 group-hover:rotate-3 group-hover:opacity-80"
                 width={300}
-                height={300}
+                height={200}
               />
             </div>
           ))}
