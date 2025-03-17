@@ -271,16 +271,19 @@ const Hero = () => {
   };
 
   return (
-    <div
-      className="flex flex-col w-full h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: `url("https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg")`,
-      }}
-    >
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-
+    <div className="relative w-full h-screen flex flex-col">
+      {/* Background Image & Overlay */}
+      <div
+        className="absolute top-0 left-0 w-full h-full bg-cover bg-center overflow-hidden"
+        style={{
+          backgroundImage: `url("https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg")`,
+        }}
+      >
+        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+      </div>
       {/* Hero Section */}
-      <div className="flex flex-col w-full h-full z-30">
+      <div className="flex flex-col w-full z-30 ">
+        {/* <div className="absolute inset-0 bg-black bg-opacity-50"></div> */}
         {/* Navbar */}
         <nav className="flex justify-between items-center p-4 bg-transparent text-white w-full">
           <div>
@@ -330,7 +333,7 @@ const Hero = () => {
 
       {/* Slider Section */}
 
-      <div className="flex flex-col items-center mt-8  w-full z-30">
+      <div className="flex flex-col items-center mt-2  w-full  z-30 overflow-y-hidden">
         {/* Navigation Arrows  */}
         <div className="flex justify-end w-full  px-4 py-2 gap-3">
           <button
@@ -353,14 +356,14 @@ const Hero = () => {
           {sliderData.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col w-[300px] h-64 flex-shrink-0 rounded-lg overflow-hidden relative"
+              className="flex flex-col w-[300px] flex-shrink-0 rounded-lg overflow-hidden relative"
             >
               {/* Image without overlay */}
               <Image
                 src={item.image}
                 alt={item.title}
-                width={360}
-                height={480}
+                width={300}
+                height={50}
                 className="w-full h-full"
               />
 
@@ -373,6 +376,8 @@ const Hero = () => {
         </div>
       </div>
     </div>
+
+  
   );
 };
 

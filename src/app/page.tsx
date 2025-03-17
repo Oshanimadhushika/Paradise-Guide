@@ -124,14 +124,11 @@
 "use client";
 
 import Hero from "../components/Hero";
-import About from "@/components/About";
-import PlaceSriLanka from "@/components/PlaceSriLanka";
-import MobilePart from "@/components/MobilePart";
-import Contact from "@/components/Contact";
-// import Gallery from "@/components/Gallery";
+import ProvincePart from "@/components/ProvincePart";
+import ExploreSection from "@/components/ExploreSection";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface MediaItem {
   id: number;
@@ -214,17 +211,36 @@ const usePageTracking = () => {
 };
 
 export default function Home() {
+  const [year, setYear] = useState<number | null>(null);
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
   usePageTracking();
   return (
     <div>
       <ScrollAnimations />
-      <div className="flex flex-col min-h-screen overflow-x-hidden">
+      <div className="flex flex-col min-h-screen overflow-x-hidden bg-white">
         <main className="">
-          <div className="">
+          <div>
             <Hero />
           </div>
-         
+
+          <div className="mt-3">
+            <ProvincePart />
+          </div>
+
+          <div className="mt-3">
+            <ExploreSection />
+          </div>
         </main>
+        {/* Footer */}
+        <footer className="flex flex-col md:flex-row gap-10 px-24 bg-black text-white items-center py-4 text-center md:text-start text-sm">
+          <p className="md:text-start w-full">
+            PARADISE GUIDE © {year ?? "..."}
+          </p>
+          <p className="md:text-center w-full">PRIVACY POLICY</p>
+          <p className="md:text-end w-full">COOKIES POLICY</p>
+        </footer>
       </div>
     </div>
   );
