@@ -301,15 +301,14 @@ const ProvincePart = () => {
       </div>
 
       {/* Image Slider */}
-      <div className="w-full flex items-center justify-center mt-10">
-         <div className="grid  grid-cols-12 gap-4 w-full justify-center items-start mt-4 ">
+         <div className="grid  grid-cols-12 gap-2 w-full justify-center items-start mt-6 px-0 lg:px-16">
            {getVisibleProvinces().map((province, idx) => (
           <div
             key={province.id}
             className={`flex flex-col justify-center items-center transition-all duration-500 mx-auto
               ${
                 idx === 1
-                  ? "md:col-span-5 col-span-10 h-[420px]"
+                  ? "md:col-span-6 col-span-12 h-[420px]"
                   : "md:col-span-3 hidden md:flex h-[320px]"
               }`}
           >
@@ -326,7 +325,6 @@ const ProvincePart = () => {
           </div>
         ))}
        
-      </div>
       </div>
      
 
