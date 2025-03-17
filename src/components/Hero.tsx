@@ -353,7 +353,7 @@ const Hero = () => {
           {sliderData.map((item, index) => (
             <div
               key={index}
-              className="flex flex-col w-[300px] h-[480px] flex-shrink-0 rounded-lg overflow-hidden relative"
+              className="flex flex-col w-[300px] h-64 flex-shrink-0 rounded-lg overflow-hidden relative"
             >
               {/* Image without overlay */}
               <Image
