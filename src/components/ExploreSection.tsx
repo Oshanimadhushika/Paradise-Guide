@@ -355,7 +355,7 @@ import Sigiriya from "../assets/sigiriya.jpeg";
 
 const ExploreSection = () => {
   return (
-    <section className="grid grid-cols-12 gap-4 items-center  mx-auto px-4 py-5 ">
+    <section className="grid grid-cols-12 gap-4 items-center  mx-auto px-4 py-5 pt-8">
       {/* Left Content */}
       <div className="col-span-12 lg:col-span-6 w-full flex flex-col sm:flex-row items-center lg:items-start space-y-6 text-center lg:text-left bg-slate-200 ">
         <div >
@@ -373,11 +373,11 @@ const ExploreSection = () => {
             <Image
               src={ParadiseGuideLogo}
               alt="Paradise Guide Logo"
-              width={50}
-              height={50}
+              width={80}
+              height={80}
             />
-            <Image src={AppStore} alt="App Store" width={100} height={50} />
-            <Image src={PlayStore} alt="Google Play" width={100} height={50} />
+            <Image src={AppStore} alt="App Store" width={100} height={80} />
+            <Image src={PlayStore} alt="Google Play" width={100} height={80} />
           </div>
           </div>
          
@@ -411,7 +411,7 @@ const ExploreSection = () => {
             northern Matale District near the town of Dambulla in the Central
             Province, Sri Lanka.
           </p>
-          <button className="mt-2 px-4 py-2 border border-gray-300 text-gray-300 bg-transparent font-semibold rounded-full hover:border-white hover:text-white transition">
+          <button className="mt-2 px-4 py-2 border border-gray-300 text-gray-300 bg-transparent font-semibold rounded-full hover:border-white hover:text-white transition text-sm">
             EXPLORE NOW
           </button>
         </div>

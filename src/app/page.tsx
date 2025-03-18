@@ -129,6 +129,7 @@ import ExploreSection from "@/components/ExploreSection";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Footer from "@/components/Footer";
 
 interface MediaItem {
   id: number;
@@ -211,10 +212,6 @@ const usePageTracking = () => {
 };
 
 export default function Home() {
-  const [year, setYear] = useState<number | null>(null);
-  useEffect(() => {
-    setYear(new Date().getFullYear());
-  }, []);
   usePageTracking();
   return (
     <div>
@@ -229,18 +226,11 @@ export default function Home() {
             <ProvincePart />
           </div>
 
-          <div className="mt-3">
+          <div className="mt-5">
             <ExploreSection />
           </div>
         </main>
-        {/* Footer */}
-        <footer className="flex flex-col md:flex-row gap-10 px-24 bg-black text-white items-center py-4 text-center md:text-start text-sm">
-          <p className="md:text-start w-full">
-            PARADISE GUIDE © {year ?? "..."}
-          </p>
-          <p className="md:text-center w-full">PRIVACY POLICY</p>
-          <p className="md:text-end w-full">COOKIES POLICY</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

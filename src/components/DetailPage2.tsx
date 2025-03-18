@@ -22,6 +22,7 @@ import ShareModal from "./ShareModal";
 import { trackEvent } from "@/lib/gtag";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
+import Footer from "./Footer";
 
 interface DetailPageProps {
   location_code: any;
@@ -445,11 +446,8 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </div>
 
       {/* Footer */}
-      <footer className="flex flex-col md:flex-row gap-10 px-24 bg-black text-white items-center py-4 text-center md:text-start text-sm">
-        <p className="md:text-start w-full">PARADISE GUIDE © {year ?? "..."}</p>
-        <p className="md:text-center w-full">PRIVACY POLICY</p>
-        <p className="md:text-end w-full">COOKIES POLICY</p>
-      </footer>
+      <Footer />
+
     </div>
   );
 };

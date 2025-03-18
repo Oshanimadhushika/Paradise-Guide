@@ -204,53 +204,50 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
-import CoconuntTree from "../assets/coconuntTree.png";
-import Kandy_Perahara from "../assets/kandy-perahera-cover-1.jpg";
-import Trees from "../assets/about_2.jpeg";
-import Daladha_1_hed from "../assets/daladha_hed.png";
+import Castle from "../assets/Categories/Castle.png";
+import Adventure from "../assets/Categories/Adventure.png";
+import Culture from "../assets/Categories/Culture.png";
+import Hill from "../assets/Categories/Hill.png";
+import Northern from "../assets/Categories/Northern.png";
+import WildLife from "../assets/Categories/WildLife.png";
+import BgImg from "../assets/BG Image.png";
+import Navbar from "./Navbar";
 
 const sliderData = [
   {
-    image: CoconuntTree,
+    image: Castle,
     title: "Coastal Region",
     description:
       "Sri Lanka’s beautiful coastline with beaches, surfing spots, and harbours.",
   },
   {
-    image: Trees,
+    image: Hill,
     title: "Hill Country",
     description:
       "Famous for its mountains, tea plantations, waterfalls, and cool climate.",
   },
   {
-    image: Daladha_1_hed,
+    image: WildLife,
     title: "Wildlife & Nature",
     description:
       "National parks, safaris, rainforests, and eco-tourism hotspots.",
   },
   {
-    image: Kandy_Perahara,
+    image: Northern,
     title: "Northern Region",
     description: "Rich in Tamil culture, history, and remote beaches.",
   },
 
   {
-    image: CoconuntTree,
-    title: "Hill Country",
-    description:
-      "Famous for its mountains, tea plantations, waterfalls, and cool climate.",
+    image: Adventure,
+    title: "Adventure & Eco-Tourism",
+    description: "Best for adventure sports, trekking, and nature exploration.",
   },
   {
-    image: Daladha_1_hed,
-    title: "Wildlife & Nature",
+    image: Culture,
+    title: "Cultural Triangle",
     description:
-      "National parks, safaris, rainforests, and eco-tourism hotspots.",
-  },
-  {
-    image: CoconuntTree,
-    title: "Northern Region",
-    description: "Rich in Tamil culture, history, and remote beaches.",
+      "Ancient capitals, UNESCO heritage sites, and cultural landmarks.",
   },
 ];
 
@@ -271,113 +268,89 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative w-full h-screen flex flex-col">
-      {/* Background Image & Overlay */}
-      <div
-        className="absolute top-0 left-0 w-full h-full bg-cover bg-center overflow-hidden"
-        style={{
-          backgroundImage: `url("https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg")`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-      </div>
-      {/* Hero Section */}
-      <div className="flex flex-col w-full z-30 ">
-        {/* <div className="absolute inset-0 bg-black bg-opacity-50"></div> */}
-        {/* Navbar */}
-        <nav className="flex justify-between items-center p-4 bg-transparent text-white w-full">
-          <div>
-            <Image
-              src={ParadiseGuideLogo}
-              alt="Paradise Guide Logo"
-              width={100}
-              height={100}
-            />
-          </div>
-          <ul className="hidden md:flex space-x-5 ">
-            {["Home", "Destinations", "Trips"].map((item) => (
-              <li
-                key={item}
-                className={`cursor-pointer px-4 py-2 transition-all hover:bg-slate-400 hover:rounded-full ${
-                  active === item
-                    ? "bg-gray-400 bg-opacity-30 rounded-full "
-                    : ""
-                }`}
-                onClick={() => setActive(item)}
-              >
-                {item}
-              </li>
-            ))}
-            <button className="text-2xl">☰</button>
-          </ul>
-        </nav>
-
-        <div className="flex flex-col items-start justify-center text-left text-white p-3 w-full pl-8 pt-10">
-          <h1 className="text-4xl md:text-6xl font-extrabold">
-            EXPLORE SRI LANKA
-          </h1>
-          <p className="mt-4 text-lg md:text-xl max-w-2xl">
-            Discover the breathtaking beauty and rich heritage of Sri Lanka, an
-            island where adventure and tranquility go hand in hand. Whether
-            you're drawn to sun-kissed beaches, the lush greenery of the hill
-            country, or the timeless splendor of cultural landmarks, Sri Lanka
-            offers something for every traveler.
-          </p>
-          <input
-            type="text"
-            placeholder="Search Here"
-            className="mt-6 p-3 w-2/3 md:w-1/3 rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
+    <div className="flex flex-col h-full">
+      {/* Image Section */}
+      <div className="relative w-full h-[90vh] md:h-[75vh]">
+        {/* Background Image & Overlay */}
+        <div className="absolute top-0 left-0 w-full h-full bg-center overflow-hidden">
+          <Image
+            src={BgImg}
+            alt="Background"
+            layout="fill"
+            objectFit="cover"
+            className="absolute inset-0"
           />
-        </div>
-      </div>
-
-      {/* Slider Section */}
-
-      <div className="flex flex-col items-center mt-2  w-full  z-30 overflow-y-hidden">
-        {/* Navigation Arrows  */}
-        <div className="flex justify-end w-full  px-4 py-2 gap-3">
-          <button
-            onClick={scrollLeft}
-            className="text-white p-2 rounded-full border border-white"
-          >
-            <FaArrowLeft />
-          </button>
-          <button
-            onClick={scrollRight}
-            className="text-white p-2 rounded-full border border-white"
-          >
-            <FaArrowRight />
-          </button>
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
         </div>
 
-        {/* Slider Section  */}
+        {/* Hero Section */}
+        <div className="flex flex-col w-full z-50 relative mt-7">
+          <Navbar />
 
-        <div ref={sliderRef} className="flex space-x-1 w-full overflow-hidden">
-          {sliderData.map((item, index) => (
-            <div
-              key={index}
-              className="flex flex-col w-[300px] flex-shrink-0 rounded-lg overflow-hidden relative"
-            >
-              {/* Image without overlay */}
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={300}
-                height={50}
-                className="w-full h-full"
+          {/* Hero Content*/}
+          <div className="absolute top-20 md:top-50 lg:top-56 left-0 w-full flex flex-col items-start text-left text-white px-8">
+            <h1 className="text-2xl md:text-6xl font-extrabold">
+              EXPLORE SRI LANKA
+            </h1>
+            <p className="mt-4 text-lg md:text-xl max-w-2xl">
+              Discover the breathtaking beauty and rich heritage of Sri Lanka,
+              an island where adventure and tranquility go hand in hand. Whether
+              you're drawn to sun-kissed beaches, the lush greenery of the hill
+              country, or the timeless splendor of cultural landmarks, Sri Lanka
+              offers something for every traveler.
+            </p>
+
+            {/* Search Input and Navigation Arrows */}
+            <div className="flex justify-between w-full">
+              <input
+                type="text"
+                placeholder="Search Here"
+                className="mt-6 p-3 w-full md:w-2/3 rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
               />
 
-              <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/60 to-transparent text-white p-4">
-                <h2 className="text-2xl font-extrabold">{item.title}</h2>
-                <p className="text-sm mt-2">{item.description}</p>
+              {/* Navigation Arrows */}
+              <div className="flex justify-end items-end w-full px-4 py-2 gap-3">
+                <button
+                  onClick={scrollLeft}
+                  className="text-white p-2 rounded-full border border-white"
+                >
+                  <FaArrowLeft />
+                </button>
+                <button
+                  onClick={scrollRight}
+                  className="text-white p-2 rounded-full border border-white"
+                >
+                  <FaArrowRight />
+                </button>
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
-    </div>
 
-  
+      {/* Slider Section  */}
+      <div
+        ref={sliderRef}
+        className="flex space-x-1 w-full h-[350px] overflow-hidden bg-black"
+      >
+        {sliderData.map((item, index) => (
+          <div
+            key={index}
+            className="flex flex-col w-[300px] flex-shrink-0 overflow-hidden relative"
+          >
+            <img
+              src={item.image.src}
+              alt={item.title}
+              className="w-full h-[350px]"
+            />
+            <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/60 to-transparent text-white p-4">
+              <h2 className="text-2xl font-extrabold">{item.title}</h2>
+              <p className="text-sm mt-2">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
