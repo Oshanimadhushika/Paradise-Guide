@@ -376,7 +376,7 @@ const SeeAllPage = () => {
                   </div>
 
                   <div className="flex-grow p-4 flex flex-col justify-start mb-2">
-                    <h3 className="text-lg font-extrabold text-black mb-1">
+                    <h3 className="text-xl font-extrabold text-black mb-1">
                       {place.location_name}
                     </h3>
                     <p className="text-gray-600 text-md ">{place.city}</p>

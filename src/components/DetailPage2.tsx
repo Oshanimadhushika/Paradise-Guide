@@ -263,13 +263,13 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
               {/* Text Content */}
               <div className="text-white p-6 lg:p-2 w-full lg:w-1/2">
-                <h1 className="text-[48px] font-extrabold leading-tight">
+                <h1 className="text-[20px] md:text-[48px] font-extrabold leading-tight">
                   {detailData?.location_name}
                 </h1>
 
                 <Divider className="my-2 bg-gray-200 mb-3" />
 
-                <div className="mt-4 text-lg">
+                <div className="mt-4 text-sm md:text-lg">
                   {finalDescription.split("\n").map((line, index) => (
                     <span key={index}>{line}</span>
                   ))}
@@ -333,24 +333,28 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-5 text-start p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-5 text-start p-4">
             {facilityData.map((facility, index) => (
               <div
                 key={index}
-                className="flex items-center justify-center md:justify-start gap-3 px-4"
+                className="flex flex-row items-center  justify-start gap-3 px-4 relative"
               >
-                <span className="text-3xl">{facility.icon}</span>
+                {/* Icon */}
+                <span className="text-3xl flex-shrink-0">{facility.icon}</span>
 
-                <div className="flex flex-col ">
-                  <p className="text-gray-400 text-base  whitespace-normal xl:whitespace-nowrap">
+                {/* Text Content */}
+                <div className="flex flex-col text-start">
+                  <p className="text-gray-400 text-md lg:text-base whitespace-normal xl:whitespace-nowrap">
                     {facility.title}
                   </p>
-                  <p className="text-gray-400 font-semibold text-lg  whitespace-normal xl:whitespace-nowrap">
+                  <p className="text-gray-400 font-semibold text:sm lg:text-lg whitespace-normal xl:whitespace-nowrap">
                     {facility.description}
                   </p>
                 </div>
+
+                {/* Vertical Separator (Only on md+ screens) */}
                 {index !== facilityData.length - 1 && (
-                  <span className=" hidden md:block w-px bg-gray-300 border border-gray-300 h-full ml-2 justify-end"></span>
+                  <span className="hidden md:block absolute top-0 right-0 w-px bg-gray-300 h-full"></span>
                 )}
               </div>
             ))}
@@ -447,7 +451,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
       {/* Footer */}
       <Footer />
-
     </div>
   );
 };
