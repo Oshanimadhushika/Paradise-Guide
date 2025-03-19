@@ -337,14 +337,12 @@ const Hero = () => {
             {/* Navigation Arrows */}
             <div className="flex justify-end items-center gap-3">
               <button
-                // onClick={scrollLeft}
                 onClick={() => handleManualScroll("left")}
                 className="text-white p-2 rounded-full border border-white"
               >
                 <FaArrowLeft />
               </button>
               <button
-                // onClick={scrollRight}
                 onClick={() => handleManualScroll("right")}
                 className="text-white p-2 rounded-full border border-white"
               >

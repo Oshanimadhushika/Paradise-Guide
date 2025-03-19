@@ -348,8 +348,8 @@
 
 import Image from "next/image";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
-import AppStore from "../assets/appleStore.png";
-import PlayStore from "../assets/playStore.png";
+import AppStoreBlack from "../assets/AppStoreBlack.png";
+import PlayStoreBlack from "../assets/PlayStoreBlack.png";
 import MobileImg from "../assets/MobileImgHalf.png";
 import Sigiriya from "../assets/sigiriya.jpeg";
 
@@ -376,8 +376,8 @@ const ExploreSection = () => {
               width={80}
               height={80}
             />
-            <Image src={AppStore} alt="App Store" width={100} height={80} />
-            <Image src={PlayStore} alt="Google Play" width={100} height={80} />
+            <Image src={AppStoreBlack} alt="App Store" width={100} height={80} />
+            <Image src={PlayStoreBlack} alt="Google Play" width={100} height={80} />
           </div>
           </div>
          
