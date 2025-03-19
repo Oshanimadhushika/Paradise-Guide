@@ -236,46 +236,63 @@ import MobileImg from "@/assets/mobileImg.png";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import ParadiseGuideLogo from "@/assets/Paradise Guide logo.png";
-import { useSearchParams } from "next/navigation";
+// import { useRouter } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 
 const SeeAllPage = () => {
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [id, setId] = useState<string | null>(null);
 
-  const searchParams = useSearchParams();
-  const id = searchParams.get("id");
+  // const searchParams = useSearchParams();
+  // const id = searchParams.get("id");
+
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setId(params.get("id"));
+    }
+  }, []);
+
+  console.log("id",id);
+  
+
 
   const itemsPerPage = 10;
   const fetchLimit = 50;
 
-  const fetchLocations = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        "https://paradise.aventureit.com/api/location/all",
-        {
-          province_id: id,
-          city_id: 0,
-          status: 3,
-          page: 1,
-          limit: fetchLimit,
-        }
-      );
-      if (response.data.success) {
-        setPlaces(response.data.output);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchLocations = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.post(
+          "https://paradise.aventureit.com/api/location/all",
+          {
+            province_id: id,
+            city_id: 0,
+            status: 3,
+            page: 1,
+            limit: fetchLimit,
+          }
+        );
+
+        if (response.data.success) {
+          setPlaces(response.data.output || []);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchLocations();
-  }, []);
+  }, [id]);
+
+
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
@@ -320,7 +337,7 @@ const SeeAllPage = () => {
             {places[0]?.province}
           </h1>
           <p className="mt-1 text-lg md:text-xl max-w-2xl">
-            {id === " 1"
+            {id === "1"
               ? " Sri Lanka's Western Province pulsates with life, offering a vibrant blend of history, culture, and modern attractions. Explore the bustling capital Colombo, delve into ancient temples and colonial architecture, or witness the captivating Rainbow Kite Festival. This dynamic region is the perfect starting point for your Sri Lankan adventure."
               : id === "2"
               ? "Discover the sun-kissed shores and vibrant culture of the Southern Province. Explore the historic Galle Fort, a UNESCO World Heritage Site, and marvel at the iconic stilt fishermen. Witness the diverse wildlife of Yala National Park, or relax on pristine beaches like Mirissa and Weligama. The Southern Province offers a captivating blend of history, nature, and beach bliss. "
@@ -388,7 +405,7 @@ const SeeAllPage = () => {
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-600">
-              No places found matching your search criteria.
+              No places found.
             </p>
           </div>
         )}

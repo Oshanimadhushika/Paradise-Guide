@@ -12,7 +12,6 @@ import VisitorsIcon from "@/assets/svgs/VisitorsIcon";
 import AppStore from "../assets/appleStore.png";
 import PlayStore from "../assets/playStore.png";
 import MobileImg from "../assets/mobileImg.png";
-// import QRCodeComponent from "./QRCodeComponent";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 import { Divider } from "antd";
 import axios from "axios";
@@ -407,7 +406,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           {/* Left QR Code */}
           <div className="flex flex-col items-center w-[202px] order-1 md:order-none">
             <div>
-              {/* <QRCodeComponent value={appStoreUrl} /> */}
               <AppStoreQr />
             </div>
 
@@ -433,7 +431,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           {/* Google Play Button */}
           <div className="flex flex-col items-center  w-[202px] order-2 md:order-none">
             <div>
-              {/* <QRCodeComponent value={playStoreUrl} /> */}
               <PlayStoreQr />
             </div>
 
