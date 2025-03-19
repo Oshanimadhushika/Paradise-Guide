@@ -253,7 +253,6 @@ const sliderData = [
 
 const Hero = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
-  const [active, setActive] = useState<string | null>(null);
 
   const scrollLeft = () => {
     if (sliderRef.current) {
@@ -270,8 +269,8 @@ const Hero = () => {
   return (
     <div className="flex flex-col h-full">
       {/* Image Section */}
-      <div className="relative w-full h-[90vh] md:h-[75vh]">
-        {/* Background Image & Overlay */}
+      <div className="relative w-full h-[90vh] md:h-[75vh] ">
+        {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-full bg-center overflow-hidden">
           <Image
             src={BgImg}
@@ -280,49 +279,50 @@ const Hero = () => {
             objectFit="cover"
             className="absolute inset-0"
           />
+          {/*  Overlay */}
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
         </div>
 
-        {/* Hero Section */}
-        <div className="flex flex-col w-full z-50 relative mt-7">
+        {/* Navbar  */}
+        <div className="absolute top-0 left-0 w-full z-50">
           <Navbar />
+        </div>
 
-          {/* Hero Content*/}
-          <div className="absolute top-20 md:top-50 lg:top-56 left-0 w-full flex flex-col items-start text-left text-white px-8">
-            <h1 className="text-2xl md:text-6xl font-extrabold">
-              EXPLORE SRI LANKA
-            </h1>
-            <p className="mt-4 text-lg md:text-xl max-w-2xl">
-              Discover the breathtaking beauty and rich heritage of Sri Lanka,
-              an island where adventure and tranquility go hand in hand. Whether
-              you're drawn to sun-kissed beaches, the lush greenery of the hill
-              country, or the timeless splendor of cultural landmarks, Sri Lanka
-              offers something for every traveler.
-            </p>
+        {/* Hero Content  */}
+        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full  ">
+          <h1 className="text-2xl md:text-6xl font-extrabold">
+            EXPLORE SRI LANKA
+          </h1>
+          <p className="mt-4 text-lg md:text-xl max-w-2xl">
+            Discover the breathtaking beauty and rich heritage of Sri Lanka, an
+            island where adventure and tranquility go hand in hand. Whether
+            you're drawn to sun-kissed beaches, the lush greenery of the hill
+            country, or the timeless splendor of cultural landmarks, Sri Lanka
+            offers something for every traveler.
+          </p>
 
-            {/* Search Input and Navigation Arrows */}
-            <div className="flex justify-between w-full">
-              <input
-                type="text"
-                placeholder="Search Here"
-                className="mt-6 p-3 w-full md:w-2/3 rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
-              />
+          {/* Search Input and Navigation Arrows */}
+          <div className="flex justify-between w-full items-center mt-6 gap-2 md:gap-0">
+            <input
+              type="text"
+              placeholder="Search Here"
+              className="p-3 w-full md:w-1/2  rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
+            />
 
-              {/* Navigation Arrows */}
-              <div className="flex justify-end items-end w-full px-4 py-2 gap-3">
-                <button
-                  onClick={scrollLeft}
-                  className="text-white p-2 rounded-full border border-white"
-                >
-                  <FaArrowLeft />
-                </button>
-                <button
-                  onClick={scrollRight}
-                  className="text-white p-2 rounded-full border border-white"
-                >
-                  <FaArrowRight />
-                </button>
-              </div>
+            {/* Navigation Arrows */}
+            <div className="flex justify-end items-center gap-3">
+              <button
+                onClick={scrollLeft}
+                className="text-white p-2 rounded-full border border-white"
+              >
+                <FaArrowLeft />
+              </button>
+              <button
+                onClick={scrollRight}
+                className="text-white p-2 rounded-full border border-white"
+              >
+                <FaArrowRight />
+              </button>
             </div>
           </div>
         </div>
