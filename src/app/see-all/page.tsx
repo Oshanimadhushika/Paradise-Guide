@@ -241,7 +241,6 @@ import { useSearchParams } from "next/navigation";
 const SeeAllPage = () => {
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  // const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
@@ -320,12 +319,26 @@ const SeeAllPage = () => {
           <h1 className="text-2xl md:text-5xl font-extrabold">
             {places[0]?.province}
           </h1>
-          <p className="mt-2 text-lg md:text-xl max-w-2xl">
-            Discover the breathtaking beauty and rich heritage of Sri Lanka, an
-            island where adventure and tranquility go hand in hand. Whether
-            you're drawn to sun-kissed beaches, the lush greenery of the hill
-            country, or the timeless splendor of cultural landmarks, Sri Lanka
-            offers something for every traveler.
+          <p className="mt-1 text-lg md:text-xl max-w-2xl">
+            {id === " 1"
+              ? " Sri Lanka's Western Province pulsates with life, offering a vibrant blend of history, culture, and modern attractions. Explore the bustling capital Colombo, delve into ancient temples and colonial architecture, or witness the captivating Rainbow Kite Festival. This dynamic region is the perfect starting point for your Sri Lankan adventure."
+              : id === "2"
+              ? "Discover the sun-kissed shores and vibrant culture of the Southern Province. Explore the historic Galle Fort, a UNESCO World Heritage Site, and marvel at the iconic stilt fishermen. Witness the diverse wildlife of Yala National Park, or relax on pristine beaches like Mirissa and Weligama. The Southern Province offers a captivating blend of history, nature, and beach bliss. "
+              : id === "3"
+              ? " Immerse yourself in the heart of Sri Lanka's history and culture in the Central Province. Explore the sacred city of Kandy, home to the revered Temple of the Tooth Relic, and wander through lush tea plantations, the source of Ceylon's famed brew. Discover the breathtaking landscapes of the Knuckles Mountains and witness the vibrant Perahera procession, a dazzling display of tradition. "
+              : id === "4"
+              ? "Discover the vibrant tapestry of the Eastern Province, where pristine beaches meet ancient temples and wildlife roams free. Explore the historic city of Trincomalee, relax on the golden sands of Arugam Bay, or witness the diverse wildlife of Kumana National Park. The Eastern Province offers a unique blend of culture, nature, and adventure."
+              : id === "5"
+              ? "Discover the vibrant cultural tapestry of the Northern Province, where ancient temples, stunning beaches, and a unique blend of Tamil culture await. Explore the bustling city of Jaffna, with its historic Dutch Fort and vibrant markets. Witness the architectural marvels of Nallur Kovil and other Hindu temples, or embark on a serene journey to the sacred island of Nagadeepa. Relax on pristine beaches like Casuarina, or venture further to the idyllic islands of Delft and Neduntheevu. Immerse yourself in the warmth and hospitality of the local people and experience the rich heritage of the Northern Province."
+              : id === "6"
+              ? " Step back in time and explore the ancient wonders of the North Central Province. Anuradhapura, the provincial capital, boasts a rich history as a flourishing kingdom, with awe-inspiring ruins like the Sri Maha Bodhi tree and the colossal Ruwanweliseya stupa. Witness the grandeur of the Polonnaruwa Kingdom at its former capital, Polonnaruwa, with its intricate temples and royal palaces. Immerse yourself in the spiritual heart of Sri Lanka and discover the fascinating legacy of ancient civilizations. "
+              : id === "7"
+              ? "Discover the heart of Sri Lankan nature and adventure in the Sabaragamuwa Province. Renowned for its lush landscapes, the province boasts the breathtaking Sinharaja Rainforest, a UNESCO World Heritage Site, and the diverse wildlife of Udawalawe National Park. Witness the majestic elephants at the Pinnawala Elephant Orphanage and embark on a challenging climb to the sacred peak of Adam's Peak. Sabaragamuwa offers a unique blend of natural beauty, cultural treasures, and thrilling experiences.  "
+              : id === "8"
+              ? " Discover the vibrant heartland of Sri Lanka in the North Western Province. Explore the historic city of Kurunegala, once a flourishing kingdom, and wander through endless stretches of lush coconut plantations. Witness the diverse wildlife of Wilpattu National Park or relax on the pristine beaches of Kalpitiya. The North Western Province offers a unique blend of history, nature, and coastal charm.  "
+              : id === "9"
+              ? "Discover the scenic beauty and natural wonders of Uva Province. Explore lush tea plantations, witness cascading waterfalls like Dunhinda and Diyaluma, and embark on challenging hikes to stunning viewpoints like Ella Rock. Immerse yourself in the vibrant culture of Badulla, the provincial capital, and experience the thrill of wildlife encounters at Yala National Park, a haven for elephants and leopards. Uva Province offers a captivating blend of nature, adventure, and cultural charm."
+              : "Discover the breathtaking beauty and rich heritage of Sri Lanka..."}
           </p>
           <input
             type="text"
