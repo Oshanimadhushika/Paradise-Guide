@@ -236,47 +236,20 @@ import MobileImg from "@/assets/mobileImg.png";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import ParadiseGuideLogo from "@/assets/Paradise Guide logo.png";
-
-type Category =
-  | "all"
-  | "beaches"
-  | "mountains"
-  | "heritage"
-  | "wildlife"
-  | "adventure";
+import { useSearchParams } from "next/navigation";
 
 const SeeAllPage = () => {
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeCategory, setActiveCategory] = useState<Category>("all");
+  // const [activeCategory, setActiveCategory] = useState<Category>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
+  const searchParams = useSearchParams();
+  const id = searchParams.get("id");
+
   const itemsPerPage = 10;
   const fetchLimit = 50;
-
-  const categories = [
-    { id: "all", label: "All Places" },
-    { id: "beaches", label: "Beaches" },
-    { id: "mountains", label: "Mountains" },
-    { id: "heritage", label: "Heritage" },
-    { id: "adventure", label: "Adventure" },
-    { id: "park", label: "Park" },
-  ];
-
-  const categoryMapping: { [key: string]: string } = {
-    Beach: "beaches",
-    Mountain: "mountains",
-    "Heritage Site": "heritage",
-    "Adventure Park": "adventure",
-    "Religious Site": "heritage",
-    Waterfall: "adventure",
-    "Historical Landmark": "heritage",
-    Park: "park",
-    "National Park": "park",
-    Lake: "heritage",
-    Museum: "heritage",
-  };
 
   const fetchLocations = async () => {
     setLoading(true);
@@ -284,7 +257,7 @@ const SeeAllPage = () => {
       const response = await axios.post(
         "https://paradise.aventureit.com/api/location/all",
         {
-          province_id: 0,
+          province_id: id,
           city_id: 0,
           status: 3,
           page: 1,
@@ -305,39 +278,26 @@ const SeeAllPage = () => {
     fetchLocations();
   }, []);
 
-  // **Fix Search Function**
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
+    setCurrentPage(1);
   };
 
-  // **Filter Places by Search and Category**
-  const filteredPlaces = places.filter((place) => {
-    const matchesSearch =
+  const filteredPlaces = places.filter(
+    (place) =>
       place.location_name.toLowerCase().includes(searchQuery) ||
-      place.city.toLowerCase().includes(searchQuery);
+      place.city.toLowerCase().includes(searchQuery)
+  );
 
-    const categoryFromTag = categoryMapping[place.tag] || "all";
-
-    const matchesCategory =
-      activeCategory === "all" || categoryFromTag === activeCategory;
-
-    return matchesSearch && matchesCategory;
-  });
-
-  // **Paginate Filtered Data**
   const paginatedPlaces = filteredPlaces.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
-  const onPageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
   return (
     <div className="bg-white ">
-      <div className="relative w-full h-[90vh] md:h-[75vh] pb-5">
-        {/* Background Image & Overlay */}
+      <div className="relative w-full h-[90vh] md:h-[75vh] ">
+        {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-full bg-center overflow-hidden">
           <Image
             src={BgImg}
@@ -346,72 +306,70 @@ const SeeAllPage = () => {
             objectFit="cover"
             className="absolute inset-0"
           />
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>{" "}
+          {/*  Overlay */}
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
         </div>
 
-        {/* Hero Section */}
-        <div className="flex flex-col w-full z-50 relative ">
+        {/* Navbar  */}
+        <div className="absolute top-0 left-0 w-full z-50">
           <Navbar />
+        </div>
 
-          {/* Hero Content*/}
-          <div className="absolute top-20 md:top-50 lg:top-52 left-0 w-full flex flex-col items-start text-left text-white px-8">
-            <h1 className="text-2xl md:text-6xl font-extrabold">
-              EXPLORE SRI LANKA
-            </h1>
-            <p className="mt-4 text-lg md:text-xl max-w-2xl">
-              Discover the breathtaking beauty and rich heritage of Sri Lanka,
-              an island where adventure and tranquility go hand in hand. Whether
-              you're drawn to sun-kissed beaches, the lush greenery of the hill
-              country, or the timeless splendor of cultural landmarks, Sri Lanka
-              offers something for every traveler.
-            </p>
-
-            <input
-              // onClick={handleSearch}
-              type="text"
-              placeholder="Search Here"
-              className="mt-6 p-3 w-1/3 rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
-            />
-          </div>
+        {/* Hero Content  */}
+        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full  ">
+          <h1 className="text-2xl md:text-5xl font-extrabold">
+            {places[0]?.province}
+          </h1>
+          <p className="mt-2 text-lg md:text-xl max-w-2xl">
+            Discover the breathtaking beauty and rich heritage of Sri Lanka, an
+            island where adventure and tranquility go hand in hand. Whether
+            you're drawn to sun-kissed beaches, the lush greenery of the hill
+            country, or the timeless splendor of cultural landmarks, Sri Lanka
+            offers something for every traveler.
+          </p>
+          <input
+            type="text"
+            placeholder="Search Here"
+            className="p-3 w-full md:w-1/2  rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
+            value={searchQuery}
+            onChange={handleSearch}
+          />
         </div>
       </div>
 
-      <div className="mt-6 p-4">
-        {/* Places Grid */}
+      <div className="mt-6 p-5">
+        {/* Places  */}
         {loading ? (
           <div className="text-center text-gray-500">Loading...</div>
-        ) : paginatedPlaces.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        ) : filteredPlaces.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
             {paginatedPlaces.map((place) => (
-              <button key={place.location_id}>
+              <div
+                key={place.location_id}
+                className=" bg-white overflow-hidden hover:scale-100 transition-all duration-300"
+              >
                 <a
                   href={`/place/${place.location_code}`}
-                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
+                  className="flex flex-col h-full"
                 >
-                  <div className="relative h-48">
+                  {/* Image at the Top */}
+                  <div className="relative w-full h-[300px]">
                     <Image
                       src={place.thumbnail_path}
                       alt={place.location_name}
-                      fill
+                      layout="fill"
                       className="object-cover"
                     />
                   </div>
-                  <div className="p-4">
-                    <h3 className="text-lg font-bold text-gray-800 mb-1">
+
+                  <div className="flex-grow p-4 flex flex-col justify-start mb-2">
+                    <h3 className="text-lg font-extrabold text-black mb-1">
                       {place.location_name}
                     </h3>
-                    <p className="text-gray-600 text-sm mb-2 font-playfair">
-                      {place.city}
-                    </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600 text-sm">{place.tag}</span>
-                      <span className="text-blue-600 font-semibold">
-                        {place.distance}m away
-                      </span>
-                    </div>
+                    <p className="text-gray-600 text-md ">{place.city}</p>
                   </div>
                 </a>
-              </button>
+              </div>
             ))}
           </div>
         ) : (
@@ -424,15 +382,17 @@ const SeeAllPage = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center mt-8 mb-6">
-        <Pagination
-          current={currentPage}
-          pageSize={itemsPerPage}
-          total={filteredPlaces.length}
-          onChange={onPageChange}
-          showSizeChanger={false}
-        />
-      </div>
+      {filteredPlaces.length > itemsPerPage && (
+        <div className="flex justify-center mt-8 mb-6">
+          <Pagination
+            current={currentPage}
+            pageSize={itemsPerPage}
+            total={filteredPlaces.length}
+            onChange={(page) => setCurrentPage(page)}
+            showSizeChanger={false}
+          />
+        </div>
+      )}
 
       <div>
         <div id="mobileAppSection" className="px-4 md:px-20 pt-10">

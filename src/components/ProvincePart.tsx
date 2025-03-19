@@ -242,7 +242,7 @@ import Southern from "../assets/province/Southern Province.png";
 import Uva from "../assets/province/Uva Province.png";
 import Western from "../assets/province/Western Province.png";
 import Northern from "../assets/province/Northern Province.png";
-
+import { useRouter } from "next/navigation";
 
 const provinces = [
   {
@@ -310,6 +310,7 @@ const provinces = [
 
 const ProvincePart = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
+  const router = useRouter();
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === provinces.length - 1 ? 0 : prev + 1));
@@ -337,7 +338,7 @@ const ProvincePart = () => {
       {/* Title & Description */}
       <div className="w-full flex items-center px-4 justify-between mt-3 pb-4">
         {/* Subtitle - Centered */}
-        <p className="text-lg text-center w-full md:w-1/3 mx-auto pl-6">
+        <p className="text-lg text-center w-full md:w-2/3 mx-auto pl-6">
           Sri Lanka comprises nine provinces, each offering unique landscapes
           and cultural experiences.
         </p>
@@ -365,6 +366,7 @@ const ProvincePart = () => {
         {getVisibleProvinces().map((province, idx) => (
           <div
             key={province.id}
+            onClick={() => router.push(`/see-all?id=${province.id}`)}
             className={`flex flex-col justify-start items-center transition-all duration-500 mx-auto 
         ${
           idx === 1
@@ -390,24 +392,23 @@ const ProvincePart = () => {
                   {province.description}
                 </p>
               </div>
+              <div className="space-x-2 justify-center items-center block md:hidden text-center">
+                <button
+                  onClick={prevSlide}
+                  className="text-gray-400 p-2 rounded-full border border-gray-400"
+                >
+                  <FaArrowLeft />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="text-gray-400 p-2 rounded-full border border-gray-400"
+                >
+                  <FaArrowRight />
+                </button>
+              </div>
             </div>
           </div>
         ))}
-      </div>
-
-      <div className="space-x-2 justify-end block md:hidden">
-        <button
-          onClick={prevSlide}
-          className="text-gray-400 p-2 rounded-full border border-gray-400"
-        >
-          <FaArrowLeft />
-        </button>
-        <button
-          onClick={nextSlide}
-          className="text-gray-400 p-2 rounded-full border border-gray-400"
-        >
-          <FaArrowRight />
-        </button>
       </div>
     </div>
   );
