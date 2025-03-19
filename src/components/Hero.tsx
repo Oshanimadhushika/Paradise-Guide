@@ -201,7 +201,7 @@
 
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Castle from "../assets/Categories/Castle.png";
@@ -253,17 +253,42 @@ const sliderData = [
 
 const Hero = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
+  const scrollSpeed = 2;
 
-  const scrollLeft = () => {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
-  };
+  useEffect(() => {
+    if (!sliderRef.current) return;
+    const slider = sliderRef.current;
 
-  const scrollRight = () => {
+    slider.innerHTML += slider.innerHTML;
+
+    let animationFrame: number;
+    const scrollSlider = () => {
+      if (!isUserScrolling) {
+        slider.scrollLeft += scrollSpeed;
+
+        if (slider.scrollLeft >= slider.scrollWidth / 2) {
+          slider.scrollLeft = 0;
+        }
+      }
+      animationFrame = requestAnimationFrame(scrollSlider);
+    };
+
+    animationFrame = requestAnimationFrame(scrollSlider);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isUserScrolling]);
+
+  const handleManualScroll = (direction: "left" | "right") => {
+    setIsUserScrolling(true);
+
     if (sliderRef.current) {
-      sliderRef.current.scrollBy({ left: 300, behavior: "smooth" });
+      sliderRef.current.scrollBy({
+        left: direction === "right" ? 300 : -300,
+        behavior: "smooth",
+      });
     }
+
+    setTimeout(() => setIsUserScrolling(false), 3000);
   };
 
   return (
@@ -312,13 +337,15 @@ const Hero = () => {
             {/* Navigation Arrows */}
             <div className="flex justify-end items-center gap-3">
               <button
-                onClick={scrollLeft}
+                // onClick={scrollLeft}
+                onClick={() => handleManualScroll("left")}
                 className="text-white p-2 rounded-full border border-white"
               >
                 <FaArrowLeft />
               </button>
               <button
-                onClick={scrollRight}
+                // onClick={scrollRight}
+                onClick={() => handleManualScroll("right")}
                 className="text-white p-2 rounded-full border border-white"
               >
                 <FaArrowRight />

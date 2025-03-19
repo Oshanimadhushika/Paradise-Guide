@@ -362,19 +362,18 @@ const ProvincePart = () => {
 
       {/* Image Slider */}
 
-      <div className="grid grid-cols-12 gap-1 w-full justify-center items-start px-0 lg:px-16 ">
+      {/* <div className="grid grid-cols-12 gap-0 w-full justify-center items-start px-0 lg:px-16 ">
         {getVisibleProvinces().map((province, idx) => (
           <div
             key={province.id}
             onClick={() => router.push(`/see-all?id=${province.id}`)}
-            className={`flex flex-col justify-start items-center transition-all duration-500 mx-auto 
+            className={`flex flex-col justify-start items-center transition-all duration-500 
         ${
           idx === 1
-            ? "md:col-span-6 col-span-12 w-full xl:w-[500px] h-[420px]"
+            ? "md:col-span-6 col-span-12 w-full xl:w-[600px] h-[520px]"
             : "md:col-span-3 hidden md:flex h-[320px]"
         }`}
           >
-            {/* Image & Text Container */}
             <div className="w-full h-full flex flex-col">
               <Image
                 src={province.image}
@@ -383,7 +382,6 @@ const ProvincePart = () => {
                 height={idx === 1 ? 420 : 320}
                 className="w-full h-full object-cover"
               />
-              {/* Text Inside The Div */}
               <div className="p-2 text-start bg-white">
                 <h3 className="text-lg font-extrabold">
                   {province.name} Province
@@ -405,6 +403,41 @@ const ProvincePart = () => {
                 >
                   <FaArrowRight />
                 </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div> */}
+
+      <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
+        {getVisibleProvinces().map((province, idx) => (
+          <div
+            key={province.id}
+            onClick={() => router.push(`/see-all?id=${province.id}`)}
+            className={`flex flex-col justify-start items-center transition-all duration-500 
+      ${
+        idx === 1
+          ? "md:col-span-6 col-span-12 w-full  h-[520px] flex justify-center"
+          : "md:col-span-3 hidden md:flex h-[320px]"
+      }`}
+          >
+            {/* Image & Text Container */}
+            <div className="w-full h-full flex flex-col">
+              <Image
+                src={province.image}
+                alt={province.name}
+                width={500}
+                height={idx === 1 ? 420 : 320}
+                className="w-full h-full object-cover"
+              />
+              {/* Text Inside The Div */}
+              <div className="p-2 text-start bg-white">
+                <h3 className="text-lg font-extrabold">
+                  {province.name} Province
+                </h3>
+                <p className="text-gray-600 text-sm font-semibold">
+                  {province.description}
+                </p>
               </div>
             </div>
           </div>
