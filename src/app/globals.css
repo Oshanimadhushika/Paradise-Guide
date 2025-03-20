@@ -3,18 +3,12 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "SF Pro";
-  src: url("/public/fonts/SF-Pro.ttf") format("truetype");
+  font-family: "SF Compact Rounded Heavy";
+  src: url("/public/fonts/SF-Compact-Rounded-Heavy.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
 }
 
-@font-face {
-  font-family: "SF Pro";
-  src: url("/public/fonts/SF-Pro-Italic.ttf") format("truetype");
-  font-weight: 700;
-  font-style: normal;
-}
 
 :root {
   --background: #ffffff;
@@ -35,6 +29,5 @@
 body {
   color: var(--foreground);
   background: var(--background);
-   font-family: "SF Pro", sans-serif;
-  /* font-family: "Inter", sans-serif; */
+   font-family: "SF Compact Rounded Heavy", sans-serif;
 }

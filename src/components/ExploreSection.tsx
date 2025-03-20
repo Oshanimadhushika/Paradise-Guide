@@ -351,47 +351,50 @@ import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 import AppStoreBlack from "../assets/AppStoreBlack.png";
 import PlayStoreBlack from "../assets/PlayStoreBlack.png";
 import MobileImg from "../assets/MobileImgHalf.png";
-import Sigiriya from "../assets/sigiriya.jpeg";
+import Sigiriya from "../assets/sigiriya2.png";
 
 const ExploreSection = () => {
   return (
-    <section className="grid grid-cols-12 gap-4 items-center  mx-auto px-4 py-5 pt-8">
+    <section className="grid grid-cols-12 gap-4 items-center mt-6 mx-auto px-4 py-5 pt-8 ">
       {/* Left Content */}
-      <div className="col-span-12 lg:col-span-6 w-full flex flex-col sm:flex-row items-center lg:items-start space-y-6 text-center lg:text-left bg-slate-200 ">
-        <div >
-          <div className="p-5">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-black ">
+      <div className="col-span-12 lg:col-span-6 w-full flex flex-col items-center lg:items-start text-center lg:text-left bg-slate-200 h-full ">
+        <div className="p-6 mt-7">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-black">
             Explore the Beauty and Mysteries <br /> of Sri Lanka
           </h2>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-600 mt-5">
             Endless beaches, timeless ruins, welcoming people, oodles of
             elephants, rolling surf, cheap prices, fun trains, famous tea, and
             flavorful food make Sri Lanka irresistible.
           </p>
+
           {/* App Store Buttons */}
-          <div className="flex justify-center lg:justify-start gap-4 mt-4">
+          <div className="flex justify-center lg:justify-start gap-4 mt-6 h-[48px]">
             <Image
               src={ParadiseGuideLogo}
               alt="Paradise Guide Logo"
-              width={80}
-              height={80}
+              className="w-[120px] h-full "
             />
-            <Image src={AppStoreBlack} alt="App Store" width={100} height={80} />
-            <Image src={PlayStoreBlack} alt="Google Play" width={100} height={80} />
-          </div>
-          </div>
-         
-
-          {/* Mobile Image */}
-          <div className="flex justify-center ">
             <Image
-              src={MobileImg}
-              alt="Mobile UI"
-              width={300}
-              height={300}
-              className="rounded-xl shadow-lg"
+              src={AppStoreBlack}
+              alt="App Store"
+              className="w-[120px] h-full "
+            />
+            <Image
+              src={PlayStoreBlack}
+              alt="Google Play"
+              className="w-[120px] h-full "
             />
           </div>
+        </div>
+
+        {/* Mobile Image - Pushes to bottom */}
+        <div className="flex flex-grow items-end justify-center md:justify-start w-full pt-4 pl-5">
+          <Image
+            src={MobileImg}
+            alt="Mobile UI"
+            className="rounded-xl shadow-lg w-[458px] h-full"
+          />
         </div>
       </div>
 
@@ -405,8 +408,8 @@ const ExploreSection = () => {
           className="w-full h-auto "
         />
         <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/60 to-transparent text-white p-6 rounded-b-lg">
-          <h3 className="text-xl font-extrabold">Sigiriya Rock</h3>
-          <p className="text-sm mt-2">
+          <h3 className="text-3xl font-extrabold">Sigiriya Rock</h3>
+          <p className="text-sm mt-4">
             Sigiriya or Sinhagiri is an ancient rock fortress located in the
             northern Matale District near the town of Dambulla in the Central
             Province, Sri Lanka.

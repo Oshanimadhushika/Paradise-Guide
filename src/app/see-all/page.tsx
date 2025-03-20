@@ -230,35 +230,26 @@ import "antd/dist/reset.css";
 import BgImg from "../../assets/bgImgSeeAll.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import AppStore from "@/assets/appleStore.png";
-import PlayStore from "@/assets/playStore.png";
+import AppStoreBlack from "@/assets/AppStoreBlack.png";
+import PlayStoreBlack from "@/assets/PlayStoreBlack.png";
 import MobileImg from "@/assets/mobileImg.png";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import ParadiseGuideLogo from "@/assets/Paradise Guide logo.png";
-// import { useRouter } from "next/navigation";
-// import { useSearchParams } from "next/navigation";
+
 
 const SeeAllPage = () => {
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState<string | null>(null);
-
-  // const searchParams = useSearchParams();
-  // const id = searchParams.get("id");
-
-
+  const [id, setId] = useState<string | null>(null)
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       setId(params.get("id"));
     }
   }, []);
-
-  console.log("id",id);
-  
 
 
   const itemsPerPage = 10;
@@ -291,8 +282,6 @@ const SeeAllPage = () => {
 
     fetchLocations();
   }, [id]);
-
-
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(event.target.value.toLowerCase());
@@ -404,9 +393,7 @@ const SeeAllPage = () => {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-600">
-              No places found.
-            </p>
+            <p className="text-gray-600">No places found.</p>
           </div>
         )}
       </div>
@@ -446,17 +433,17 @@ const SeeAllPage = () => {
           </p>
 
           {/* Grid Layout */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-10 mt-8">
             {/* Left QR Code */}
             <div className="flex flex-col items-center w-[202px] order-1 md:order-none">
-              <div>
+              <div className="p-3">
                 <AppStoreQr />
               </div>
 
               {/* App Store Button */}
-              <div>
+              <div className="w-full px-2">
                 <Image
-                  src={AppStore}
+                  src={AppStoreBlack}
                   alt="Download on the App Store"
                   className="w-full h-auto"
                 />
@@ -474,14 +461,14 @@ const SeeAllPage = () => {
 
             {/* Google Play Button */}
             <div className="flex flex-col items-center  w-[202px] order-2 md:order-none">
-              <div>
+              <div className="p-3">
                 <PlayStoreQr />
               </div>
 
               {/* App Store Button */}
-              <div>
+              <div className="w-full px-2">
                 <Image
-                  src={PlayStore}
+                  src={PlayStoreBlack}
                   alt="Download on the App Store"
                   className="w-full h-auto"
                 />
