@@ -224,7 +224,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { Pagination } from "antd";
+// import { Pagination } from "antd";
 import "antd/dist/reset.css";
 
 import BgImg from "../../assets/bgImgSeeAll.png";
@@ -236,14 +236,17 @@ import MobileImg from "@/assets/mobileImg.png";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import ParadiseGuideLogo from "@/assets/Paradise Guide logo.png";
-
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const SeeAllPage = () => {
+  const [allPlaces, setAllPlaces] = useState<any[]>([]);
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [id, setId] = useState<string | null>(null)
+  const [id, setId] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(true);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
@@ -251,54 +254,60 @@ const SeeAllPage = () => {
     }
   }, []);
 
+  const fetchLimit = 10;
 
-  const itemsPerPage = 10;
-  const fetchLimit = 50;
+  const fetchLocations = async (page: number) => {
+    if (!id) return;
+    setLoading(true);
 
-  useEffect(() => {
-    const fetchLocations = async () => {
-      setLoading(true);
-      try {
-        const response = await axios.post(
-          "https://paradise.aventureit.com/api/location/all",
-          {
-            province_id: id,
-            city_id: 0,
-            status: 3,
-            page: 1,
-            limit: fetchLimit,
-          }
+    try {
+      const response = await axios.post(
+        "https://paradise.aventureit.com/api/location/all",
+        { province_id: id, city_id: 0, status: 3, page, limit: fetchLimit }
+      );
+
+      if (response.data.success) {
+        const newPlaces = response.data.output || [];
+
+        setAllPlaces((prev) =>
+          page === 1 ? newPlaces : [...prev, ...newPlaces]
         );
+        setPlaces((prev) => (page === 1 ? newPlaces : [...prev, ...newPlaces]));
 
-        if (response.data.success) {
-          setPlaces(response.data.output || []);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
+        setHasMore(newPlaces.length === fetchLimit);
+        setCurrentPage(page);
       }
-    };
-
-    fetchLocations();
-  }, [id]);
-
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value.toLowerCase());
-    setCurrentPage(1);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const filteredPlaces = places.filter(
-    (place) =>
-      place.location_name.toLowerCase().includes(searchQuery) ||
-      place.city.toLowerCase().includes(searchQuery)
-  );
+  useEffect(() => {
+    if (id) {
+      setAllPlaces([]);
+      setPlaces([]);
+      setHasMore(true);
+      fetchLocations(1);
+    }
+  }, [id]);
 
-  const paginatedPlaces = filteredPlaces.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
+  // Search function
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const filtered = allPlaces.filter(
+        (place) =>
+          place.location_name.toLowerCase().includes(searchQuery) ||
+          place.city.toLowerCase().includes(searchQuery)
+      );
+      setPlaces(filtered);
+      setHasMore(false);
+    } else {
+      setPlaces(allPlaces);
+      setHasMore(true);
+    }
+  }, [searchQuery, allPlaces]);
   return (
     <div className="bg-white ">
       <div className="relative w-full h-[90vh] md:h-[75vh] ">
@@ -351,13 +360,12 @@ const SeeAllPage = () => {
             placeholder="Search Here"
             className="p-3 w-full md:w-1/2  rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
             value={searchQuery}
-            onChange={handleSearch}
+            onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
           />
         </div>
       </div>
 
-      <div className="mt-6 p-5">
-        {/* Places  */}
+      {/* <div className="mt-6 p-5">
         {loading ? (
           <div className="text-center text-gray-500">Loading...</div>
         ) : filteredPlaces.length > 0 ? (
@@ -365,27 +373,28 @@ const SeeAllPage = () => {
             {paginatedPlaces.map((place) => (
               <div
                 key={place.location_id}
-                className=" bg-white overflow-hidden hover:scale-100 transition-all duration-300"
+                className=" bg-white overflow-hidden hover:scale-100 transition-all duration-300 h-[570px]"
               >
                 <a
                   href={`/place/${place.location_code}`}
                   className="flex flex-col h-full"
                 >
-                  {/* Image at the Top */}
-                  <div className="relative w-full h-[300px]">
+                  <div className="relative w-full h-[456px]">
                     <Image
                       src={place.thumbnail_path}
                       alt={place.location_name}
                       layout="fill"
-                      className="object-cover"
+                      className="object-cover h-full"
                     />
                   </div>
 
                   <div className="flex-grow p-4 flex flex-col justify-start mb-2">
-                    <h3 className="text-xl font-extrabold text-black mb-1">
-                      {place.location_name}
+                    <h3 className="text-2xl font-extrabold text-black mb-1">
+                      {place.location_name.length > 20
+                        ? `${place.location_name.slice(0, 20)}...`
+                        : place.location_name}
                     </h3>
-                    <p className="text-gray-600 text-md ">{place.city}</p>
+                    <p className="text-gray-600 text-base">{place.city}</p>
                   </div>
                 </a>
               </div>
@@ -396,20 +405,50 @@ const SeeAllPage = () => {
             <p className="text-gray-600">No places found.</p>
           </div>
         )}
-      </div>
+      </div> */}
 
-      {/* Pagination */}
-      {filteredPlaces.length > itemsPerPage && (
-        <div className="flex justify-center mt-8 mb-6">
-          <Pagination
-            current={currentPage}
-            pageSize={itemsPerPage}
-            total={filteredPlaces.length}
-            onChange={(page) => setCurrentPage(page)}
-            showSizeChanger={false}
-          />
-        </div>
-      )}
+      <div className="mt-6 p-5">
+        <InfiniteScroll
+          dataLength={places.length}
+          next={() => fetchLocations(currentPage + 1)}
+          hasMore={hasMore}
+          loader={
+            <p className="text-center font-bold text-black text-lg mt-3">
+              Loading more...
+            </p>
+          }
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
+            {places.map((place) => (
+              <div
+                key={place.location_id}
+                className="bg-white hover:scale-100 transition-all duration-300 h-[570px]"
+              >
+                <a
+                  href={`/place/${place.location_code}`}
+                  className="flex flex-col h-full"
+                >
+                  <div className="relative w-full h-[456px]">
+                    <Image
+                      src={place.thumbnail_path}
+                      alt={place.location_name}
+                      layout="fill"
+                      className="object-cover h-full"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-4">
+                    <h3 className="text-2xl font-extrabold text-black mb-1">
+                      {place.location_name}
+                    </h3>
+                    <p className="text-gray-600">{place.city}</p>
+                  </div>
+                </a>
+              </div>
+            ))}
+          </div>
+        </InfiniteScroll>
+      </div>
 
       <div>
         <div id="mobileAppSection" className="px-4 md:px-20 pt-10">
