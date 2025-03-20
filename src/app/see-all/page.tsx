@@ -433,9 +433,9 @@ const SeeAllPage = () => {
           </p>
 
           {/* Grid Layout */}
-          <div className="flex flex-col md:flex-row items-center justify-center gap-10 mt-8">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-10 mt-8">
             {/* Left QR Code */}
-            <div className="flex flex-col items-center w-[202px] order-1 md:order-none">
+            <div className="flex flex-col items-center w-[202px] order-1 lg:order-none">
               <div className="p-3">
                 <AppStoreQr />
               </div>
@@ -451,7 +451,7 @@ const SeeAllPage = () => {
             </div>
 
             {/* Mobile Mockup */}
-            <div className="w-60 md:w-[295px] h-auto flex justify-center order-3 md:order-none">
+            <div className="w-60 md:w-[295px] h-auto flex justify-center order-3 lg:order-none">
               <Image
                 src={MobileImg}
                 alt="Download on the App Store"
@@ -460,7 +460,7 @@ const SeeAllPage = () => {
             </div>
 
             {/* Google Play Button */}
-            <div className="flex flex-col items-center  w-[202px] order-2 md:order-none">
+            <div className="flex flex-col items-center  w-[202px] order-2 lg:order-none">
               <div className="p-3">
                 <PlayStoreQr />
               </div>
@@ -477,7 +477,6 @@ const SeeAllPage = () => {
           </div>
         </div>
       </div>
-
       <Footer />
     </div>
   );
