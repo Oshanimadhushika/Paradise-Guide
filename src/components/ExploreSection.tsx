@@ -9,7 +9,7 @@ const ExploreSection = () => {
   return (
     <section className="grid grid-cols-12 gap-4 items-center mt-6 mx-auto px-4 py-5 pt-8 ">
       {/* Left Content */}
-      <div className="col-span-12 lg:col-span-6 w-full flex flex-col items-center lg:items-start text-center lg:text-left bg-slate-200 h-full ">
+      <div className="col-span-12 lg:col-span-6 w-full flex flex-col items-center lg:items-start text-center lg:text-left bg-[#EFEFEF] h-full ">
         <div className="p-6 mt-7">
           <h2 className="text-3xl md:text-4xl font-extrabold text-black">
             Explore the Beauty and Mysteries <br /> of Sri Lanka

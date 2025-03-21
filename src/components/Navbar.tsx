@@ -8,12 +8,14 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center px-4 py-2 bg-transparent text-white w-full relative z-50">
       <div>
-        <Image
-          src={ParadiseGuideLogo}
-          alt="Paradise Guide Logo"
-          width={100}
-          height={100}
-        />
+        <button onClick={() => (window.location.href = "/")}>
+          <Image
+            src={ParadiseGuideLogo}
+            alt="Paradise Guide Logo"
+            width={110}
+            height={50}
+          />
+        </button>
       </div>
       <ul className="hidden md:flex space-x-5">
         {["Home", "Destinations", "Trips"].map((item) => (
