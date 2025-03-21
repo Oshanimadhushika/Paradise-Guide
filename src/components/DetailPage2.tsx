@@ -17,11 +17,11 @@ import { Divider } from "antd";
 import axios from "axios";
 import { IoMdShare } from "react-icons/io";
 import ShareModal from "./ShareModal";
-// import Link from "next/link";
 import { trackEvent } from "@/lib/gtag";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import Footer from "./Footer";
+import { ScrollAnimations } from "./ScrollAnimations";
 
 interface DetailPageProps {
   location_code: any;
@@ -84,8 +84,8 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
-  const appStoreUrl = "https://apps.apple.com/app-url";
-  const playStoreUrl = "https://play.google.com/store/app-url";
+  // const appStoreUrl = "https://apps.apple.com/app-url";
+  // const playStoreUrl = "https://play.google.com/store/app-url";
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
@@ -209,6 +209,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
+      <ScrollAnimations/>
 
       <section
         className="relative w-full h-full lg:h-screen bg-cover bg-center "
@@ -258,10 +259,10 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Content & Carousel */}
-          <div className="w-full flex justify-center bg-black/40 p-3 mt-auto">
+          <div className="w-full flex justify-center bg-black/40 p-3 mt-auto ">
             <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
               {/* Text Content */}
-              <div className="text-white p-6 lg:p-2 w-full lg:w-1/2">
+              <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
                 <h1 className="text-[20px] md:text-[48px] font-extrabold leading-tight">
                   {detailData?.location_name}
                 </h1>
@@ -328,7 +329,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </section>
 
       {/* Facilities Section */}
-      <div className=" px-10 mt-10  ">
+      <div className=" px-10 mt-10 fade-in ">
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
         <div className="container mx-auto px-6">
@@ -364,7 +365,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </div>
 
       {/* Gallery Section */}
-      <div className="p-10">
+      <div className="p-10 fade-in">
         <h2 className="text-[48px] font-bold mb-4 text-gray-500 px-20 ">
           Gallery
         </h2>
@@ -389,7 +390,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       </div>
 
       {/* mobile part */}
-      <div id="mobileAppSection" className="px-4 md:px-20 pt-10">
+      <div id="mobileAppSection" className="px-4 md:px-20 pt-10 fade-in">
         <h2 className="text-center text-2xl md:text-3xl font-bold mb-2 text-black">
           Unlock More with Our Mobile App!
         </h2>

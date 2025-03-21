@@ -1,230 +1,7 @@
-// "use client";
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-// import { Container } from "reactstrap";
-// import Image from "next/image";
-// import { Search, ArrowLeft } from "lucide-react";
-// import { Pagination } from "antd";
-// import "antd/dist/reset.css";
-// import { ScrollAnimations } from "@/components/ScrollAnimations";
-// import Link from "next/link";
-
-// type Category =
-//   | "all"
-//   | "beaches"
-//   | "mountains"
-//   | "heritage"
-//   | "wildlife"
-//   | "adventure";
-
-// const SeeAllPage = () => {
-//   const [places, setPlaces] = useState<any[]>([]);
-//   const [searchQuery, setSearchQuery] = useState("");
-//   const [activeCategory, setActiveCategory] = useState<Category>("all");
-//   const [currentPage, setCurrentPage] = useState(1);
-//   const [loading, setLoading] = useState(false);
-
-//   const itemsPerPage = 10;
-//   const fetchLimit = 50;
-
-//   const categories = [
-//     { id: "all", label: "All Places" },
-//     { id: "beaches", label: "Beaches" },
-//     { id: "mountains", label: "Mountains" },
-//     { id: "heritage", label: "Heritage" },
-//     { id: "adventure", label: "Adventure" },
-//     { id: "park", label: "Park" },
-//   ];
-
-//   const categoryMapping: { [key: string]: string } = {
-//     Beach: "beaches",
-//     Mountain: "mountains",
-//     "Heritage Site": "heritage",
-//     "Adventure Park": "adventure",
-//     "Religious Site": "heritage",
-//     Waterfall: "adventure",
-//     "Historical Landmark": "heritage",
-//     Park: "park",
-//     "National Park": "park",
-//     Lake: "heritage",
-//     Museum: "heritage",
-//   };
-
-//   const fetchLocations = async () => {
-//     setLoading(true);
-//     try {
-//       const response = await axios.post(
-//         "https://paradise.aventureit.com/api/location/all",
-//         {
-//           province_id: 0,
-//           city_id: 0,
-//           status: 3,
-//           page: 1,
-//           limit: fetchLimit,
-//         }
-//       );
-//       if (response.data.success) {
-//         setPlaces(response.data.output);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching data:", error);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
-
-//   useEffect(() => {
-//     fetchLocations();
-//   }, []);
-
-//   // **Fix Search Function**
-//   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-//     setSearchQuery(event.target.value.toLowerCase());
-//   };
-
-//   // **Filter Places by Search and Category**
-//   const filteredPlaces = places.filter((place) => {
-//     const matchesSearch =
-//       place.location_name.toLowerCase().includes(searchQuery) ||
-//       place.city.toLowerCase().includes(searchQuery);
-
-//     const categoryFromTag = categoryMapping[place.tag] || "all";
-
-//     const matchesCategory =
-//       activeCategory === "all" || categoryFromTag === activeCategory;
-
-//     return matchesSearch && matchesCategory;
-//   });
-
-//   // **Paginate Filtered Data**
-//   const paginatedPlaces = filteredPlaces.slice(
-//     (currentPage - 1) * itemsPerPage,
-//     currentPage * itemsPerPage
-//   );
-
-//   const onPageChange = (page: number) => {
-//     setCurrentPage(page);
-//   };
-
-//   return (
-//     <div className="min-h-screen bg-gray-50 py-8">
-//       <ScrollAnimations />
-//       <Container className="max-w-7xl mx-auto px-4">
-//         <div>
-//           <button
-//             onClick={() => (window.location.href = "/")}
-//             className="flex items-center text-black"
-//           >
-//             <ArrowLeft className="w-5 h-5 mr-2" />
-//             Back
-//           </button>
-//         </div>
-
-//         <h1 className="text-3xl font-bold text-gray-800 mb-2">
-//           Discover Sri Lanka
-//         </h1>
-//         <p className="text-gray-600">
-//           Explore the paradise island's most beautiful destinations
-//         </p>
-
-//         {/* Search Input */}
-//         <div className="mb-8 space-y-4">
-//           <div className="relative">
-//             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-//             <input
-//               type="text"
-//               placeholder="Search places..."
-//               className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900"
-//               value={searchQuery}
-//               onChange={handleSearch}
-//             />
-//           </div>
-
-//           {/* Category Filter */}
-//           <div className="flex flex-wrap gap-2">
-//             {categories.map((category) => (
-//               <button
-//                 key={category.id}
-//                 onClick={() => setActiveCategory(category.id as Category)}
-//                 className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-//                   activeCategory === category.id
-//                     ? "bg-blue-500 text-white"
-//                     : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
-//                 }`}
-//               >
-//                 {category.label}
-//               </button>
-//             ))}
-//           </div>
-//         </div>
-
-//         {/* Places Grid */}
-//         {loading ? (
-//           <div className="text-center text-gray-500">Loading...</div>
-//         ) : paginatedPlaces.length > 0 ? (
-//           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-//             {paginatedPlaces.map((place) => (
-//               <button key={place.location_id}>
-//                 <a
-//                   href={`/place/${place.location_code}`}
-//                   className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer"
-//                 >
-//                   <div className="relative h-48">
-//                     <Image
-//                       src={place.thumbnail_path}
-//                       alt={place.location_name}
-//                       fill
-//                       className="object-cover"
-//                     />
-//                   </div>
-//                   <div className="p-4">
-//                     <h3 className="text-lg font-bold text-gray-800 mb-1">
-//                       {place.location_name}
-//                     </h3>
-//                     <p className="text-gray-600 text-sm mb-2 font-playfair">
-//                       {place.city}
-//                     </p>
-//                     <div className="flex items-center justify-between">
-//                       <span className="text-gray-600 text-sm">{place.tag}</span>
-//                       <span className="text-blue-600 font-semibold">
-//                         {place.distance}m away
-//                       </span>
-//                     </div>
-//                   </div>
-//                 </a>
-//               </button>
-//             ))}
-//           </div>
-//         ) : (
-//           <div className="text-center py-12">
-//             <p className="text-gray-600">
-//               No places found matching your search criteria.
-//             </p>
-//           </div>
-//         )}
-
-//         {/* Pagination */}
-//         <div className="flex justify-center mt-8">
-//           <Pagination
-//             current={currentPage}
-//             pageSize={itemsPerPage}
-//             total={filteredPlaces.length}
-//             onChange={onPageChange}
-//             showSizeChanger={false}
-//           />
-//         </div>
-//       </Container>
-//     </div>
-//   );
-// };
-
-// export default SeeAllPage;
-
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Image from "next/image";
-// import { Pagination } from "antd";
+import Image, { StaticImageData } from "next/image";
 import "antd/dist/reset.css";
 
 import BgImg from "../../assets/bgImgSeeAll.png";
@@ -237,6 +14,29 @@ import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import ParadiseGuideLogo from "@/assets/Paradise Guide logo.png";
 import InfiniteScroll from "react-infinite-scroll-component";
+
+import Central from "@/assets/province/Central Province.png";
+import Eastern from "@/assets/province/Eastern Province.png";
+import North_Central from "@/assets/province/North Central.png";
+import North_Western from "@/assets/province/North Western.png";
+import Sabaragamuwa from "@/assets/province/Sabaragamuwa.png";
+import Southern from "@/assets/province/Southern Province.png";
+import Uva from "@/assets/province/Uva Province.png";
+import Western from "@/assets/province/Western Province.png";
+import Northern from "@/assets/province/Northern Province.png";
+import { ScrollAnimations } from "@/components/ScrollAnimations";
+
+const provinceImages: Record<number, StaticImageData> = {
+  1: Western,
+  2: Southern,
+  3: Central,
+  4: Eastern,
+  5: Northern,
+  6: North_Central,
+  7: Sabaragamuwa,
+  8: North_Western,
+  9: Uva,
+};
 
 const SeeAllPage = () => {
   const [allPlaces, setAllPlaces] = useState<any[]>([]);
@@ -308,13 +108,20 @@ const SeeAllPage = () => {
       setHasMore(true);
     }
   }, [searchQuery, allPlaces]);
+
+  const numericId = Number(id);
+  const selectedImage =
+    provinceImages[numericId as keyof typeof provinceImages] || BgImg;
+
   return (
     <div className="bg-white ">
+      <ScrollAnimations />
       <div className="relative w-full h-[90vh] md:h-[75vh] ">
         {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-full bg-center overflow-hidden">
           <Image
-            src={BgImg}
+            // src={BgImg}
+            src={selectedImage}
             alt="Background"
             layout="fill"
             objectFit="cover"
@@ -330,7 +137,7 @@ const SeeAllPage = () => {
         </div>
 
         {/* Hero Content  */}
-        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full  ">
+        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
           <h1 className="text-2xl md:text-5xl font-extrabold">
             {places[0]?.province}
           </h1>
@@ -439,7 +246,9 @@ const SeeAllPage = () => {
                   </div>
                   <div className="p-4">
                     <h3 className="text-2xl font-extrabold text-black mb-1">
-                      {place.location_name}
+                      {place.location_name.length > 20
+                        ? `${place.location_name.slice(0, 20)}...`
+                        : place.location_name}
                     </h3>
                     <p className="text-gray-600">{place.city}</p>
                   </div>
@@ -450,7 +259,7 @@ const SeeAllPage = () => {
         </InfiniteScroll>
       </div>
 
-      <div>
+      <div className="fade-in">
         <div id="mobileAppSection" className="px-4 md:px-20 pt-10">
           <div className="flex justify-center mb-4">
             <Image

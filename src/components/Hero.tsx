@@ -314,7 +314,7 @@ const Hero = () => {
         </div>
 
         {/* Hero Content  */}
-        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full  ">
+        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
           <h1 className="text-2xl md:text-6xl font-extrabold">
             EXPLORE SRI LANKA
           </h1>
