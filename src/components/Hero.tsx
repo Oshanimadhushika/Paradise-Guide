@@ -314,7 +314,7 @@ const Hero = () => {
         </div>
 
         {/* Hero Content  */}
-        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
+        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full scale-up">
           <h1 className="text-2xl md:text-6xl font-extrabold">
             EXPLORE SRI LANKA
           </h1>
@@ -366,7 +366,7 @@ const Hero = () => {
             <img
               src={item.image.src}
               alt={item.title}
-              className="w-full h-[350px]"
+              className="w-full h-[350px] transition-transform duration-500 hover:scale-125"
             />
             <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/60 to-transparent text-white p-4">
               <h2 className="text-2xl font-extrabold">{item.title}</h2>

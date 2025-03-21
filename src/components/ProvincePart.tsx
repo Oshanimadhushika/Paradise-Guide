@@ -144,14 +144,17 @@ const ProvincePart = () => {
       }`}
           >
             {/* Image & Text Container */}
-            <div className="w-full h-full flex flex-col">
-              <Image
+            <div className="w-full h-full flex flex-col ">
+              <div className="overflow-hidden">
+                 <Image
                 src={province.image}
                 alt={province.name}
                 width={500}
                 height={idx === 1 ? 420 : 320}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 hover:scale-125"
               />
+              </div>
+             
               {/* Text Inside The Div */}
               <div className="p-2 text-start bg-white">
                 <h3 className="text-lg font-extrabold">

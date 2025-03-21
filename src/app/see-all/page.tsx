@@ -120,12 +120,9 @@ const SeeAllPage = () => {
         {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-full bg-center overflow-hidden">
           <Image
-            // src={BgImg}
             src={selectedImage}
             alt="Background"
-            layout="fill"
-            objectFit="cover"
-            className="absolute inset-0"
+            className="object-cover w-full h-full"
           />
           {/*  Overlay */}
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
@@ -138,10 +135,10 @@ const SeeAllPage = () => {
 
         {/* Hero Content  */}
         <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
-          <h1 className="text-2xl md:text-5xl font-extrabold">
+          <h1 className="text-3xl md:text-5xl font-extrabold">
             {places[0]?.province}
           </h1>
-          <p className="mt-1 text-lg md:text-xl max-w-2xl">
+          <p className="mt-1 text-sm md:text-xl max-w-2xl">
             {id === "1"
               ? " Sri Lanka's Western Province pulsates with life, offering a vibrant blend of history, culture, and modern attractions. Explore the bustling capital Colombo, delve into ancient temples and colonial architecture, or witness the captivating Rainbow Kite Festival. This dynamic region is the perfect starting point for your Sri Lankan adventure."
               : id === "2"
@@ -227,20 +224,50 @@ const SeeAllPage = () => {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
             {places.map((place) => (
+              // <div
+              //   key={place.location_id}
+              //   className="bg-white transition-all duration-300 h-[570px]"
+              // >
+              //   <a
+              //     href={`/place/${place.location_code}`}
+              //     className="flex flex-col h-full"
+              //   >
+              //     <div className="relative w-full h-[456px] ">
+              //       <Image
+              //         src={place.thumbnail_path}
+              //         alt={place.location_name}
+              //         layout="fill"
+              //         // className="object-cover h-full"
+              //         className="object-cover w-full h-full transition-transform duration-300 hover:scale-110"
+              //         loading="lazy"
+              //       />
+              //     </div>
+              //     <div className="p-4">
+              //       <h3 className="text-2xl font-extrabold text-black mb-1">
+              //         {place.location_name.length > 20
+              //           ? `${place.location_name.slice(0, 20)}...`
+              //           : place.location_name}
+              //       </h3>
+              //       <p className="text-gray-600">{place.city}</p>
+              //     </div>
+              //   </a>
+              // </div>
+
               <div
                 key={place.location_id}
-                className="bg-white hover:scale-100 transition-all duration-300 h-[570px]"
+                className="bg-white transition-all duration-300 h-[570px]"
               >
                 <a
                   href={`/place/${place.location_code}`}
                   className="flex flex-col h-full"
                 >
-                  <div className="relative w-full h-[456px]">
+                  {/* Image Container */}
+                  <div className="relative w-full h-[456px] overflow-hidden">
                     <Image
                       src={place.thumbnail_path}
                       alt={place.location_name}
                       layout="fill"
-                      className="object-cover h-full"
+                      className="object-cover w-full h-full transition-transform duration-300 hover:scale-125"
                       loading="lazy"
                     />
                   </div>

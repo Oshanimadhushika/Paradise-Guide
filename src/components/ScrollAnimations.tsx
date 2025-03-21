@@ -59,7 +59,7 @@ export const ScrollAnimations = () => {
       gsap.from(element, {
         scale: 0.8,
         opacity: 0,
-        duration: 1,
+        duration: 2,
         scrollTrigger: {
           trigger: element,
           start: 'top 85%',
