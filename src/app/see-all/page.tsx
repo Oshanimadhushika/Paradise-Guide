@@ -169,48 +169,6 @@ const SeeAllPage = () => {
         </div>
       </div>
 
-      {/* <div className="mt-6 p-5">
-        {loading ? (
-          <div className="text-center text-gray-500">Loading...</div>
-        ) : filteredPlaces.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-            {paginatedPlaces.map((place) => (
-              <div
-                key={place.location_id}
-                className=" bg-white overflow-hidden hover:scale-100 transition-all duration-300 h-[570px]"
-              >
-                <a
-                  href={`/place/${place.location_code}`}
-                  className="flex flex-col h-full"
-                >
-                  <div className="relative w-full h-[456px]">
-                    <Image
-                      src={place.thumbnail_path}
-                      alt={place.location_name}
-                      layout="fill"
-                      className="object-cover h-full"
-                    />
-                  </div>
-
-                  <div className="flex-grow p-4 flex flex-col justify-start mb-2">
-                    <h3 className="text-2xl font-extrabold text-black mb-1">
-                      {place.location_name.length > 20
-                        ? `${place.location_name.slice(0, 20)}...`
-                        : place.location_name}
-                    </h3>
-                    <p className="text-gray-600 text-base">{place.city}</p>
-                  </div>
-                </a>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-600">No places found.</p>
-          </div>
-        )}
-      </div> */}
-
       <div className="mt-6 p-5">
         <InfiniteScroll
           dataLength={places.length}
@@ -224,35 +182,6 @@ const SeeAllPage = () => {
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
             {places.map((place) => (
-              // <div
-              //   key={place.location_id}
-              //   className="bg-white transition-all duration-300 h-[570px]"
-              // >
-              //   <a
-              //     href={`/place/${place.location_code}`}
-              //     className="flex flex-col h-full"
-              //   >
-              //     <div className="relative w-full h-[456px] ">
-              //       <Image
-              //         src={place.thumbnail_path}
-              //         alt={place.location_name}
-              //         layout="fill"
-              //         // className="object-cover h-full"
-              //         className="object-cover w-full h-full transition-transform duration-300 hover:scale-110"
-              //         loading="lazy"
-              //       />
-              //     </div>
-              //     <div className="p-4">
-              //       <h3 className="text-2xl font-extrabold text-black mb-1">
-              //         {place.location_name.length > 20
-              //           ? `${place.location_name.slice(0, 20)}...`
-              //           : place.location_name}
-              //       </h3>
-              //       <p className="text-gray-600">{place.city}</p>
-              //     </div>
-              //   </a>
-              // </div>
-
               <div
                 key={place.location_id}
                 className="bg-white transition-all duration-300 h-[570px]"

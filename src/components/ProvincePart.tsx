@@ -1,4 +1,3 @@
-
 "use client";
 import { useState } from "react";
 import Image from "next/image";
@@ -108,7 +107,7 @@ const ProvincePart = () => {
       {/* Title & Description */}
       <div className="w-full flex items-center px-4 justify-between mt-3 pb-4">
         {/* Subtitle - Centered */}
-        <p className="text-lg text-center w-full md:w-2/3 mx-auto pl-6">
+        <p className="text-lg text-center w-full md:w-2/3 mx-auto pl-8">
           Sri Lanka comprises nine provinces, each offering unique landscapes
           and cultural experiences.
         </p>
@@ -146,15 +145,15 @@ const ProvincePart = () => {
             {/* Image & Text Container */}
             <div className="w-full h-full flex flex-col ">
               <div className="overflow-hidden">
-                 <Image
-                src={province.image}
-                alt={province.name}
-                width={500}
-                height={idx === 1 ? 420 : 320}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-125"
-              />
+                <Image
+                  src={province.image}
+                  alt={province.name}
+                  width={500}
+                  height={idx === 1 ? 420 : 320}
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-125"
+                />
               </div>
-             
+
               {/* Text Inside The Div */}
               <div className="p-2 text-start bg-white">
                 <h3 className="text-lg font-extrabold">

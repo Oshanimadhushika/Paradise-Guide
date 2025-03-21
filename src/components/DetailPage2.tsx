@@ -22,6 +22,8 @@ import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import Footer from "./Footer";
 import { ScrollAnimations } from "./ScrollAnimations";
+import AppStoreBlack from "../assets/AppStoreBlack.png";
+import PlayStoreBlack from "../assets/PlayStoreBlack.png";
 
 interface DetailPageProps {
   location_code: any;
@@ -209,7 +211,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
-      <ScrollAnimations/>
+      <ScrollAnimations />
 
       <section
         className="relative w-full h-full lg:h-screen bg-cover bg-center "
@@ -405,15 +407,15 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         {/* Grid Layout */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
           {/* Left QR Code */}
-          <div className="flex flex-col items-center w-[202px] order-1 md:order-none">
-            <div>
+          <div className="flex flex-col items-center w-[202px] order-1 lg:order-none">
+            <div className="p-3">
               <AppStoreQr />
             </div>
 
             {/* App Store Button */}
-            <div>
+            <div className="w-full px-2">
               <Image
-                src={AppStore}
+                src={AppStoreBlack}
                 alt="Download on the App Store"
                 className="w-full h-auto"
               />
@@ -421,7 +423,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Mobile Mockup */}
-          <div className="w-60 md:w-[295px] h-auto flex justify-center order-3 md:order-none">
+          <div className="w-60 md:w-[298px] h-auto flex justify-center order-3 lg:order-none">
             <Image
               src={MobileImg}
               alt="Download on the App Store"
@@ -430,15 +432,15 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Google Play Button */}
-          <div className="flex flex-col items-center  w-[202px] order-2 md:order-none">
-            <div>
+          <div className="flex flex-col items-center  w-[202px] order-2 lg:order-none">
+            <div className="p-3">
               <PlayStoreQr />
             </div>
 
             {/* App Store Button */}
-            <div>
+            <div className="w-full px-2">
               <Image
-                src={PlayStore}
+                src={PlayStoreBlack}
                 alt="Download on the App Store"
                 className="w-full h-auto"
               />

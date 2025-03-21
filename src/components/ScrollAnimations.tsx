@@ -59,12 +59,13 @@ export const ScrollAnimations = () => {
       gsap.from(element, {
         scale: 0.8,
         opacity: 0,
-        duration: 2,
+        duration: 1,
         scrollTrigger: {
           trigger: element,
           start: 'top 85%',
           end: 'bottom 15%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none',
+          once:true,
         }
       });
     });
