@@ -88,14 +88,10 @@ const ProvincePart = () => {
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? provinces.length - 1 : prev - 1));
-
-    // setCurrentIndex((prev) => (prev === provinces.length - 1 ? 0 : prev + 1));
   };
 
   const nextSlide = () => {
     setCurrentIndex((prev) => (prev === provinces.length - 1 ? 0 : prev + 1));
-
-    // setCurrentIndex((prev) => (prev === 0 ? provinces.length - 1 : prev - 1));
   };
 
   const getVisibleProvinces = () => {

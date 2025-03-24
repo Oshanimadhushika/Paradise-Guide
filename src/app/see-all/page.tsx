@@ -177,12 +177,21 @@ const SeeAllPage = () => {
           dataLength={places.length}
           next={() => fetchLocations(currentPage + 1)}
           hasMore={hasMore}
+          // loader={
+          //   <div className="flex justify-center gap-4 mt-3">
+          //     <Skeleton.Avatar active size="large" shape="circle" />
+          //     <Skeleton.Avatar active size="large" shape="circle" />
+          //     <Skeleton.Avatar active size="large" shape="circle" />
+          //   </div>
+          // }
           loader={
-            <div className="flex justify-center gap-4 mt-3">
-              <Skeleton.Avatar active size="large" shape="circle" />
-              <Skeleton.Avatar active size="large" shape="circle" />
-              <Skeleton.Avatar active size="large" shape="circle" />
-            </div>
+            hasMore ? (
+              <div className="flex justify-center gap-4 mt-3">
+                <Skeleton.Avatar active size={24} shape="circle" />
+                <Skeleton.Avatar active size={24} shape="circle" />
+                <Skeleton.Avatar active size={24} shape="circle" />
+              </div>
+            ) : null
           }
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
@@ -209,15 +218,17 @@ const SeeAllPage = () => {
                   <div className="relative w-full h-[456px] overflow-hidden">
                     <motion.div
                       initial={{ opacity: 0, filter: "blur(10px)" }}
-                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      animate={
+                        loaded ? { opacity: 1, filter: "blur(0px)" } : {}
+                      }
                       transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="absolute inset-0"
+                      className="w-full h-full"
                     >
                       <Image
                         src={place.thumbnail_path}
                         alt={place.location_name}
                         layout="fill"
-                        className={`object-cover w-full h-full transition-transform duration-300 hover:scale-125 ${
+                        className={`object-cover w-full h-full transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110 ${
                           loaded ? "opacity-100" : "opacity-0"
                         }`}
                         loading="lazy"
@@ -227,7 +238,7 @@ const SeeAllPage = () => {
                   </div>
 
                   <div className="p-4 ">
-                    <h3 className="flex truncate text-[40px] font-extrabold text-black mb-1 font-anton">
+                    <h3 className="flex truncate text-2xl font-extrabold text-black mb-1 font-anton">
                       {/* {place.location_name} */}
                       {place.location_name.length > 25
                         ? `${place.location_name.slice(0, 25)}...`

@@ -14,19 +14,20 @@ const ExploreSection = () => {
           <h2 className="text-3xl md:text-4xl font-anton text-black">
             Explore the Beauty and Mysteries <br /> of Sri Lanka
           </h2>
-          <p className="text-gray-600 mt-5">
+          <p className="text-gray-600 mt-5 text-left">
             Endless beaches, timeless ruins, welcoming people, oodles of
             elephants, rolling surf, cheap prices, fun trains, famous tea, and
             flavorful food make Sri Lanka irresistible.
           </p>
 
           {/* App Store Buttons */}
-          <div className="flex justify-center lg:justify-start gap-4 mt-6 h-[48px]">
+          <div className="flex justify-center lg:justify-start flex-col md:flex-row gap-4  mt-6 ">
             <Image
               src={ParadiseGuideLogo}
               alt="Paradise Guide Logo"
               className="w-[120px] h-full "
             />
+            <div className="flex gap-4">
             <Image
               src={AppStoreBlack}
               alt="App Store"
@@ -37,6 +38,8 @@ const ExploreSection = () => {
               alt="Google Play"
               className="w-[120px] h-full "
             />
+            </div>
+           
           </div>
         </div>
 

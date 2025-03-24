@@ -24,6 +24,7 @@ import Footer from "./Footer";
 import { ScrollAnimations } from "./ScrollAnimations";
 import AppStoreBlack from "../assets/AppStoreBlack.png";
 import PlayStoreBlack from "../assets/PlayStoreBlack.png";
+import Link from "next/link";
 
 interface DetailPageProps {
   location_code: any;
@@ -221,20 +222,20 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             : `url("https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg")`,
         }}
       >
-
         <div className="w-full h-full flex flex-col">
           {/* header */}
           <div className="w-full flex justify-between items-center p-5 ">
             {/* Logo */}
             <div className="flex justify-center md:justify-start w-full md:w-auto">
-              <button onClick={() => (window.location.href = "/")}>
+              <Link href="/" passHref>
                 <Image
                   src={ParadiseGuideLogo}
                   alt="Paradise Guide Logo"
                   width={110}
                   height={50}
+                  className="cursor-pointer"
                 />
-              </button>
+              </Link>
             </div>
 
             {/* Share Button */}
@@ -266,8 +267,8 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           <div className="w-full justify-center bg-black/40 p-3 mt-auto hidden lg:block ">
             <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
               {/* Text Content */}
-              <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
-                <h1 className="text-[20px] md:text-[48px] font-anton leading-tight">
+              <div className="text-white p-1 lg:p-2 w-full lg:w-1/2 scale-up">
+                <h1 className="text-[20px] md:text-[48px] font-anton">
                   {detailData?.location_name}
                 </h1>
 
@@ -332,77 +333,75 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </div>
 
         <div className="absolute block lg:hidden inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-
-        
       </section>
 
-        {/* mobile Content & Carousel */}
-        <div className="w-full justify-center bg-black p-3 mt-auto block lg:hidden ">
-            <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
-              {/* Text Content */}
-              <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
-                <h1 className="text-[20px] md:text-[48px] font-anton leading-tight">
-                  {detailData?.location_name}
-                </h1>
+      {/* mobile Content & Carousel */}
+      <div className="w-full justify-center bg-black p-3 mt-auto block lg:hidden ">
+        <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
+          {/* Text Content */}
+          <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
+            <h1 className="text-[20px] md:text-[48px] font-anton leading-tight">
+              {detailData?.location_name}
+            </h1>
 
-                <Divider className="my-2 bg-gray-200 mb-3" />
+            <Divider className="my-2 bg-gray-200 mb-3" />
 
-                <div className="mt-4 text-sm md:text-lg">
-                  {finalDescription.split("\n").map((line, index) => (
-                    <span key={index}>{line}</span>
-                  ))}
-                  {cleanDescription().length > 350 && "...."}
-                </div>
+            <div className="mt-4 text-sm md:text-lg">
+              {finalDescription.split("\n").map((line, index) => (
+                <span key={index}>{line}</span>
+              ))}
+              {cleanDescription().length > 350 && "...."}
+            </div>
 
-                <button
-                  onClick={scrollToSection}
-                  className="mt-4 px-6 py-2 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
-                >
-                  Read More
-                </button>
+            <button
+              onClick={scrollToSection}
+              className="mt-4 px-6 py-2 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
+            >
+              Read More
+            </button>
+          </div>
+
+          {/* Attractions Carousel */}
+          {isMounted && (
+            <div className="p-2 w-full lg:w-1/2">
+              <h3 className="text-white text-2xl font-bold mb-3 text-center md:text-right pr-0 md:pr-9">
+                Attractions Nearby
+              </h3>
+              <div className="">
+                <AliceCarousel
+                  ref={carouselRef}
+                  items={items}
+                  disableDotsControls
+                  disableButtonsControls
+                  responsive={{
+                    0: { items: 1 },
+                    600: { items: 3 },
+                    1024: { items: 2 },
+                    1440: { items: 3 },
+                  }}
+                  infinite
+                  mouseTracking
+                />
               </div>
 
-              {/* Attractions Carousel */}
-              {isMounted && (
-                <div className="p-2 w-full lg:w-1/2">
-                  <h3 className="text-white text-2xl font-bold mb-3 text-center md:text-right pr-0 md:pr-9">
-                    Attractions Nearby
-                  </h3>
-                  <div className="">
-                    <AliceCarousel
-                      ref={carouselRef}
-                      items={items}
-                      disableDotsControls
-                      disableButtonsControls
-                      responsive={{
-                        0: { items: 1 },
-                        600: { items: 3 },
-                        1024: { items: 2 },
-                        1440: { items: 3 },
-                      }}
-                      infinite
-                      mouseTracking
-                    />
-                  </div>
-
-                  <div className="flex justify-end items-center gap-4 mt-4 pr-0 md:pr-9">
-                    <button
-                      onClick={slidePrev}
-                      className="p-3 border border-white rounded-full shadow-lg"
-                    >
-                      <FaArrowLeft className="text-gray-100" />
-                    </button>
-                    <button
-                      onClick={slideNext}
-                      className="p-3 border border-white rounded-full shadow-lg"
-                    >
-                      <FaArrowRight className="text-gray-100" />
-                    </button>
-                  </div>
-                </div>
-              )}
+              <div className="flex justify-end items-center gap-4 mt-4 pr-0 md:pr-9">
+                <button
+                  onClick={slidePrev}
+                  className="p-3 border border-white rounded-full shadow-lg"
+                >
+                  <FaArrowLeft className="text-gray-100" />
+                </button>
+                <button
+                  onClick={slideNext}
+                  className="p-3 border border-white rounded-full shadow-lg"
+                >
+                  <FaArrowRight className="text-gray-100" />
+                </button>
+              </div>
             </div>
-          </div>
+          )}
+        </div>
+      </div>
 
       {/* Facilities Section */}
       <div className=" px-10 mt-10 fade-in ">

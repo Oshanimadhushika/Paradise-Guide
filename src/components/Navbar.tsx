@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
+import Link from "next/link";
 
 const Navbar = () => {
   const [active, setActive] = useState<string | null>(null);
@@ -8,14 +9,23 @@ const Navbar = () => {
   return (
     <nav className="flex justify-between items-center px-4 py-2 bg-transparent text-white w-full relative z-50">
       <div>
-        <button onClick={() => (window.location.href = "/")}>
+        {/* <button onClick={() => (window.location.href = "/")}>
           <Image
             src={ParadiseGuideLogo}
             alt="Paradise Guide Logo"
             width={110}
             height={50}
           />
-        </button>
+        </button> */}
+        <Link href="/" passHref>
+          <Image
+            src={ParadiseGuideLogo}
+            alt="Paradise Guide Logo"
+            width={110}
+            height={50}
+            className="cursor-pointer"
+          />
+        </Link>
       </div>
       <ul className="hidden md:flex space-x-5">
         {["HOME", "DESTINATIONS", "TRIPS"].map((item) => (
