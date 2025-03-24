@@ -28,7 +28,7 @@ const Navbar = () => {
           />
         </Link>
       </div>
-      <ul className="hidden md:flex space-x-5">
+      {/* <ul className="hidden md:flex space-x-5">
         {menuItems.map((item) => (
           <li
             key={item.label}
@@ -46,7 +46,31 @@ const Navbar = () => {
           </li>
         ))}
         <button className="text-2xl">☰</button>
-      </ul>
+      </ul> */}
+
+<ul className="hidden md:flex space-x-5">
+      {menuItems.map((item) => (
+        <li key={item.label} className="relative">
+          <Link href={item.url}>
+            <span
+              className={`cursor-pointer px-4 py-2 transition-all hover:bg-gray-400 hover:rounded-full hover:bg-opacity-30 block ${
+                active === item.url
+                  ? "bg-gray-400 bg-opacity-30 rounded-full"
+                  : ""
+              }`}
+              onClick={(e) => {
+                e.preventDefault(); 
+                setActive(item.url);
+                router.push(item.url);
+              }}
+            >
+              {item.label}
+            </span>
+          </Link>
+        </li>
+      ))}
+      <button className="text-2xl">☰</button>
+    </ul>
     </nav>
   );
 };
