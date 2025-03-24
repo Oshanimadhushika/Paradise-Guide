@@ -226,13 +226,14 @@ const SeeAllPage = () => {
                     </motion.div>
                   </div>
 
-                  <div className="p-4">
-                    <h3 className="text-2xl font-extrabold text-black mb-1 font-anton">
-                      {place.location_name.length > 20
-                        ? `${place.location_name.slice(0, 20)}...`
+                  <div className="p-4 ">
+                    <h3 className="flex truncate text-[40px] font-extrabold text-black mb-1 font-anton">
+                      {/* {place.location_name} */}
+                      {place.location_name.length > 25
+                        ? `${place.location_name.slice(0, 25)}...`
                         : place.location_name}
                     </h3>
-                    <p className="text-gray-600">{place.city}</p>
+                    <p className="text-gray-600 text-base">{place.city}</p>
                   </div>
                 </a>
               </div>
