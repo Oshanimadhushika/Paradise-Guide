@@ -2,7 +2,7 @@ import Image from "next/image";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 import AppStoreBlack from "../assets/AppStoreBlack.png";
 import PlayStoreBlack from "../assets/PlayStoreBlack.png";
-import MobileImg from "../assets/MobileImgHalf.png";
+import MobileImg from "../assets/MobilePhone2.png";
 import Sigiriya from "../assets/sigiriya2.png";
 
 const ExploreSection = () => {
@@ -11,7 +11,7 @@ const ExploreSection = () => {
       {/* Left Content */}
       <div className="col-span-12 lg:col-span-6 w-full flex flex-col items-center lg:items-start text-center lg:text-left bg-[#EFEFEF] h-full ">
         <div className="p-6 mt-7">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-black">
+          <h2 className="text-3xl md:text-4xl font-anton text-black">
             Explore the Beauty and Mysteries <br /> of Sri Lanka
           </h2>
           <p className="text-gray-600 mt-5">
@@ -41,7 +41,7 @@ const ExploreSection = () => {
         </div>
 
         {/* Mobile Image - Pushes to bottom */}
-        <div className="flex flex-grow items-end justify-center md:justify-start w-full pt-4 pl-5">
+        <div className="flex flex-grow items-end justify-center w-full pt-4 pl-5">
           <Image
             src={MobileImg}
             alt="Mobile UI"
@@ -60,7 +60,7 @@ const ExploreSection = () => {
           className="w-full h-auto "
         />
         <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/60 to-transparent text-white p-6 rounded-b-lg">
-          <h3 className="text-3xl font-extrabold">Sigiriya Rock</h3>
+          <h3 className="text-3xl font-anton">Sigiriya Rock</h3>
           <p className="text-sm mt-4">
             Sigiriya or Sinhagiri is an ancient rock fortress located in the
             northern Matale District near the town of Dambulla in the Central

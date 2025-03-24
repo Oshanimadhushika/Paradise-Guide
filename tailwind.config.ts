@@ -17,7 +17,7 @@ export default {
 
       },
       fontFamily: {
-        sfPro: ["SF Compact Rounded Heavy","sans-serif"],
+        anton: ["Anton Regular","sans-serif"],
         playfair: ["Playfair Display", "serif"],
         inter: ["Inter", "sans-serif"],
       },

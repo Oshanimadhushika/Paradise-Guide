@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "SF Compact Rounded Heavy";
-  src: url("/public/fonts/SF-Compact-Rounded-Heavy.otf") format("opentype");
-  font-weight: 700;
+  font-family: "Anton Regular";
+  src: url("/fonts/Anton-Regular.ttf") format("opentype");
+  /* font-weight: 900; */
   font-style: normal;
 }
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --border:#6F7789;
-  --text-colour-one:#6F7789;
+  --border: #6f7789;
+  --text-colour-one: #6f7789;
 
   --divider-gray: rgba(111, 119, 137, 0.25);
 }
@@ -28,5 +28,5 @@
 body {
   color: var(--foreground);
   background: var(--background);
-   font-family: "SF Compact Rounded Heavy", sans-serif;
+  /* font-family: "Anton Regular", sans-serif; */
 }

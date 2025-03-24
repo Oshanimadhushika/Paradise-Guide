@@ -25,6 +25,8 @@ import Uva from "@/assets/province/Uva Province.png";
 import Western from "@/assets/province/Western Province.png";
 import Northern from "@/assets/province/Northern Province.png";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
+import { Skeleton } from "antd";
+import { motion } from "framer-motion";
 
 const provinceImages: Record<number, StaticImageData> = {
   1: Western,
@@ -46,6 +48,7 @@ const SeeAllPage = () => {
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -116,7 +119,7 @@ const SeeAllPage = () => {
   return (
     <div className="bg-white ">
       <ScrollAnimations />
-      <div className="relative w-full h-[90vh] md:h-[75vh] ">
+      <div className="relative w-full h-screen">
         {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-full bg-center overflow-hidden">
           <Image
@@ -134,8 +137,8 @@ const SeeAllPage = () => {
         </div>
 
         {/* Hero Content  */}
-        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
-          <h1 className="text-3xl md:text-5xl font-extrabold">
+        <div className="relative  z-50  flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
+          <h1 className="text-3xl md:text-5xl font-extrabold font-anton">
             {places[0]?.province}
           </h1>
           <p className="mt-1 text-sm md:text-xl max-w-2xl">
@@ -175,9 +178,11 @@ const SeeAllPage = () => {
           next={() => fetchLocations(currentPage + 1)}
           hasMore={hasMore}
           loader={
-            <p className="text-center font-bold text-black text-lg mt-3">
-              Loading more...
-            </p>
+            <div className="flex justify-center gap-4 mt-3">
+              <Skeleton.Avatar active size="large" shape="circle" />
+              <Skeleton.Avatar active size="large" shape="circle" />
+              <Skeleton.Avatar active size="large" shape="circle" />
+            </div>
           }
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
@@ -191,7 +196,7 @@ const SeeAllPage = () => {
                   className="flex flex-col h-full"
                 >
                   {/* Image Container */}
-                  <div className="relative w-full h-[456px] overflow-hidden">
+                  {/* <div className="relative w-full h-[456px] overflow-hidden">
                     <Image
                       src={place.thumbnail_path}
                       alt={place.location_name}
@@ -199,9 +204,30 @@ const SeeAllPage = () => {
                       className="object-cover w-full h-full transition-transform duration-300 hover:scale-125"
                       loading="lazy"
                     />
+                  </div> */}
+
+                  <div className="relative w-full h-[456px] overflow-hidden">
+                    <motion.div
+                      initial={{ opacity: 0, filter: "blur(10px)" }}
+                      animate={{ opacity: 1, filter: "blur(0px)" }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className="absolute inset-0"
+                    >
+                      <Image
+                        src={place.thumbnail_path}
+                        alt={place.location_name}
+                        layout="fill"
+                        className={`object-cover w-full h-full transition-transform duration-300 hover:scale-125 ${
+                          loaded ? "opacity-100" : "opacity-0"
+                        }`}
+                        loading="lazy"
+                        onLoadingComplete={() => setLoaded(true)}
+                      />
+                    </motion.div>
                   </div>
+
                   <div className="p-4">
-                    <h3 className="text-2xl font-extrabold text-black mb-1">
+                    <h3 className="text-2xl font-extrabold text-black mb-1 font-anton">
                       {place.location_name.length > 20
                         ? `${place.location_name.slice(0, 20)}...`
                         : place.location_name}

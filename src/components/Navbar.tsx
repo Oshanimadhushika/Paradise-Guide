@@ -18,7 +18,7 @@ const Navbar = () => {
         </button>
       </div>
       <ul className="hidden md:flex space-x-5">
-        {["Home", "Destinations", "Trips"].map((item) => (
+        {["HOME", "DESTINATIONS", "TRIPS"].map((item) => (
           <li
             key={item}
             className={`cursor-pointer px-4 py-2 transition-all hover:bg-slate-400 hover:rounded-full ${

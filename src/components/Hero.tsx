@@ -212,6 +212,13 @@ import Northern from "../assets/Categories/Northern.png";
 import WildLife from "../assets/Categories/WildLife.png";
 import BgImg from "../assets/BG Image.png";
 import Navbar from "./Navbar";
+import ArrowLeft from "@/assets/svgs/ArrowLeft";
+import ArrowRight from "@/assets/svgs/ArrowRight";
+// import localFont from "next/font/local";
+
+// const antonRegular = localFont({
+//   src: "../fonts/Anton-Regular.ttf",
+// });
 
 const sliderData = [
   {
@@ -254,19 +261,20 @@ const sliderData = [
 const Hero = () => {
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
-  const scrollSpeed = 2;
+  const scrollSpeed = 1;
+  const [isUserHovering, setIsUserHovering] = useState(false);
 
   useEffect(() => {
     if (!sliderRef.current) return;
     const slider = sliderRef.current;
 
-    slider.innerHTML += slider.innerHTML;
+    slider.innerHTML += slider.innerHTML; // Duplicate content for smooth looping
 
     let animationFrame: number;
-    const scrollSlider = () => {
-      if (!isUserScrolling) {
-        slider.scrollLeft += scrollSpeed;
 
+    const scrollSlider = () => {
+      if (!isUserScrolling && !isUserHovering) {
+        slider.scrollLeft += scrollSpeed;
         if (slider.scrollLeft >= slider.scrollWidth / 2) {
           slider.scrollLeft = 0;
         }
@@ -275,20 +283,20 @@ const Hero = () => {
     };
 
     animationFrame = requestAnimationFrame(scrollSlider);
+
     return () => cancelAnimationFrame(animationFrame);
-  }, [isUserScrolling]);
+  }, [isUserScrolling, isUserHovering]);
 
   const handleManualScroll = (direction: "left" | "right") => {
+    if (!sliderRef.current) return;
     setIsUserScrolling(true);
 
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: direction === "right" ? 300 : -300,
-        behavior: "smooth",
-      });
-    }
+    const slider = sliderRef.current;
+    const scrollAmount = direction === "left" ? -200 : 200;
 
-    setTimeout(() => setIsUserScrolling(false), 3000);
+    slider.scrollBy({ left: scrollAmount, behavior: "smooth" });
+
+    setTimeout(() => setIsUserScrolling(false), 1000);
   };
 
   return (
@@ -315,10 +323,10 @@ const Hero = () => {
 
         {/* Hero Content  */}
         <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full scale-up">
-          <h1 className="text-2xl md:text-6xl font-extrabold">
+          <h1 className="text-2xl md:text-6xl font-anton">
             EXPLORE SRI LANKA
           </h1>
-          <p className="mt-4 text-lg md:text-xl max-w-2xl">
+          <p className="mt-4 text-lg md:text-xl max-w-2xl font-light">
             Discover the breathtaking beauty and rich heritage of Sri Lanka, an
             island where adventure and tranquility go hand in hand. Whether
             you're drawn to sun-kissed beaches, the lush greenery of the hill
@@ -338,15 +346,15 @@ const Hero = () => {
             <div className="flex justify-end items-center gap-3">
               <button
                 onClick={() => handleManualScroll("left")}
-                className="text-white p-2 rounded-full border border-white"
+                // className="text-white p-2 rounded-full border border-white"
               >
-                <FaArrowLeft />
+                <ArrowLeft />
               </button>
               <button
                 onClick={() => handleManualScroll("right")}
-                className="text-white p-2 rounded-full border border-white"
+                // className="text-white p-2 rounded-full border border-white"
               >
-                <FaArrowRight />
+                <ArrowRight />
               </button>
             </div>
           </div>
@@ -357,19 +365,22 @@ const Hero = () => {
       <div
         ref={sliderRef}
         className="flex space-x-1 w-full h-[350px] overflow-hidden bg-black"
+        onMouseEnter={() => setIsUserHovering(true)}
+        onMouseLeave={() => setIsUserHovering(false)}
       >
         {sliderData.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col w-[300px] flex-shrink-0 overflow-hidden relative"
+            className="flex flex-col w-[250px] flex-shrink-0 overflow-hidden relative"
           >
             <img
               src={item.image.src}
               alt={item.title}
-              className="w-full h-[350px] transition-transform duration-500 hover:scale-125"
+              // className="w-full h-[350px] transition-transform duration-600 hover:scale-125"
+               className="w-full h-[350px] transition-transform duration-[600ms] ease-in-out transform origin-center hover:scale-110"
             />
             <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/60 to-transparent text-white p-4">
-              <h2 className="text-2xl font-extrabold">{item.title}</h2>
+              <h2 className="text-2xl font-anton">{item.title}</h2>
               <p className="text-sm mt-2">{item.description}</p>
             </div>
           </div>
