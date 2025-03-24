@@ -116,12 +116,21 @@ const SeeAllPage = () => {
   const selectedImage =
     provinceImages[numericId as keyof typeof provinceImages] || BgImg;
 
+  const staggerVariants = {
+    hidden: { opacity: 0, filter: "blur(10px)" },
+    visible: (index: any) => ({
+      opacity: 1,
+      filter: "blur(0px)",
+      transition: { delay: index * 0.3, duration: 1.5, ease: "easeOut" },
+    }),
+  };
+
   return (
     <div className="bg-white ">
       <ScrollAnimations />
-      <div className="relative w-full h-screen">
+      <div className="relative w-full h-[100vh] lg:h-screen overflow-hidden">
         {/* Background Image */}
-        <div className="absolute top-0 left-0 w-full h-full bg-center overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-screen bg-center overflow-hidden">
           <Image
             src={selectedImage}
             alt="Background"
@@ -137,8 +146,47 @@ const SeeAllPage = () => {
         </div>
 
         {/* Hero Content  */}
-        <div className="relative  z-50  flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
-          <h1 className="text-3xl md:text-5xl font-extrabold font-anton">
+        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
+          <div className="hidden md:block">
+            <h1 className="text-3xl md:text-5xl font-extrabold font-anton ">
+              {places[0]?.province}
+            </h1>
+            <p className="mt-1 text-sm md:text-xl max-w-2xl">
+              {id === "1"
+                ? " Sri Lanka's Western Province pulsates with life, offering a vibrant blend of history, culture, and modern attractions. Explore the bustling capital Colombo, delve into ancient temples and colonial architecture, or witness the captivating Rainbow Kite Festival. This dynamic region is the perfect starting point for your Sri Lankan adventure."
+                : id === "2"
+                ? "Discover the sun-kissed shores and vibrant culture of the Southern Province. Explore the historic Galle Fort, a UNESCO World Heritage Site, and marvel at the iconic stilt fishermen. Witness the diverse wildlife of Yala National Park, or relax on pristine beaches like Mirissa and Weligama. The Southern Province offers a captivating blend of history, nature, and beach bliss. "
+                : id === "3"
+                ? " Immerse yourself in the heart of Sri Lanka's history and culture in the Central Province. Explore the sacred city of Kandy, home to the revered Temple of the Tooth Relic, and wander through lush tea plantations, the source of Ceylon's famed brew. Discover the breathtaking landscapes of the Knuckles Mountains and witness the vibrant Perahera procession, a dazzling display of tradition. "
+                : id === "4"
+                ? "Discover the vibrant tapestry of the Eastern Province, where pristine beaches meet ancient temples and wildlife roams free. Explore the historic city of Trincomalee, relax on the golden sands of Arugam Bay, or witness the diverse wildlife of Kumana National Park. The Eastern Province offers a unique blend of culture, nature, and adventure."
+                : id === "5"
+                ? "Discover the vibrant cultural tapestry of the Northern Province, where ancient temples, stunning beaches, and a unique blend of Tamil culture await. Explore the bustling city of Jaffna, with its historic Dutch Fort and vibrant markets. Witness the architectural marvels of Nallur Kovil and other Hindu temples, or embark on a serene journey to the sacred island of Nagadeepa. Relax on pristine beaches like Casuarina, or venture further to the idyllic islands of Delft and Neduntheevu. Immerse yourself in the warmth and hospitality of the local people and experience the rich heritage of the Northern Province."
+                : id === "6"
+                ? " Step back in time and explore the ancient wonders of the North Central Province. Anuradhapura, the provincial capital, boasts a rich history as a flourishing kingdom, with awe-inspiring ruins like the Sri Maha Bodhi tree and the colossal Ruwanweliseya stupa. Witness the grandeur of the Polonnaruwa Kingdom at its former capital, Polonnaruwa, with its intricate temples and royal palaces. Immerse yourself in the spiritual heart of Sri Lanka and discover the fascinating legacy of ancient civilizations. "
+                : id === "7"
+                ? "Discover the heart of Sri Lankan nature and adventure in the Sabaragamuwa Province. Renowned for its lush landscapes, the province boasts the breathtaking Sinharaja Rainforest, a UNESCO World Heritage Site, and the diverse wildlife of Udawalawe National Park. Witness the majestic elephants at the Pinnawala Elephant Orphanage and embark on a challenging climb to the sacred peak of Adam's Peak. Sabaragamuwa offers a unique blend of natural beauty, cultural treasures, and thrilling experiences.  "
+                : id === "8"
+                ? " Discover the vibrant heartland of Sri Lanka in the North Western Province. Explore the historic city of Kurunegala, once a flourishing kingdom, and wander through endless stretches of lush coconut plantations. Witness the diverse wildlife of Wilpattu National Park or relax on the pristine beaches of Kalpitiya. The North Western Province offers a unique blend of history, nature, and coastal charm.  "
+                : id === "9"
+                ? "Discover the scenic beauty and natural wonders of Uva Province. Explore lush tea plantations, witness cascading waterfalls like Dunhinda and Diyaluma, and embark on challenging hikes to stunning viewpoints like Ella Rock. Immerse yourself in the vibrant culture of Badulla, the provincial capital, and experience the thrill of wildlife encounters at Yala National Park, a haven for elephants and leopards. Uva Province offers a captivating blend of nature, adventure, and cultural charm."
+                : "Discover the breathtaking beauty and rich heritage of Sri Lanka..."}
+            </p>
+            <input
+              type="text"
+              placeholder="Search Here"
+              className="p-3 w-full md:w-1/2  rounded-full bg-transparent text-gray-400 border border-gray-400 placeholder-white focus:outline-none"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value.toLowerCase())}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* mobile text  */}
+      <div className="relative bg-black z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full ">
+        <div className="block md:hidden fade-in">
+          <h1 className="text-3xl md:text-5xl font-extrabold font-anton ">
             {places[0]?.province}
           </h1>
           <p className="mt-1 text-sm md:text-xl max-w-2xl">
@@ -177,78 +225,62 @@ const SeeAllPage = () => {
           dataLength={places.length}
           next={() => fetchLocations(currentPage + 1)}
           hasMore={hasMore}
-          // loader={
-          //   <div className="flex justify-center gap-4 mt-3">
-          //     <Skeleton.Avatar active size="large" shape="circle" />
-          //     <Skeleton.Avatar active size="large" shape="circle" />
-          //     <Skeleton.Avatar active size="large" shape="circle" />
-          //   </div>
-          // }
           loader={
-            hasMore ? (
+            hasMore && places.length > 0 ? (
               <div className="flex justify-center gap-4 mt-3">
-                <Skeleton.Avatar active size={24} shape="circle" />
-                <Skeleton.Avatar active size={24} shape="circle" />
-                <Skeleton.Avatar active size={24} shape="circle" />
+                <Skeleton.Avatar active size={20} shape="square" />
+                <Skeleton.Avatar active size={20} shape="square" />
+                <Skeleton.Avatar active size={20} shape="square" />
               </div>
             ) : null
           }
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-            {places.map((place) => (
-              <div
-                key={place.location_id}
-                className="bg-white transition-all duration-300 h-[570px]"
-              >
-                <a
-                  href={`/place/${place.location_code}`}
-                  className="flex flex-col h-full"
+            {places.map((place, index) => {
+              return (
+                <div
+                  key={place.location_id}
+                  className="bg-white transition-all duration-300 h-[570px]"
                 >
-                  {/* Image Container */}
-                  {/* <div className="relative w-full h-[456px] overflow-hidden">
-                    <Image
-                      src={place.thumbnail_path}
-                      alt={place.location_name}
-                      layout="fill"
-                      className="object-cover w-full h-full transition-transform duration-300 hover:scale-125"
-                      loading="lazy"
-                    />
-                  </div> */}
+                  <a
+                    href={`/place/${place.location_code}`}
+                    className="flex flex-col h-full"
+                  >
+                    {/* Image Container */}
+                    <div className="relative w-full h-[456px] overflow-hidden">
+                      <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={staggerVariants}
+                        custom={index} // Stagger effect
+                        className="w-full h-full"
+                      >
+                        <Image
+                          src={place.thumbnail_path}
+                          alt={place.location_name}
+                          layout="fill"
+                          className={`object-cover w-full h-full transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110 ${
+                            loaded ? "opacity-100" : "opacity-0"
+                          }`}
+                          loading="lazy"
+                          onLoadingComplete={() => setLoaded(true)}
+                        />
+                      </motion.div>
+                    </div>
 
-                  <div className="relative w-full h-[456px] overflow-hidden">
-                    <motion.div
-                      initial={{ opacity: 0, filter: "blur(10px)" }}
-                      animate={
-                        loaded ? { opacity: 1, filter: "blur(0px)" } : {}
-                      }
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      className="w-full h-full"
-                    >
-                      <Image
-                        src={place.thumbnail_path}
-                        alt={place.location_name}
-                        layout="fill"
-                        className={`object-cover w-full h-full transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110 ${
-                          loaded ? "opacity-100" : "opacity-0"
-                        }`}
-                        loading="lazy"
-                        onLoadingComplete={() => setLoaded(true)}
-                      />
-                    </motion.div>
-                  </div>
-
-                  <div className="p-4 ">
-                    <h3 className="flex truncate text-2xl font-extrabold text-black mb-1 font-anton">
-                      {/* {place.location_name} */}
-                      {place.location_name.length > 25
-                        ? `${place.location_name.slice(0, 25)}...`
-                        : place.location_name}
-                    </h3>
-                    <p className="text-gray-600 text-base">{place.city}</p>
-                  </div>
-                </a>
-              </div>
-            ))}
+                    {/* Text Content */}
+                    <div className="p-4">
+                      <h3 className="flex truncate text-2xl font-extrabold text-black mb-1 font-anton">
+                        {place.location_name.length > 25
+                          ? `${place.location_name.slice(0, 25)}...`
+                          : place.location_name}
+                      </h3>
+                      <p className="text-gray-600 text-base">{place.city}</p>
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
           </div>
         </InfiniteScroll>
       </div>

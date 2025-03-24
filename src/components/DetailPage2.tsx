@@ -9,8 +9,6 @@ import WashRoomIcon from "@/assets/svgs/WashRoomIcon";
 import SafetyIcon from "@/assets/svgs/SafetyIcon";
 import ShopIcon from "@/assets/svgs/ShopIcon";
 import VisitorsIcon from "@/assets/svgs/VisitorsIcon";
-import AppStore from "../assets/appleStore.png";
-import PlayStore from "../assets/playStore.png";
 import MobileImg from "../assets/mobileImg.png";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 import { Divider } from "antd";
@@ -25,6 +23,7 @@ import { ScrollAnimations } from "./ScrollAnimations";
 import AppStoreBlack from "../assets/AppStoreBlack.png";
 import PlayStoreBlack from "../assets/PlayStoreBlack.png";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 interface DetailPageProps {
   location_code: any;
@@ -214,17 +213,26 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
       {/* Hero Section */}
       <ScrollAnimations />
 
-      <section
-        className="relative w-full h-[100vh] lg:h-screen bg-cover bg-center "
-        style={{
-          backgroundImage: detailData?.gallery?.[0]?.image_path
-            ? `url("${detailData.gallery[0].image_path}")`
-            : `url("https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg")`,
-        }}
-      >
-        <div className="w-full h-full flex flex-col">
-          {/* header */}
-          <div className="w-full flex justify-between items-center p-5 ">
+      <section className="relative w-full h-[100vh] lg:h-screen overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src={
+              detailData?.gallery?.[0]?.image_path ||
+              "https://img.traveltriangle.com/blog/wp-content/uploads/2018/06/shutterstock_397314796.jpg"
+            }
+            alt={detailData?.location_name || "Location"}
+            layout="fill"
+            objectFit="cover"
+            priority
+            // loading="lazy"
+          />
+        </div>
+
+        {/* header */}
+        <div className="relative w-full h-full flex flex-col z-10">
+          {/* Header */}
+          <div className="w-full flex justify-between items-center p-5">
             {/* Logo */}
             <div className="flex justify-center md:justify-start w-full md:w-auto">
               <Link href="/" passHref>
@@ -249,7 +257,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                   );
                   showModal();
                 }}
-                className="border-2 border-white text-white font-bold px-4 py-2 flex items-center space-x-2  hover:text-gray-400 hover:border-gray-400 transition-all rounded-full"
+                className="border-2 border-white text-white font-bold px-4 py-2 flex items-center space-x-2 hover:text-gray-400 hover:border-gray-400 transition-all rounded-full"
               >
                 <IoMdShare className="w-5 h-5 mr-2" />
                 <span className="hidden md:inline">Share</span>
@@ -264,23 +272,20 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Content & Carousel */}
-          <div className="w-full justify-center bg-black/40 p-3 mt-auto hidden lg:block ">
+          <div className="w-full justify-center bg-black/40 p-3 mt-auto hidden lg:block">
             <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
               {/* Text Content */}
               <div className="text-white p-1 lg:p-2 w-full lg:w-1/2 scale-up">
                 <h1 className="text-[20px] md:text-[48px] font-anton">
                   {detailData?.location_name}
                 </h1>
-
                 <Divider className="my-2 bg-gray-200 mb-3" />
-
                 <div className="mt-4 text-sm md:text-lg">
                   {finalDescription.split("\n").map((line, index) => (
                     <span key={index}>{line}</span>
                   ))}
                   {cleanDescription().length > 350 && "...."}
                 </div>
-
                 <button
                   onClick={scrollToSection}
                   className="mt-4 px-6 py-2 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
@@ -295,7 +300,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                   <h3 className="text-white text-2xl font-bold mb-3 text-center md:text-right pr-0 md:pr-9">
                     Attractions Nearby
                   </h3>
-                  <div className="">
+                  <div>
                     <AliceCarousel
                       ref={carouselRef}
                       items={items}
@@ -332,11 +337,12 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
         </div>
 
+        {/* Gradient Overlay for Mobile */}
         <div className="absolute block lg:hidden inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
       </section>
 
       {/* mobile Content & Carousel */}
-      <div className="w-full justify-center bg-black p-3 mt-auto block lg:hidden ">
+      <div className="w-full justify-center bg-black p-3 mt-auto block lg:hidden">
         <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
           {/* Text Content */}
           <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
@@ -446,7 +452,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </h2>
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
-        <div className="flex flex-wrap gap-4 justify-center pb-5">
+        {/* <div className="flex flex-wrap gap-4 justify-center pb-5">
           {detailData?.gallery?.slice(0, 8).map((item, index) => (
             <div
               key={index}
@@ -460,6 +466,31 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                 height={200}
               />
             </div>
+          ))}
+        </div> */}
+
+        <div className="flex flex-wrap gap-4 justify-center pb-5">
+          {detailData?.gallery?.slice(0, 8).map((item, index) => (
+            <motion.div
+              key={index}
+              className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group"
+              initial={{ opacity: 0, y: 50 }} // Start hidden, slightly lower
+              whileInView={{ opacity: 1, y: 0 }} // Fade in and move up
+              transition={{
+                duration: 0.8,
+                delay: index * 0.2,
+                ease: "easeOut",
+              }} // Delay each image
+              viewport={{ once: true }} // Runs animation once
+            >
+              <Image
+                src={item.image_path}
+                alt={`Gallery image ${item.credit_by}`}
+                className="w-full h-full object-cover rounded-lg transition-transform transform group-hover:scale-105 group-hover:rotate-3 group-hover:opacity-80"
+                width={300}
+                height={200}
+              />
+            </motion.div>
           ))}
         </div>
       </div>
