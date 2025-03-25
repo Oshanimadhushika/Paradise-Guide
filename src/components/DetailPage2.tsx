@@ -297,7 +297,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               {/* Attractions Carousel */}
               {isMounted && (
                 <div className="p-2 w-full lg:w-1/2">
-                  <h3 className="text-white text-2xl font-bold mb-3 text-center md:text-right pr-0 md:pr-9">
+                  <h3 className="text-white text-2xl font-anton mb-3 text-center md:text-right pr-0 md:pr-9">
                     Attractions Nearby
                   </h3>
                   <div>
@@ -370,7 +370,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           {/* Attractions Carousel */}
           {isMounted && (
             <div className="p-2 w-full lg:w-1/2">
-              <h3 className="text-white text-2xl font-bold mb-3 text-center md:text-right pr-0 md:pr-9">
+              <h3 className="text-white text-2xl font-anton mb-3 text-center md:text-right pr-0 md:pr-9">
                 Attractions Nearby
               </h3>
               <div className="">
@@ -447,7 +447,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
       {/* Gallery Section */}
       <div className="p-10 fade-in">
-        <h2 className="text-[48px] font-bold mb-4 text-gray-500 px-20 ">
+        <h2 className="text-[48px] font-anton mb-4 text-gray-500 px-20 ">
           Gallery
         </h2>
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
@@ -474,14 +474,14 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             <motion.div
               key={index}
               className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group"
-              initial={{ opacity: 0, y: 50 }} // Start hidden, slightly lower
-              whileInView={{ opacity: 1, y: 0 }} // Fade in and move up
+              initial={{ opacity: 0, y: 50, filter: "blur(10px)" }} 
+              whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{
-                duration: 0.8,
-                delay: index * 0.2,
+                duration: 1, 
+                delay: index * 0.2, 
                 ease: "easeOut",
-              }} // Delay each image
-              viewport={{ once: true }} // Runs animation once
+              }}
+              viewport={{ once: false, amount: 0.2 }} 
             >
               <Image
                 src={item.image_path}

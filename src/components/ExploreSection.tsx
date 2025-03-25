@@ -4,6 +4,7 @@ import AppStoreBlack from "../assets/AppStoreBlack.png";
 import PlayStoreBlack from "../assets/PlayStoreBlack.png";
 import MobileImg from "../assets/MobilePhone2.png";
 import Sigiriya from "../assets/sigiriya2.png";
+import Link from "next/link";
 
 const ExploreSection = () => {
   return (
@@ -22,24 +23,26 @@ const ExploreSection = () => {
 
           {/* App Store Buttons */}
           <div className="flex justify-center lg:justify-start flex-col md:flex-row gap-4  mt-6 ">
-            <Image
-              src={ParadiseGuideLogo}
-              alt="Paradise Guide Logo"
-              className="w-[120px] h-full "
-            />
+            <Link href="/">
+              <Image
+                src={ParadiseGuideLogo}
+                alt="Paradise Guide Logo"
+                className="w-[120px] h-full "
+              />
+            </Link>
+
             <div className="flex gap-4">
-            <Image
-              src={AppStoreBlack}
-              alt="App Store"
-              className="w-[120px] h-full "
-            />
-            <Image
-              src={PlayStoreBlack}
-              alt="Google Play"
-              className="w-[120px] h-full "
-            />
+              <Image
+                src={AppStoreBlack}
+                alt="App Store"
+                className="w-[120px] h-full "
+              />
+              <Image
+                src={PlayStoreBlack}
+                alt="Google Play"
+                className="w-[120px] h-full "
+              />
             </div>
-           
           </div>
         </div>
 

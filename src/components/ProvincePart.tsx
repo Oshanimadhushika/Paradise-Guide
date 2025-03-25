@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Central from "../assets/province/Central Province.png";
 import Eastern from "../assets/province/Eastern Province.png";
@@ -17,6 +17,7 @@ import ArrowLeft from "@/assets/svgs/ArrowLeft";
 import ArrowRight from "@/assets/svgs/ArrowRight";
 import ArrowLeftBlack from "@/assets/svgs/ArrowLeftBlack";
 import ArrowRightBlack from "@/assets/svgs/ArrowRightBlack";
+import FollowCursor from "./animation/FollowCursor";
 
 const provinces = [
   {
@@ -83,8 +84,19 @@ const provinces = [
 ];
 
 const ProvincePart = () => {
+  interface Province {
+    id: number;
+    name: string;
+    image: StaticImageData;
+    description: string;
+  }
+
+  const [selectedProvince, setSelectedProvince] = useState<Province | null>(
+    null
+  );
   const [currentIndex, setCurrentIndex] = useState(1);
   const router = useRouter();
+  const [showFollowCursor, setShowFollowCursor] = useState(false);
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? provinces.length - 1 : prev - 1));
@@ -104,6 +116,16 @@ const ProvincePart = () => {
     ];
   };
 
+  const handleClickProvince = (province: any) => {
+    if (province.id === 1) {
+      setShowFollowCursor(true);
+    } else {
+      setShowFollowCursor(false);
+    }
+
+    window.location.href = `/see-all?id=${province.id}`;
+  };
+
   return (
     <div className="w-full flex flex-col items-center py-10 px-4 bg-white text-black z-40">
       <h2 className="text-4xl font-anton text-center flex-1">
@@ -114,7 +136,8 @@ const ProvincePart = () => {
         {/* Subtitle - Centered */}
         <p className="text-base text-center w-full md:w-2/3 mx-auto pl-8">
           Sri Lanka comprises nine provinces, each offering unique landscapes
-          and cultural experiences.
+          and cultural experiences: you can explore visiting ancient cities,
+          highlands, beaches, and wildlife parks.
         </p>
 
         {/* Navigation Buttons - End */}
@@ -127,9 +150,8 @@ const ProvincePart = () => {
           </button>
         </div>
       </div>
-
       {/* province Slider */}
-      <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
+      {/* <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
         {getVisibleProvinces().map((province, idx) => (
           <div
             key={province.id}
@@ -139,10 +161,6 @@ const ProvincePart = () => {
           ? "md:col-span-6 col-span-12 w-full  h-full flex justify-center"
           : "md:col-span-3 hidden md:flex h-full"
       }`}
-            // {...(idx === 1
-            //   ? { onClick: () => router.push(`/see-all?id=${province.id}`) }
-            //   : {})}
-
             {...(idx === 1
               ? {
                   onClick: () =>
@@ -150,14 +168,26 @@ const ProvincePart = () => {
                 }
               : {})}
           >
-            {/* Image & Text Container */}
             <div className="w-full h-full flex flex-col ">
+              {idx === 1 && (
+                <div className="absolute top-5 left-10">
+                  <FollowCursor
+                    offsetX={1}
+                    cardWidth="50px"
+                    rotationFactor={40}
+                    enableTilt={true}
+                    animationConfig={{ mass: 5, tension: 350, friction: 40 }}
+                    wheelConfig={{ mass: 1, tension: 200, friction: 30 }}
+                  >
+                    {""}
+                  </FollowCursor>
+                </div>
+              )}
+
               <div className="overflow-hidden">
                 <Image
                   src={province.image}
                   alt={province.name}
-                  // width={500}
-                  // height={idx === 1 ? 420 : 320}
                   className="w-full h-full object-cover transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110"
                 />
               </div>
@@ -172,6 +202,80 @@ const ProvincePart = () => {
                   </p>
                 </div>
 
+                {idx === 1 && <ArrowProvince />}
+              </div>            
+            </div>
+          </div>
+        ))}
+      </div> */}
+
+      {/* ----------------------------------------2--------------------------- */}
+
+      <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
+        {/* Render FollowCursor only for the selected province */}
+        {selectedProvince && (
+          <div className="absolute inset-0 z-20 pointer-events-none">
+            <FollowCursor
+              offsetX={-10}
+              cardWidth="50px"
+              rotationFactor={40}
+              enableTilt={true}
+              animationConfig={{ mass: 5, tension: 350, friction: 40 }}
+              wheelConfig={{ mass: 1, tension: 200, friction: 30 }}
+            >
+              {""}
+            </FollowCursor>
+          </div>
+        )}
+
+        {getVisibleProvinces().map((province, idx) => (
+          <div
+            key={province.id}
+            className={`relative flex flex-col justify-start items-center transition-all duration-500
+        ${
+          idx === 1
+            ? "md:col-span-6 col-span-12 w-full h-full flex justify-center"
+            : "md:col-span-3 hidden md:flex h-full"
+        }`}
+            onMouseEnter={() => {
+              if (idx === 1) {
+                setShowFollowCursor(true);
+                setSelectedProvince(province); // Set selected province when hovering over
+              }
+            }}
+            onMouseLeave={() => {
+              if (idx === 1) {
+                setShowFollowCursor(false);
+                if (selectedProvince?.id === province.id) {
+                  setSelectedProvince(null); // Only clear selected province if it matches
+                }
+              }
+            }}
+            onClick={() => {
+              if (idx === 1) {
+                window.location.href = `/see-all?id=${province.id}`;
+              }
+            }}
+          >
+            {/* Image & Text Container */}
+            <div className="relative w-full h-full flex flex-col">
+              <div className="overflow-hidden relative z-10">
+                <Image
+                  src={province.image}
+                  alt={province.name}
+                  className="w-full h-full object-cover transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110"
+                />
+              </div>
+
+              <div className="p-2 text-start bg-white flex justify-between items-center relative z-10">
+                <div>
+                  <h3 className="text-lg font-anton">
+                    {province.name} Province
+                  </h3>
+                  <p className="text-gray-600 text-sm mt-2">
+                    {province.description}
+                  </p>
+                </div>
                 {idx === 1 && <ArrowProvince />}
               </div>
             </div>

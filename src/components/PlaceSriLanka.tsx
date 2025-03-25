@@ -195,3 +195,149 @@
 // };
 
 // export default PlaceSriLanka;
+
+// -------------followcursor
+
+// <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
+// {getVisibleProvinces().map((province, idx) => (
+//   <div
+//     key={province.id}
+//     className={`flex flex-col justify-start items-center transition-all duration-500 
+// ${
+// idx === 1
+//   ? "md:col-span-6 col-span-12 w-full  h-full flex justify-center"
+//   : "md:col-span-3 hidden md:flex h-full"
+// }`}
+//     {...(idx === 1
+//       ? {
+//           onClick: () =>
+//             (window.location.href = `/see-all?id=${province.id}`),
+//         }
+//       : {})}
+//   >
+//     {/* Image & Text Container */}
+//     <div className="w-full h-full flex flex-col ">
+//       {idx === 1 && (
+//         <div className="absolute top-5 left-10">
+//           <FollowCursor
+//             offsetX={1}
+//             cardWidth="50px"
+//             rotationFactor={40}
+//             enableTilt={true}
+//             animationConfig={{ mass: 5, tension: 350, friction: 40 }}
+//             wheelConfig={{ mass: 1, tension: 200, friction: 30 }}
+//           >
+//             {""}
+//           </FollowCursor>
+//         </div>
+//       )}
+
+//       <div className="overflow-hidden">
+//         <Image
+//           src={province.image}
+//           alt={province.name}
+//           className="w-full h-full object-cover transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110"
+//         />
+//       </div>
+
+//       <div className="p-2 text-start bg-white flex justify-between items-center">
+//         <div>
+//           <h3 className="text-lg font-anton">
+//             {province.name} Province
+//           </h3>
+//           <p className="text-gray-600 text-sm mt-2">
+//             {province.description}
+//           </p>
+//         </div>
+
+//         {idx === 1 && <ArrowProvince />}
+//       </div>
+
+//       {/* {idx === 1 && (
+//         <FollowCursor
+//           offsetX={0}
+//           cardWidth="50px"
+//           rotationFactor={40}
+//           enableTilt={true}
+//           animationConfig={{ mass: 5, tension: 350, friction: 40 }}
+//           wheelConfig={{ mass: 1, tension: 200, friction: 30 }}
+//         >
+//           {""}
+//         </FollowCursor>
+//       )} */}
+//     </div>
+//   </div>
+// ))}
+// </div>
+// {/* ----------------------------------------2--------------------------- */}
+// <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
+// {/* Render FollowCursor only for the selected province */}
+// {selectedProvince && (
+//   <div className="absolute inset-0 z-20 pointer-events-none">
+//     <FollowCursor
+//       offsetX={1}
+//       cardWidth="50px"
+//       rotationFactor={40}
+//       enableTilt={true}
+//       animationConfig={{ mass: 5, tension: 350, friction: 40 }}
+//       wheelConfig={{ mass: 1, tension: 200, friction: 30 }}
+//     >
+//       {""}
+//     </FollowCursor>
+//   </div>
+// )}
+
+// {getVisibleProvinces().map((province, idx) => (
+//   <div
+//     key={province.id}
+//     className={`relative flex flex-col justify-start items-center transition-all duration-500
+// ${
+//   idx === 1
+//     ? "md:col-span-6 col-span-12 w-full h-full flex justify-center"
+//     : "md:col-span-3 hidden md:flex h-full"
+// }`}
+//     onMouseEnter={() => {
+//       if (idx === 1) {
+//         setShowFollowCursor(true);
+//         setSelectedProvince(province); // Set selected province when hovering over
+//       }
+//     }}
+//     onMouseLeave={() => {
+//       if (idx === 1) {
+//         setShowFollowCursor(false);
+//         if (selectedProvince?.id === province.id) {
+//           setSelectedProvince(null); // Only clear selected province if it matches
+//         }
+//       }
+//     }}
+//     onClick={() => {
+//       if (idx === 1) {
+//         window.location.href = `/see-all?id=${province.id}`;
+//       }
+//     }}
+//   >
+//     {/* Image & Text Container */}
+//     <div className="relative w-full h-full flex flex-col">
+//       <div className="overflow-hidden relative z-10">
+//         <Image
+//           src={province.image}
+//           alt={province.name}
+//           className="w-full h-full object-cover transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110"
+//         />
+//       </div>
+
+//       <div className="p-2 text-start bg-white flex justify-between items-center relative z-10">
+//         <div>
+//           <h3 className="text-lg font-anton">
+//             {province.name} Province
+//           </h3>
+//           <p className="text-gray-600 text-sm mt-2">
+//             {province.description}
+//           </p>
+//         </div>
+//         {idx === 1 && <ArrowProvince />}
+//       </div>
+//     </div>
+//   </div>
+// ))}
+// </div>

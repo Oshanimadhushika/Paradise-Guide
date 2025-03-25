@@ -317,12 +317,12 @@ const Hero = () => {
         </div>
 
         {/* Navbar  */}
-        <div className="absolute top-0 left-0 w-full z-50">
+        <div className="absolute top-0 left-0 w-full ">
           <Navbar />
         </div>
 
         {/* Hero Content  */}
-        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full scale-up">
+        <div className="relative z-30 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full scale-up">
           <h1 className="text-2xl md:text-6xl font-anton">
             EXPLORE SRI LANKA
           </h1>

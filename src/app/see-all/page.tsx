@@ -72,6 +72,12 @@ const SeeAllPage = () => {
       if (response.data.success) {
         const newPlaces = response.data.output || [];
 
+        if (newPlaces.length === 0) {
+          setHasMore(false);
+          setLoading(false);
+          return;
+        }
+
         setAllPlaces((prev) =>
           page === 1 ? newPlaces : [...prev, ...newPlaces]
         );
@@ -104,6 +110,7 @@ const SeeAllPage = () => {
           place.location_name.toLowerCase().includes(searchQuery) ||
           place.city.toLowerCase().includes(searchQuery)
       );
+
       setPlaces(filtered);
       setHasMore(false);
     } else {
@@ -129,6 +136,11 @@ const SeeAllPage = () => {
     <div className="bg-white ">
       <ScrollAnimations />
       <div className="relative w-full h-[100vh] lg:h-screen overflow-hidden">
+        {/* Navbar  */}
+        <div className="absolute top-0 left-0 w-full bg-green-600">
+          <Navbar />
+        </div>
+
         {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-screen bg-center overflow-hidden">
           <Image
@@ -137,16 +149,11 @@ const SeeAllPage = () => {
             className="object-cover w-full h-full"
           />
           {/*  Overlay */}
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
-        </div>
-
-        {/* Navbar  */}
-        <div className="absolute top-0 left-0 w-full z-50">
-          <Navbar />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-20"></div>
         </div>
 
         {/* Hero Content  */}
-        <div className="relative z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
+        <div className="relative z-30 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
           <div className="hidden md:block">
             <h1 className="text-3xl md:text-5xl font-extrabold font-anton ">
               {places[0]?.province}
@@ -223,7 +230,12 @@ const SeeAllPage = () => {
       <div className="mt-6 p-5">
         <InfiniteScroll
           dataLength={places.length}
-          next={() => fetchLocations(currentPage + 1)}
+          // next={() => fetchLocations(currentPage + 1)}
+          next={() => {
+            if (hasMore) {
+              fetchLocations(currentPage + 1);
+            }
+          }}
           hasMore={hasMore}
           loader={
             hasMore && places.length > 0 ? (
@@ -249,10 +261,18 @@ const SeeAllPage = () => {
                     {/* Image Container */}
                     <div className="relative w-full h-[456px] overflow-hidden">
                       <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        variants={staggerVariants}
-                        custom={index} // Stagger effect
+                        // initial="hidden"
+                        // animate="visible"
+                        // variants={staggerVariants}
+                        // custom={index}
+                        initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{
+                          duration: 1,
+                          delay: index * 0.2,
+                          ease: "easeOut",
+                        }}
+                        viewport={{ once: false, amount: 0.2 }}
                         className="w-full h-full"
                       >
                         <Image
@@ -270,7 +290,7 @@ const SeeAllPage = () => {
 
                     {/* Text Content */}
                     <div className="p-4">
-                      <h3 className="flex truncate text-2xl font-extrabold text-black mb-1 font-anton">
+                      <h3 className="flex truncate text-3xl font-extrabold text-black mb-1 font-anton">
                         {place.location_name.length > 25
                           ? `${place.location_name.slice(0, 25)}...`
                           : place.location_name}

@@ -1,76 +1,79 @@
+"use client";
 import Image from "next/image";
-import React, { useState } from "react";
+import React from "react";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
-  const pathname = usePathname();
   const router = useRouter();
-  const [active, setActive] = useState(pathname);
+  const pathname = usePathname();
+
   const menuItems = [
     { label: "HOME", url: "/" },
     { label: "DESTINATIONS", url: "/destinations" },
     { label: "TRIPS", url: "/trips" },
   ];
 
+  // const handleNavigation = (url: string) => {
+  //   router.push(url);
+  //   window.location.reload();
+  // };
+
   return (
-    <nav className="flex justify-between items-center px-4 py-2 bg-transparent text-white w-full relative z-50">
+    <nav className="relative flex justify-between items-center px-4 py-2 bg-transparent text-white w-full  z-50 ">
       <div>
-        
-        <Link href="/" passHref>
+        <Link href="/">
           <Image
             src={ParadiseGuideLogo}
             alt="Paradise Guide Logo"
             width={110}
             height={50}
             className="cursor-pointer"
+            priority
           />
         </Link>
       </div>
-      {/* <ul className="hidden md:flex space-x-5">
+
+      {/* <ul className="hidden md:flex items-center space-x-5">
         {menuItems.map((item) => (
-          <li
-            key={item.label}
-            className={`cursor-pointer px-4 py-2 transition-all hover:bg-gray-400 hover:rounded-full hover:bg-opacity-30 ${
-              active === item.url
-                ? "bg-gray-400 bg-opacity-30 rounded-full"
-                : ""
-            }`}
-            onClick={() => {
-              setActive(item.url);
-              router.push(item.url);
-            }}
-          >
-            <Link href={item.url}>{item.label}</Link>
+          <li key={item.label}>
+            <button
+              onClick={() => handleNavigation(item.url)}
+              className={`cursor-pointer px-4 py-2 transition-all duration-300 hover:bg-gray-400 hover:rounded-full hover:bg-opacity-50 ${
+                pathname === item.url
+                  ? "bg-gray-500 bg-opacity-50 rounded-full"
+                  : ""
+              }`}
+            >
+              {item.label}
+            </button>
           </li>
         ))}
-        <button className="text-2xl">☰</button>
+        <button className="text-2xl ml-4">☰</button>
       </ul> */}
 
-<ul className="hidden md:flex space-x-5">
-      {menuItems.map((item) => (
-        <li key={item.label} className="relative">
-          <Link href={item.url}>
-            <span
+      <ul className="hidden md:flex space-x-5">
+        {menuItems.map((item) => (
+          <li key={item.label} className="relative">
+            <Link
+              href={item.url}
               className={`cursor-pointer px-4 py-2 transition-all hover:bg-gray-400 hover:rounded-full hover:bg-opacity-30 block ${
-                active === item.url
+                pathname === item.url
                   ? "bg-gray-400 bg-opacity-30 rounded-full"
                   : ""
               }`}
               onClick={(e) => {
-                e.preventDefault(); 
-                setActive(item.url);
-                router.push(item.url);
+                e.preventDefault();
+                window.location.href = item.url;
               }}
             >
               {item.label}
-            </span>
-          </Link>
-        </li>
-      ))}
-      <button className="text-2xl">☰</button>
-    </ul>
+            </Link>
+          </li>
+        ))}
+        <button className="text-2xl">☰</button>
+      </ul>
     </nav>
   );
 };
