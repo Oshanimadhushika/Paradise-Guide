@@ -221,6 +221,11 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
 
   const finalDescription = cleanDescription().slice(0, 350);
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault(); 
+    window.location.href = "/";
+  };
+
   return (
     <div className="w-full bg-white">
       {/* Hero Section */}
@@ -253,6 +258,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                   width={110}
                   height={50}
                   className="cursor-pointer"
+                  onClick={handleLogoClick}
                 />
               </Link>
             </div>
@@ -287,7 +293,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
               {/* Text Content */}
               <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
-                <h1 className="text-[20px] md:text-[48px] font-anton leading-tight">
+                <h1 className="text-3xl md:text-[48px] font-anton leading-tight">
                   {detailData?.location_name}
                 </h1>
 

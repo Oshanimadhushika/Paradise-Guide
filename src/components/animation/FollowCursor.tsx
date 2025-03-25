@@ -233,8 +233,25 @@ const FollowCursor: React.FC<FollowCursorProps> = ({
       const calculatedWidth = container.offsetWidth * (parsedCardWidth / 100);
       const calculatedOffset = calculatedWidth / 2 + offsetX;
 
+      const screenWidth = window.innerWidth;
+      let extraOffset = 0;
+    
+      if (screenWidth >= 1280) {
+        // xl screens
+        extraOffset = rect.width * 0.25; // 25% of container width
+      } else if (screenWidth >= 1024) {
+        // lg screens
+        extraOffset = rect.width * 0.20; // 20% of container width
+      } else if (screenWidth >= 768) {
+        // md screens
+        extraOffset = rect.width * 0.15; // 15% of container width
+      } else {
+        // sm screens
+        extraOffset = rect.width * 0.14; // 10% of container width
+      }
+
       api.start({
-        x: xPos + calculatedOffset+300,
+        x: xPos + calculatedOffset+extraOffset,
         y: yPos,
         rotateX: enableTilt
           ? calcX(py, y.get(), containerCenterY, rotationFactor)

@@ -134,7 +134,7 @@ const ProvincePart = () => {
       {/* Title & Description */}
       <div className="w-full flex items-center px-4 justify-between mt-3 pb-4">
         {/* Subtitle - Centered */}
-        <p className="text-base text-center w-full md:w-2/3 mx-auto pl-8">
+        <p className="text-base text-center w-full md:w-2/3 mx-auto md:marker:pl-8">
           Sri Lanka comprises nine provinces, each offering unique landscapes
           and cultural experiences: you can explore visiting ancient cities,
           highlands, beaches, and wildlife parks.
@@ -150,69 +150,9 @@ const ProvincePart = () => {
           </button>
         </div>
       </div>
+
       {/* province Slider */}
-      {/* <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
-        {getVisibleProvinces().map((province, idx) => (
-          <div
-            key={province.id}
-            className={`flex flex-col justify-start items-center transition-all duration-500 
-      ${
-        idx === 1
-          ? "md:col-span-6 col-span-12 w-full  h-full flex justify-center"
-          : "md:col-span-3 hidden md:flex h-full"
-      }`}
-            {...(idx === 1
-              ? {
-                  onClick: () =>
-                    (window.location.href = `/see-all?id=${province.id}`),
-                }
-              : {})}
-          >
-            <div className="w-full h-full flex flex-col ">
-              {idx === 1 && (
-                <div className="absolute top-5 left-10">
-                  <FollowCursor
-                    offsetX={1}
-                    cardWidth="50px"
-                    rotationFactor={40}
-                    enableTilt={true}
-                    animationConfig={{ mass: 5, tension: 350, friction: 40 }}
-                    wheelConfig={{ mass: 1, tension: 200, friction: 30 }}
-                  >
-                    {""}
-                  </FollowCursor>
-                </div>
-              )}
-
-              <div className="overflow-hidden">
-                <Image
-                  src={province.image}
-                  alt={province.name}
-                  className="w-full h-full object-cover transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110"
-                />
-              </div>
-
-              <div className="p-2 text-start bg-white flex justify-between items-center">
-                <div>
-                  <h3 className="text-lg font-anton">
-                    {province.name} Province
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-2">
-                    {province.description}
-                  </p>
-                </div>
-
-                {idx === 1 && <ArrowProvince />}
-              </div>            
-            </div>
-          </div>
-        ))}
-      </div> */}
-
-      {/* ----------------------------------------2--------------------------- */}
-
       <div className="grid grid-cols-12 gap-2 w-full justify-center items-start px-2 lg:px-12">
-        {/* Render FollowCursor only for the selected province */}
         {selectedProvince && (
           <div className="absolute inset-0 z-20 pointer-events-none">
             <FollowCursor
@@ -240,14 +180,14 @@ const ProvincePart = () => {
             onMouseEnter={() => {
               if (idx === 1) {
                 setShowFollowCursor(true);
-                setSelectedProvince(province); // Set selected province when hovering over
+                setSelectedProvince(province);
               }
             }}
             onMouseLeave={() => {
               if (idx === 1) {
                 setShowFollowCursor(false);
                 if (selectedProvince?.id === province.id) {
-                  setSelectedProvince(null); // Only clear selected province if it matches
+                  setSelectedProvince(null);
                 }
               }
             }}
@@ -281,6 +221,15 @@ const ProvincePart = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      <div className="space-x-2 justify-center block md:hidden mt-8">
+        <button onClick={prevSlide} className="text-black ">
+          <ArrowLeftBlack />
+        </button>
+        <button onClick={nextSlide} className="text-black ">
+          <ArrowRightBlack />
+        </button>
       </div>
     </div>
   );

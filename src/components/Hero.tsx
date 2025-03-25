@@ -214,11 +214,7 @@ import BgImg from "../assets/BG Image.png";
 import Navbar from "./Navbar";
 import ArrowLeft from "@/assets/svgs/ArrowLeft";
 import ArrowRight from "@/assets/svgs/ArrowRight";
-// import localFont from "next/font/local";
 
-// const antonRegular = localFont({
-//   src: "../fonts/Anton-Regular.ttf",
-// });
 
 const sliderData = [
   {
@@ -323,7 +319,7 @@ const Hero = () => {
 
         {/* Hero Content  */}
         <div className="relative z-30 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full scale-up">
-          <h1 className="text-2xl md:text-6xl font-anton">
+          <h1 className="text-3xl md:text-6xl font-anton">
             EXPLORE SRI LANKA
           </h1>
           <p className="mt-4 text-lg md:text-xl max-w-2xl font-light">
