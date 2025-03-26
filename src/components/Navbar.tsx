@@ -53,9 +53,9 @@ const Navbar = () => {
         <button className="text-2xl ml-4">☰</button>
       </ul> */}
 
-      <ul className="hidden md:flex space-x-5">
+      <ul className="flex space-x-5 ">
         {menuItems.map((item) => (
-          <li key={item.label} className="relative">
+          <li key={item.label} className="relative hidden md:block">
             <Link
               href={item.url}
               className={`cursor-pointer px-4 py-2 transition-all hover:bg-gray-400 hover:rounded-full hover:bg-opacity-30 block ${
@@ -72,7 +72,7 @@ const Navbar = () => {
             </Link>
           </li>
         ))}
-        <button className="text-2xl">☰</button>
+        <button className="text-2xl hover:bg-gray-400 hover:rounded-full hover:bg-opacity-30 p-2 ">☰</button>
       </ul>
     </nav>
   );
