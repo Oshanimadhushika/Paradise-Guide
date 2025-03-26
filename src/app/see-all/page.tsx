@@ -103,15 +103,6 @@ const SeeAllPage = () => {
   //   }
   // };
 
-  useEffect(() => {
-    if (id) {
-      // setAllPlaces([]);
-      // setPlaces([]);
-      // setHasMore(true);
-      // fetchLocations(1);
-    }
-  }, [id]);
-
   // Search function
   useEffect(() => {
     if (searchQuery.trim()) {
@@ -132,20 +123,6 @@ const SeeAllPage = () => {
   const numericId = Number(id);
   const selectedImage =
     provinceImages[numericId as keyof typeof provinceImages] || BgImg;
-
-  // const staggerVariants = {
-  //   hidden: { opacity: 0, filter: "blur(10px)" },
-  //   visible: (index: any) => ({
-  //     opacity: 1,
-  //     filter: "blur(0px)",
-  //     transition: { delay: index * 0.3, duration: 1.5, ease: "easeOut" },
-  //   }),
-  // };
-
-  // const { data: places, loading } = useLazyLoad({
-  //   triggerRef,
-  //   onGrabData: fetchLocations,
-  // });
 
   const onGrabData = (page: number): Promise<Place[]> => {
     return new Promise((resolve) => {
@@ -174,15 +151,20 @@ const SeeAllPage = () => {
             const newPlaces: Place[] = response.data.output || [];
 
             if (newPlaces.length === 0) {
-              // setHasMore(false);
+              setHasMore(false);
               resolve([]);
               return;
             }
 
             const updatedPlaces = [...places, ...newPlaces];
             setPlaces(updatedPlaces);
-            // setCurrentPage(page);
-            // setHasMore(newPlaces.length === fetchLimit);
+
+            setAllPlaces((prevPlaces) =>
+              page === 1 ? newPlaces : [...prevPlaces, ...newPlaces]
+            );
+
+            setHasMore(newPlaces.length === fetchLimit);
+
             resolve(newPlaces);
           }
         } catch (error) {
@@ -202,7 +184,7 @@ const SeeAllPage = () => {
       <ScrollAnimations />
       <div className="relative w-full h-[100vh] lg:h-screen overflow-hidden">
         {/* Navbar  */}
-        <div className="absolute top-0 left-0 w-full bg-green-600">
+        <div className="absolute top-0 left-0 w-full">
           <Navbar />
         </div>
 
@@ -308,8 +290,8 @@ const SeeAllPage = () => {
                     initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
                     whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     transition={{
-                      duration: 1,
-                      delay: index * 0.1,
+                      duration: 0.5,
+                      delay: index * 0.05,
                       ease: "easeOut",
                     }}
                     viewport={{ once: false, amount: 0.2 }}
@@ -349,7 +331,8 @@ const SeeAllPage = () => {
               </div>
             ))}
 
-          <div ref={triggerRef} className="h-10 w-full"></div>
+          {/* <div ref={triggerRef} className="h-10 w-full"></div> */}
+          {hasMore && <div ref={triggerRef} className="h-10 w-full"></div>}
         </div>
       </div>
 
