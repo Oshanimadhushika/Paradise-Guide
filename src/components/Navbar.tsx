@@ -15,11 +15,6 @@ const Navbar = () => {
     { label: "TRIPS", url: "/trips" },
   ];
 
-  // const handleNavigation = (url: string) => {
-  //   router.push(url);
-  //   window.location.reload();
-  // };
-
   return (
     <nav className="relative flex justify-between items-center px-4 py-2 bg-transparent text-white w-full  z-50 ">
       <div>
@@ -35,23 +30,6 @@ const Navbar = () => {
         </Link>
       </div>
 
-      {/* <ul className="hidden md:flex items-center space-x-5">
-        {menuItems.map((item) => (
-          <li key={item.label}>
-            <button
-              onClick={() => handleNavigation(item.url)}
-              className={`cursor-pointer px-4 py-2 transition-all duration-300 hover:bg-gray-400 hover:rounded-full hover:bg-opacity-50 ${
-                pathname === item.url
-                  ? "bg-gray-500 bg-opacity-50 rounded-full"
-                  : ""
-              }`}
-            >
-              {item.label}
-            </button>
-          </li>
-        ))}
-        <button className="text-2xl ml-4">☰</button>
-      </ul> */}
 
       <ul className="flex space-x-5 ">
         {menuItems.map((item) => (
