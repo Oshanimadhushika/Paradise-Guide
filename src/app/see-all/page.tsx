@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Image, { StaticImageData } from "next/image";
 import "antd/dist/reset.css";
@@ -27,6 +27,7 @@ import Northern from "@/assets/province/Northern Province.png";
 import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { Skeleton } from "antd";
 import { motion } from "framer-motion";
+import useLazyLoad from "@/components/lazyLoading/UseLazyLoading";
 
 const provinceImages: Record<number, StaticImageData> = {
   1: Western,
@@ -40,6 +41,14 @@ const provinceImages: Record<number, StaticImageData> = {
   9: Uva,
 };
 
+interface Place {
+  location_id: number;
+  location_code: string;
+  location_name: string;
+  city: string;
+  thumbnail_path: string;
+}
+
 const SeeAllPage = () => {
   const [allPlaces, setAllPlaces] = useState<any[]>([]);
   const [places, setPlaces] = useState<any[]>([]);
@@ -48,7 +57,8 @@ const SeeAllPage = () => {
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
-  const [loaded, setLoaded] = useState(false);
+  // const [loaded, setLoaded] = useState(false);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -59,46 +69,46 @@ const SeeAllPage = () => {
 
   const fetchLimit = 10;
 
-  const fetchLocations = async (page: number) => {
-    if (!id) return;
-    setLoading(true);
+  // const fetchLocations = async (page: number) => {
+  //   if (!id) return;
+  //   setLoading(true);
 
-    try {
-      const response = await axios.post(
-        "https://paradise.aventureit.com/api/location/all",
-        { province_id: id, city_id: 0, status: 3, page, limit: fetchLimit }
-      );
+  //   try {
+  //     const response = await axios.post(
+  //       "https://paradise.aventureit.com/api/location/all",
+  //       { province_id: id, city_id: 0, status: 3, page, limit: fetchLimit }
+  //     );
 
-      if (response.data.success) {
-        const newPlaces = response.data.output || [];
+  //     if (response.data.success) {
+  //       const newPlaces = response.data.output || [];
 
-        if (newPlaces.length === 0) {
-          setHasMore(false);
-          setLoading(false);
-          return;
-        }
+  //       if (newPlaces.length === 0) {
+  //         setHasMore(false);
+  //         setLoading(false);
+  //         return;
+  //       }
 
-        setAllPlaces((prev) =>
-          page === 1 ? newPlaces : [...prev, ...newPlaces]
-        );
-        setPlaces((prev) => (page === 1 ? newPlaces : [...prev, ...newPlaces]));
+  //       setAllPlaces((prev) =>
+  //         page === 1 ? newPlaces : [...prev, ...newPlaces]
+  //       );
+  //       setPlaces((prev) => (page === 1 ? newPlaces : [...prev, ...newPlaces]));
 
-        setHasMore(newPlaces.length === fetchLimit);
-        setCurrentPage(page);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //       setHasMore(newPlaces.length === fetchLimit);
+  //       setCurrentPage(page);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   useEffect(() => {
     if (id) {
-      setAllPlaces([]);
-      setPlaces([]);
-      setHasMore(true);
-      fetchLocations(1);
+      // setAllPlaces([]);
+      // setPlaces([]);
+      // setHasMore(true);
+      // fetchLocations(1);
     }
   }, [id]);
 
@@ -123,14 +133,69 @@ const SeeAllPage = () => {
   const selectedImage =
     provinceImages[numericId as keyof typeof provinceImages] || BgImg;
 
-  const staggerVariants = {
-    hidden: { opacity: 0, filter: "blur(10px)" },
-    visible: (index: any) => ({
-      opacity: 1,
-      filter: "blur(0px)",
-      transition: { delay: index * 0.3, duration: 1.5, ease: "easeOut" },
-    }),
+  // const staggerVariants = {
+  //   hidden: { opacity: 0, filter: "blur(10px)" },
+  //   visible: (index: any) => ({
+  //     opacity: 1,
+  //     filter: "blur(0px)",
+  //     transition: { delay: index * 0.3, duration: 1.5, ease: "easeOut" },
+  //   }),
+  // };
+
+  // const { data: places, loading } = useLazyLoad({
+  //   triggerRef,
+  //   onGrabData: fetchLocations,
+  // });
+
+  const onGrabData = (page: number): Promise<Place[]> => {
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        console.log("Fetching page:", page);
+
+        if (!id || !hasMore) {
+          resolve([]);
+          return;
+        }
+
+        setLoading(true);
+        try {
+          const response = await axios.post(
+            "https://paradise.aventureit.com/api/location/all",
+            {
+              province_id: id,
+              city_id: 0,
+              status: 3,
+              page,
+              limit: fetchLimit,
+            }
+          );
+
+          if (response.data.success) {
+            const newPlaces: Place[] = response.data.output || [];
+
+            if (newPlaces.length === 0) {
+              // setHasMore(false);
+              resolve([]);
+              return;
+            }
+
+            const updatedPlaces = [...places, ...newPlaces];
+            setPlaces(updatedPlaces);
+            // setCurrentPage(page);
+            // setHasMore(newPlaces.length === fetchLimit);
+            resolve(newPlaces);
+          }
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          resolve([]);
+        } finally {
+          setLoading(false);
+        }
+      }, 3000);
+    });
   };
+
+  const { data } = useLazyLoad({ triggerRef, onGrabData });
 
   return (
     <div className="bg-white ">
@@ -154,11 +219,11 @@ const SeeAllPage = () => {
 
         {/* Hero Content  */}
         <div className="relative z-30 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
-          <div className="hidden md:block">
-            <h1 className="text-3xl md:text-5xl font-extrabold font-anton ">
+          <div className="hidden lg:block">
+            <h1 className="text-[48px] md:text-[72px] font-extrabold font-anton ">
               {places[0]?.province}
             </h1>
-            <p className="mt-1 text-sm md:text-xl max-w-2xl">
+            <p className="mt-1 md:text-xl max-w-2xl text-base">
               {id === "1"
                 ? " Sri Lanka's Western Province pulsates with life, offering a vibrant blend of history, culture, and modern attractions. Explore the bustling capital Colombo, delve into ancient temples and colonial architecture, or witness the captivating Rainbow Kite Festival. This dynamic region is the perfect starting point for your Sri Lankan adventure."
                 : id === "2"
@@ -192,7 +257,7 @@ const SeeAllPage = () => {
 
       {/* mobile text  */}
       <div className="relative bg-black z-50 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full ">
-        <div className="block md:hidden fade-in">
+        <div className="block lg:hidden fade-in">
           <h1 className="text-3xl md:text-5xl font-extrabold font-anton ">
             {places[0]?.province}
           </h1>
@@ -228,81 +293,64 @@ const SeeAllPage = () => {
       </div>
 
       <div className="mt-6 p-5">
-        <InfiniteScroll
-          dataLength={places.length}
-          // next={() => fetchLocations(currentPage + 1)}
-          next={() => {
-            if (hasMore) {
-              fetchLocations(currentPage + 1);
-            }
-          }}
-          hasMore={hasMore}
-          loader={
-            hasMore && places.length > 0 ? (
-              <div className="flex justify-center gap-4 mt-3">
-                <Skeleton.Avatar active size={20} shape="square" />
-                <Skeleton.Avatar active size={20} shape="square" />
-                <Skeleton.Avatar active size={20} shape="square" />
-              </div>
-            ) : null
-          }
-        >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-            {places.map((place, index) => {
-              return (
-                <div
-                  key={place.location_id}
-                  className="bg-white transition-all duration-300 h-[570px]"
-                >
-                  <a
-                    href={`/place/${place.location_code}`}
-                    className="flex flex-col h-full"
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
+          {data.map((place: Place, index: number) => (
+            <div
+              key={`${place.location_id}-${index}`}
+              className="bg-white transition-all duration-300 h-[450px] md:h-[570px]"
+            >
+              <a
+                href={`/place/${place.location_code}`}
+                className="flex flex-col h-full"
+              >
+                <div className="relative w-full h-[340px] md:h-[400px] overflow-hidden">
+                  <motion.div
+                    initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+                    whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    transition={{
+                      duration: 1,
+                      delay: index * 0.1,
+                      ease: "easeOut",
+                    }}
+                    viewport={{ once: false, amount: 0.2 }}
+                    className="w-full h-full"
                   >
-                    {/* Image Container */}
-                    <div className="relative w-full h-[456px] overflow-hidden">
-                      <motion.div
-                        // initial="hidden"
-                        // animate="visible"
-                        // variants={staggerVariants}
-                        // custom={index}
-                        initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-                        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        transition={{
-                          duration: 1,
-                          delay: index * 0.2,
-                          ease: "easeOut",
-                        }}
-                        viewport={{ once: false, amount: 0.2 }}
-                        className="w-full h-full"
-                      >
-                        <Image
-                          src={place.thumbnail_path}
-                          alt={place.location_name}
-                          layout="fill"
-                          className={`object-cover w-full h-full transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110 ${
-                            loaded ? "opacity-100" : "opacity-0"
-                          }`}
-                          loading="lazy"
-                          onLoadingComplete={() => setLoaded(true)}
-                        />
-                      </motion.div>
-                    </div>
-
-                    {/* Text Content */}
-                    <div className="p-4">
-                      <h3 className="flex truncate text-3xl font-extrabold text-black mb-1 font-anton">
-                        {place.location_name.length > 25
-                          ? `${place.location_name.slice(0, 25)}...`
-                          : place.location_name}
-                      </h3>
-                      <p className="text-gray-600 text-base">{place.city}</p>
-                    </div>
-                  </a>
+                    <Image
+                      src={place.thumbnail_path}
+                      alt={place.location_name}
+                      layout="fill"
+                      className="object-cover w-full h-full transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110"
+                      loading="lazy"
+                    />
+                  </motion.div>
                 </div>
-              );
-            })}
-          </div>
-        </InfiniteScroll>
+
+                <div className="p-4 w-full h-[100] md:h-[130px]">
+                  <h3 className="flex font-extrabold text-black mb-1 font-anton text-[28px] md:text-[32px]">
+                    {place.location_name}
+                  </h3>
+                  <p className="text-gray-600 text-base">{place.city}</p>
+                </div>
+              </a>
+            </div>
+          ))}
+
+          {loading &&
+            Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={index}
+                className="bg-white p-4 rounded-md shadow-md h-[450px] md:h-[570px]"
+              >
+                <Skeleton.Image
+                  active
+                  className="h-[340px] md:h-[400px] w-full rounded-md"
+                />
+                <Skeleton active paragraph={{ rows: 2 }} className="mt-3" />
+              </div>
+            ))}
+
+          <div ref={triggerRef} className="h-10 w-full"></div>
+        </div>
       </div>
 
       <div className="fade-in">

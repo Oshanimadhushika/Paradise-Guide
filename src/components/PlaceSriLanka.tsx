@@ -341,3 +341,111 @@
 //   </div>
 // ))}
 // </div>
+
+//=============================infinitescroll===================================
+  {/* <InfiniteScroll
+          dataLength={places.length}
+          next={() => {
+            if (hasMore) {
+              fetchLocations(currentPage + 1);
+            }
+          }}
+          hasMore={hasMore}
+          loader={
+            hasMore && places.length > 0 ? (
+              <div className="flex justify-center gap-4 mt-3">
+                <Skeleton.Avatar active size={20} shape="square" />
+                <Skeleton.Avatar active size={20} shape="square" />
+                <Skeleton.Avatar active size={20} shape="square" />
+              </div>
+            ) : null
+          }
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
+            {places.map((place, index) => {
+              return (
+                <div
+                  key={place.location_id}
+                  className="bg-white transition-all duration-300 h-[450px] md:h-[570px]"
+                >
+                  <a
+                    href={`/place/${place.location_code}`}
+                    className="flex flex-col h-full"
+                  >
+                    <div className="relative w-full h-[340px] md:h-[400px] overflow-hidden">
+                      <motion.div
+                        initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
+                        whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        transition={{
+                          duration: 1,
+                          delay: index * 0.2,
+                          ease: "easeOut",
+                        }}
+                        viewport={{ once: false, amount: 0.2 }}
+                        className="w-full h-full"
+                      >
+                        <Image
+                          src={place.thumbnail_path}
+                          alt={place.location_name}
+                          layout="fill"
+                          className={`object-cover w-full h-full transition-transform duration-[300ms] ease-in-out transform origin-center hover:scale-110 ${
+                            loaded ? "opacity-100" : "opacity-0"
+                          }`}
+                          loading="lazy"
+                          onLoadingComplete={() => setLoaded(true)}
+                        />
+                      </motion.div>
+                    </div>
+
+                    <div className="p-4 w-full h-[100] md:h-[130px]">
+                      <h3 className="flex font-extrabold text-black mb-1 font-anton text-[28px] md:text-[32px]">
+                        {place.location_name}
+                       
+                      </h3>
+                      <p className="text-gray-600 text-base">{place.city}</p>
+                    </div>
+                  </a>
+                </div>
+              );
+            })}
+          </div>
+
+          <div ref={triggerRef} className="h-10 w-full"></div>
+        </InfiniteScroll> */}
+
+
+        // --------------------fetchLocation
+          // const fetchLocations = async (page: number) => {
+          //   if (!id) return;
+          //   setLoading(true);
+        
+          //   try {
+          //     const response = await axios.post(
+          //       "https://paradise.aventureit.com/api/location/all",
+          //       { province_id: id, city_id: 0, status: 3, page, limit: fetchLimit }
+          //     );
+        
+          //     if (response.data.success) {
+          //       const newPlaces = response.data.output || [];
+        
+          //       if (newPlaces.length === 0) {
+          //         setHasMore(false);
+          //         setLoading(false);
+          //         return;
+          //       }
+        
+          //       setAllPlaces((prev) =>
+          //         page === 1 ? newPlaces : [...prev, ...newPlaces]
+          //       );
+          //       setPlaces((prev) => (page === 1 ? newPlaces : [...prev, ...newPlaces]));
+        
+          //       setHasMore(newPlaces.length === fetchLimit);
+          //       setCurrentPage(page);
+          //     }
+          //   } catch (error) {
+          //     console.error("Error fetching data:", error);
+          //   } finally {
+          //     setLoading(false);
+          //   }
+          // };
+        // --------------------fetchLocation

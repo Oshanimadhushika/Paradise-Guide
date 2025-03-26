@@ -2,9 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
   font-family: "Anton Regular";
   src: url("/fonts/Anton-Regular.ttf") format("opentype");
+  font-style: normal;
+} */
+
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/Roboto-Medium.ttf") format("opentype");
   font-style: normal;
 }
 

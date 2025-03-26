@@ -17,7 +17,8 @@ export default {
 
       },
       fontFamily: {
-        anton: ["Anton Regular","sans-serif"],
+        // anton: ["Anton Regular","sans-serif"],
+        anton: ["Roboto","sans-serif"],
         playfair: ["Playfair Display", "serif"],
         inter: ["Inter", "sans-serif"],
       },
