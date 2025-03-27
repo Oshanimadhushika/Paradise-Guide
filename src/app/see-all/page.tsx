@@ -50,14 +50,11 @@ interface Place {
 }
 
 const SeeAllPage = () => {
-  const [allPlaces, setAllPlaces] = useState<any[]>([]);
   const [places, setPlaces] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [id, setId] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
-  // const [loaded, setLoaded] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -68,57 +65,6 @@ const SeeAllPage = () => {
   }, []);
 
   const fetchLimit = 10;
-
-  // const fetchLocations = async (page: number) => {
-  //   if (!id) return;
-  //   setLoading(true);
-
-  //   try {
-  //     const response = await axios.post(
-  //       "https://paradise.aventureit.com/api/location/all",
-  //       { province_id: id, city_id: 0, status: 3, page, limit: fetchLimit }
-  //     );
-
-  //     if (response.data.success) {
-  //       const newPlaces = response.data.output || [];
-
-  //       if (newPlaces.length === 0) {
-  //         setHasMore(false);
-  //         setLoading(false);
-  //         return;
-  //       }
-
-  //       setAllPlaces((prev) =>
-  //         page === 1 ? newPlaces : [...prev, ...newPlaces]
-  //       );
-  //       setPlaces((prev) => (page === 1 ? newPlaces : [...prev, ...newPlaces]));
-
-  //       setHasMore(newPlaces.length === fetchLimit);
-  //       setCurrentPage(page);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching data:", error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // Search function
-  useEffect(() => {
-    if (searchQuery.trim()) {
-      const filtered = allPlaces.filter(
-        (place) =>
-          place.location_name.toLowerCase().includes(searchQuery) ||
-          place.city.toLowerCase().includes(searchQuery)
-      );
-
-      setPlaces(filtered);
-      setHasMore(false);
-    } else {
-      setPlaces(allPlaces);
-      setHasMore(true);
-    }
-  }, [searchQuery, allPlaces]);
 
   const numericId = Number(id);
   const selectedImage =
@@ -158,13 +104,7 @@ const SeeAllPage = () => {
 
             const updatedPlaces = [...places, ...newPlaces];
             setPlaces(updatedPlaces);
-
-            setAllPlaces((prevPlaces) =>
-              page === 1 ? newPlaces : [...prevPlaces, ...newPlaces]
-            );
-
             setHasMore(newPlaces.length === fetchLimit);
-
             resolve(newPlaces);
           }
         } catch (error) {
@@ -178,6 +118,12 @@ const SeeAllPage = () => {
   };
 
   const { data } = useLazyLoad({ triggerRef, onGrabData });
+
+  const filteredData = data.filter(
+    (place: Place) =>
+      place.location_name.toLowerCase().includes(searchQuery) ||
+      place.city.toLowerCase().includes(searchQuery)
+  );
 
   return (
     <div className="bg-white ">
@@ -276,7 +222,7 @@ const SeeAllPage = () => {
 
       <div className="mt-6 p-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          {data.map((place: Place, index: number) => (
+          {filteredData.map((place: Place, index: number) => (
             <div
               key={`${place.location_id}-${index}`}
               className="bg-white transition-all duration-300 h-[450px] md:h-[570px]"
