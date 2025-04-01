@@ -58,19 +58,19 @@ const ShareModal = ({ visible, onClose, detailData }: any) => {
         </div>
 
         <div className="flex justify-center gap-4 mt-4">
-          <FacebookShareButton url={window.location.href}>
+          <FacebookShareButton url={window.location.href} title={title}>
             <FacebookIcon size={50} round />
           </FacebookShareButton>
 
-          <TwitterShareButton url={window.location.href}>
+          <TwitterShareButton url={window.location.href} title={title}>
             <TwitterIcon size={50} round />
           </TwitterShareButton>
 
-          <WhatsappShareButton url={window.location.href}>
+          <WhatsappShareButton url={window.location.href} title={title}>
             <WhatsappIcon size={50} round />
           </WhatsappShareButton>
 
-          <LinkedinShareButton url={window.location.href}>
+          <LinkedinShareButton url={window.location.href} title={title}>
             <LinkedinIcon size={50} round />
           </LinkedinShareButton>
         </div>

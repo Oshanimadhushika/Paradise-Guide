@@ -49,8 +49,7 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: postData.location_name || "Paradise Guide",
       description: "Explore the beauty of this place.",
-      // url: `https://paradiseguide.netlify.app/place/${locationCode}`,
-      // url: typeof window !== "undefined" ? window.location.href : "",
+      url: `https://paradiseguide.netlify.app/place/${locationCode}`,
       site_name: "paradise_guide",
       images: [
         // WhatsApp image
