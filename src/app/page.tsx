@@ -126,7 +126,7 @@
 import Hero from "../components/Hero";
 import ProvincePart from "@/components/ProvincePart";
 import ExploreSection from "@/components/ExploreSection";
-import { ScrollAnimations } from "@/components/ScrollAnimations";
+import { ScrollAnimations } from "@/components/animation/ScrollAnimations";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";

@@ -31,6 +31,7 @@ const fetchPost = async (locationCode: string) => {
 
 export async function generateMetadata({ params }: any) {
   const locationCode = params?.location_code;
+  
 
   if (!locationCode)
     return { title: "Not Found", description: "Place not found." };
@@ -48,7 +49,8 @@ export async function generateMetadata({ params }: any) {
     openGraph: {
       title: postData.location_name || "Paradise Guide",
       description: "Explore the beauty of this place.",
-      url: `https://paradiseguide.netlify.app/place/${locationCode}`,
+      // url: `https://paradiseguide.netlify.app/place/${locationCode}`,
+      // url: typeof window !== "undefined" ? window.location.href : "",
       site_name: "paradise_guide",
       images: [
         // WhatsApp image

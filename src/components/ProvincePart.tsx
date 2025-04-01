@@ -93,7 +93,6 @@ const ProvincePart = () => {
   );
   const [currentIndex, setCurrentIndex] = useState(1);
 
-
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? provinces.length - 1 : prev - 1));
   };
@@ -175,15 +174,13 @@ const ProvincePart = () => {
                 }
               }
             }}
-            // onClick={() => {
-            //   if (idx === 1) {
-            //     window.location.href = `/see-all?id=${province.id}`;
-            //   }
-            // }}
-
             onClick={() => {
               if (idx === 1) {
-                trackEvent("places_navigation", "User Naviagtion", province.name);
+                trackEvent(
+                  "places_navigation",
+                  "User Naviagtion",
+                  province.name
+                );
                 window.location.href = `/see-all?id=${province.id}`;
               }
             }}

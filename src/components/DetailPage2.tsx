@@ -19,9 +19,9 @@ import { trackEvent } from "@/lib/gtag";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import Footer from "./Footer";
-import { ScrollAnimations } from "./ScrollAnimations";
-import AppStoreBlack from "../assets/AppStoreBlack.png";
-import PlayStoreBlack from "../assets/PlayStoreBlack.png";
+import { ScrollAnimations } from "./animation/ScrollAnimations";
+import AppStoreBlack from "../assets/AppStore.png";
+import PlayStoreBlack from "../assets/GooglePlay.png"
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -469,11 +469,11 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </h2>
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
-        <div className="flex flex-wrap gap-4 justify-center pb-5">
+        <div className="flex flex-wrap gap-4 justify-center pb-5  overflow-hidden">
           {detailData?.gallery?.slice(0, 8).map((item, index) => (
             <motion.div
               key={index}
-              className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform duration-[600ms] ease-in-out transform origin-center hover:scale-110"
+              className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 "
               initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{
@@ -486,7 +486,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               <Image
                 src={item.image_path}
                 alt={`Gallery image ${item.credit_by}`}
-                className="w-full h-full object-cover rounded-lg transition-transform transform group-hover:scale-105 group-hover:rotate-3 group-hover:opacity-80"
+                className="w-full h-full object-cover rounded-lg transition-transform duration-[600ms] ease-in-out transform origin-center hover:scale-110"
                 width={300}
                 height={200}
               />

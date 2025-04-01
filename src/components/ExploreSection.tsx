@@ -1,12 +1,16 @@
 import Image from "next/image";
 import ParadiseGuideLogo from "../assets/Paradise Guide logo.png";
-import AppStoreBlack from "../assets/AppStoreBlack.png";
-import PlayStoreBlack from "../assets/PlayStoreBlack.png";
+import AppStoreBlack from "../assets/AppStore.png";
+import PlayStoreBlack from "../assets/GooglePlay.png";
 import MobileImg from "../assets/MobilePhone2.png";
 import Sigiriya from "../assets/sigiriya2.png";
 import Link from "next/link";
 
 const ExploreSection = () => {
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.href = "/";
+  };
   return (
     <section className="grid grid-cols-12 gap-4 items-center mt-6 mx-auto px-4 py-5 pt-8 ">
       {/* Left Content */}
@@ -22,27 +26,26 @@ const ExploreSection = () => {
           </p>
 
           {/* App Store Buttons */}
-          <div className="flex justify-center lg:justify-start flex-col md:flex-row gap-4  mt-6 ">
-            <Link href="/">
+          <div className="flex justify-center lg:justify-start flex-col md:flex-row gap-4 mt-6">
+            <Link href="/" passHref>
               <Image
                 src={ParadiseGuideLogo}
                 alt="Paradise Guide Logo"
-                className="w-[120px] h-full "
+                className="cursor-pointer w-[120px] h-[50px]"
+                onClick={handleLogoClick}
               />
             </Link>
 
-            <div className="flex gap-4">
-              <Image
+            <Image
                 src={AppStoreBlack}
                 alt="App Store"
-                className="w-[120px] h-full "
+                className="w-[140px] h-[50px]"
               />
               <Image
                 src={PlayStoreBlack}
                 alt="Google Play"
-                className="w-[120px] h-full "
+                className="w-[140px] h-[50px]"
               />
-            </div>
           </div>
         </div>
 

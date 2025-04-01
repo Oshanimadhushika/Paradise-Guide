@@ -7,13 +7,12 @@ import "antd/dist/reset.css";
 import BgImg from "../../assets/bgImgSeeAll.png";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import AppStoreBlack from "@/assets/AppStoreBlack.png";
-import PlayStoreBlack from "@/assets/PlayStoreBlack.png";
+import AppStoreBlack from "@/assets/AppStore.png";
+import PlayStoreBlack from "@/assets/GooglePlay.png";
 import MobileImg from "@/assets/mobileImg.png";
 import AppStoreQr from "@/assets/svgs/AppStoreQr";
 import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import ParadiseGuideLogo from "@/assets/Paradise Guide logo.png";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 import Central from "@/assets/province/Central Province.png";
 import Eastern from "@/assets/province/Eastern Province.png";
@@ -24,11 +23,12 @@ import Southern from "@/assets/province/Southern Province.png";
 import Uva from "@/assets/province/Uva Province.png";
 import Western from "@/assets/province/Western Province.png";
 import Northern from "@/assets/province/Northern Province.png";
-import { ScrollAnimations } from "@/components/ScrollAnimations";
+import { ScrollAnimations } from "@/components/animation/ScrollAnimations";
 import { Skeleton } from "antd";
 import { motion } from "framer-motion";
 import useLazyLoad from "@/components/lazyLoading/UseLazyLoading";
 import { trackEvent } from "@/lib/gtag";
+import Link from "next/link";
 
 const provinceImages: Record<number, StaticImageData> = {
   1: Western,
@@ -126,6 +126,11 @@ const SeeAllPage = () => {
       place.city.toLowerCase().includes(searchQuery)
   );
 
+  const handleLogoClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    window.location.href = "/";
+  };
+
   return (
     <div className="bg-white ">
       <ScrollAnimations />
@@ -150,7 +155,25 @@ const SeeAllPage = () => {
         <div className="relative z-30 flex flex-col justify-end items-start text-left text-white px-8 pb-10 h-full w-full fade-in">
           <div className="hidden lg:block">
             <h1 className="text-[48px] md:text-[72px] font-extrabold font-anton ">
-              {places[0]?.province}
+              {id === "1"
+                ? "Western Province"
+                : id === "2"
+                ? "Southern Province"
+                : id === "3"
+                ? "Central Province"
+                : id === "4"
+                ? "Eastern Province"
+                : id === "5"
+                ? "Northern Province"
+                : id === "6"
+                ? "North Central Province"
+                : id === "7"
+                ? "Sabaragamuwa Province"
+                : id === "8"
+                ? "North Western Province"
+                : id === "9"
+                ? "Uva Province"
+                : "..."}
             </h1>
             <p className="mt-1 md:text-xl max-w-2xl text-base">
               {id === "1"
@@ -232,10 +255,12 @@ const SeeAllPage = () => {
                 // href={`/place/${place.location_code}`}
                 className="flex flex-col h-full"
                 onClick={(e) => {
-
-                  trackEvent("place_click", "User Navigation",place.location_name );
+                  trackEvent(
+                    "place_click",
+                    "User Navigation",
+                    place.location_name
+                  );
                   window.location.href = `/place/${place.location_code}`;
-
                 }}
               >
                 <div className="relative w-full h-[340px] md:h-[400px] overflow-hidden">
@@ -292,12 +317,17 @@ const SeeAllPage = () => {
       <div className="fade-in">
         <div id="mobileAppSection" className="px-4 md:px-20 pt-10">
           <div className="flex justify-center mb-4">
-            <Image
-              src={ParadiseGuideLogo}
-              alt="Paradise Guide Logo"
-              width={100}
-              height={100}
-            />
+            <Link href="/" passHref>
+              <Image
+                src={ParadiseGuideLogo}
+                alt="Paradise Guide Logo"
+                width={110}
+                height={50}
+                className="cursor-pointer"
+                onClick={handleLogoClick}
+                priority
+              />
+            </Link>
           </div>
           <h2 className="text-center text-2xl md:text-3xl font-bold mb-2 text-black">
             Unlock More with Our Mobile App!

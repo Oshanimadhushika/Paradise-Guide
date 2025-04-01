@@ -18,12 +18,12 @@ const { Title } = Typography;
 const ShareModal = ({ visible, onClose, detailData }: any) => {
   if (!visible || !detailData) return null;
 
-  const url = `https://paradiseguide.netlify.app/place/${detailData?.location_code}`;
+  // const url = `https://paradiseguide.netlify.app/place/${detailData?.location_code}`;
   const title = detailData?.location_name || "Paradise Guide";
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(url);
+    navigator.clipboard.writeText(window.location.href);
     setCopied(true);
     message.success("Link copied to clipboard!");
     setTimeout(() => setCopied(false), 2000);
@@ -42,7 +42,11 @@ const ShareModal = ({ visible, onClose, detailData }: any) => {
         <Title level={4}>{detailData?.location_name}</Title>
 
         <div className="mb-4 flex items-center justify-center gap-2 bg-gray-100 p-2 rounded-md">
-          <Input value={url} readOnly className="w-full text-center" />
+          <Input
+            value={window.location.href}
+            readOnly
+            className="w-full text-center"
+          />
           <Button
             type="primary"
             icon={<CopyOutlined />}
@@ -54,19 +58,19 @@ const ShareModal = ({ visible, onClose, detailData }: any) => {
         </div>
 
         <div className="flex justify-center gap-4 mt-4">
-          <FacebookShareButton url={url} title={title}>
+          <FacebookShareButton url={window.location.href}>
             <FacebookIcon size={50} round />
           </FacebookShareButton>
 
-          <TwitterShareButton url={url} title={title}>
+          <TwitterShareButton url={window.location.href}>
             <TwitterIcon size={50} round />
           </TwitterShareButton>
 
-          <WhatsappShareButton url={url} title={title}>
+          <WhatsappShareButton url={window.location.href}>
             <WhatsappIcon size={50} round />
           </WhatsappShareButton>
 
-          <LinkedinShareButton url={url} title={title}>
+          <LinkedinShareButton url={window.location.href}>
             <LinkedinIcon size={50} round />
           </LinkedinShareButton>
         </div>
