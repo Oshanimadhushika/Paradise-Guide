@@ -119,19 +119,18 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
     setIsMounted(true);
   }, []);
 
-
   const slidePrevDesktop = () => {
     carouselRefDesktop.current?.slidePrev();
   };
-  
+
   const slideNextDesktop = () => {
     carouselRefDesktop.current?.slideNext();
   };
-  
+
   const slidePrevMobile = () => {
     carouselRefMobile.current?.slidePrev();
   };
-  
+
   const slideNextMobile = () => {
     carouselRefMobile.current?.slideNext();
   };
@@ -222,7 +221,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const finalDescription = cleanDescription().slice(0, 350);
 
   const handleLogoClick = (e: React.MouseEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     window.location.href = "/";
   };
 
@@ -315,7 +314,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               </div>
 
               {/* Attractions Carousel */}
-              {isMounted && (
+              {/* {isMounted && (
                 <div className="p-2 w-full lg:w-1/2">
                   <h3 className="text-white text-2xl font-anton mb-3 text-center md:text-right pr-0 md:pr-9">
                     Attractions Nearby
@@ -352,7 +351,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                     </button>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -361,32 +360,32 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         <div className="absolute block lg:hidden inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
       </section>
 
-        {/* mobile Content & Carousel */}
-        <div className="w-full justify-center bg-black p-3 mt-auto block lg:hidden">
-          <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
-            <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
-              <h1 className="text-[20px] md:text-[48px] font-anton leading-tight">
-                {detailData?.location_name}
-              </h1>
+      {/* mobile Content & Carousel */}
+      <div className="w-full justify-center bg-black p-3 mt-auto block lg:hidden">
+        <div className="flex flex-col lg:flex-row items-end px-5 gap-5 md:gap-2 lg:gap-5 w-full pb-1 lg:pb-10 h-fit">
+          <div className="text-white p-6 lg:p-2 w-full lg:w-1/2 scale-up">
+            <h1 className="text-[20px] md:text-[48px] font-anton leading-tight">
+              {detailData?.location_name}
+            </h1>
 
-              <Divider className="my-2 bg-gray-200 mb-3" />
+            <Divider className="my-2 bg-gray-200 mb-3" />
 
-              <div className="mt-4 text-sm md:text-lg">
-                {finalDescription.split("\n").map((line, index) => (
-                  <span key={index}>{line}</span>
-                ))}
-                {cleanDescription().length > 350 && "...."}
-              </div>
-
-              <button
-                onClick={scrollToSection}
-                className="mt-4 px-6 py-2 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
-              >
-                Read More
-              </button>
+            <div className="mt-4 text-sm md:text-lg">
+              {finalDescription.split("\n").map((line, index) => (
+                <span key={index}>{line}</span>
+              ))}
+              {cleanDescription().length > 350 && "...."}
             </div>
 
-            {isMounted && (
+            <button
+              onClick={scrollToSection}
+              className="mt-4 px-6 py-2 text-white border border-white font-semibold rounded-full shadow-lg hover:text-gray-400 hover:border-gray-400"
+            >
+              Read More
+            </button>
+          </div>
+
+          {/* {isMounted && (
               <div className="p-2 w-full lg:w-1/2">
                 <h3 className="text-white text-2xl font-anton mb-3 text-center md:text-right pr-0 md:pr-9">
                   Attractions Nearby
@@ -423,9 +422,9 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                   </button>
                 </div>
               </div>
-            )}
-          </div>
+            )} */}
         </div>
+      </div>
 
       {/* Facilities Section */}
       <div className=" px-10 mt-10 fade-in ">
@@ -470,28 +469,11 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         </h2>
         <Divider className="my-2 bg-dividerGrayColour mb-3" />
 
-        {/* <div className="flex flex-wrap gap-4 justify-center pb-5">
-          {detailData?.gallery?.slice(0, 8).map((item, index) => (
-            <div
-              key={index}
-              className={`relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group`}
-            >
-              <Image
-                src={item.image_path}
-                alt={`Gallery image ${item.credit_by}`}
-                className="w-full h-full object-cover rounded-lg transition-transform transform group-hover:scale-105 group-hover:rotate-3 group-hover:opacity-80"
-                width={300}
-                height={200}
-              />
-            </div>
-          ))}
-        </div> */}
-
         <div className="flex flex-wrap gap-4 justify-center pb-5">
           {detailData?.gallery?.slice(0, 8).map((item, index) => (
             <motion.div
               key={index}
-              className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform transform group"
+              className="relative w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-2 transition-transform duration-[600ms] ease-in-out transform origin-center hover:scale-110"
               initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{

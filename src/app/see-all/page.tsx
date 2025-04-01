@@ -28,6 +28,7 @@ import { ScrollAnimations } from "@/components/ScrollAnimations";
 import { Skeleton } from "antd";
 import { motion } from "framer-motion";
 import useLazyLoad from "@/components/lazyLoading/UseLazyLoading";
+import { trackEvent } from "@/lib/gtag";
 
 const provinceImages: Record<number, StaticImageData> = {
   1: Western,
@@ -228,8 +229,14 @@ const SeeAllPage = () => {
               className="bg-white transition-all duration-300 h-[450px] md:h-[570px]"
             >
               <a
-                href={`/place/${place.location_code}`}
+                // href={`/place/${place.location_code}`}
                 className="flex flex-col h-full"
+                onClick={(e) => {
+
+                  trackEvent("place_click", "User Navigation",place.location_name );
+                  window.location.href = `/place/${place.location_code}`;
+
+                }}
               >
                 <div className="relative w-full h-[340px] md:h-[400px] overflow-hidden">
                   <motion.div

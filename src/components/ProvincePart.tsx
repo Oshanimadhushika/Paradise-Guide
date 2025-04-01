@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import Image, { StaticImageData } from "next/image";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Central from "../assets/province/Central Province.png";
 import Eastern from "../assets/province/Eastern Province.png";
 import North_Central from "../assets/province/North Central.png";
@@ -11,13 +10,11 @@ import Southern from "../assets/province/Southern Province.png";
 import Uva from "../assets/province/Uva Province.png";
 import Western from "../assets/province/Western Province.png";
 import Northern from "../assets/province/Northern Province.png";
-import { useRouter } from "next/navigation";
 import ArrowProvince from "@/assets/svgs/ArrowProvince";
-import ArrowLeft from "@/assets/svgs/ArrowLeft";
-import ArrowRight from "@/assets/svgs/ArrowRight";
 import ArrowLeftBlack from "@/assets/svgs/ArrowLeftBlack";
 import ArrowRightBlack from "@/assets/svgs/ArrowRightBlack";
 import FollowCursor from "./animation/FollowCursor";
+import { trackEvent } from "@/lib/gtag";
 
 const provinces = [
   {
@@ -95,8 +92,7 @@ const ProvincePart = () => {
     null
   );
   const [currentIndex, setCurrentIndex] = useState(1);
-  const router = useRouter();
-  const [showFollowCursor, setShowFollowCursor] = useState(false);
+
 
   const prevSlide = () => {
     setCurrentIndex((prev) => (prev === 0 ? provinces.length - 1 : prev - 1));
@@ -114,16 +110,6 @@ const ProvincePart = () => {
       provinces[currentIndex],
       provinces[nextIndex],
     ];
-  };
-
-  const handleClickProvince = (province: any) => {
-    if (province.id === 1) {
-      setShowFollowCursor(true);
-    } else {
-      setShowFollowCursor(false);
-    }
-
-    window.location.href = `/see-all?id=${province.id}`;
   };
 
   return (
@@ -179,20 +165,25 @@ const ProvincePart = () => {
         }`}
             onMouseEnter={() => {
               if (idx === 1) {
-                setShowFollowCursor(true);
                 setSelectedProvince(province);
               }
             }}
             onMouseLeave={() => {
               if (idx === 1) {
-                setShowFollowCursor(false);
                 if (selectedProvince?.id === province.id) {
                   setSelectedProvince(null);
                 }
               }
             }}
+            // onClick={() => {
+            //   if (idx === 1) {
+            //     window.location.href = `/see-all?id=${province.id}`;
+            //   }
+            // }}
+
             onClick={() => {
               if (idx === 1) {
+                trackEvent("places_navigation", "User Naviagtion", province.name);
                 window.location.href = `/see-all?id=${province.id}`;
               }
             }}
