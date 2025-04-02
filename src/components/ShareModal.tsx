@@ -18,7 +18,6 @@ const { Title } = Typography;
 const ShareModal = ({ visible, onClose, detailData }: any) => {
   if (!visible || !detailData) return null;
 
-  // const url = `https://paradiseguide.netlify.app/place/${detailData?.location_code}`;
   const title = detailData?.location_name || "Paradise Guide";
   const [copied, setCopied] = useState(false);
 

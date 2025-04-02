@@ -1,5 +1,5 @@
 import DetailPage2 from "@/components/DetailPage2";
-import { headers } from "next/headers";
+// import { headers } from "next/headers";
 
 const fetchPost = async (locationCode: string) => {
   if (!locationCode) return null;
@@ -33,7 +33,6 @@ const fetchPost = async (locationCode: string) => {
 export async function generateMetadata({ params }: any) {
   const locationCode = params?.location_code;
   
-
   if (!locationCode)
     return { title: "Not Found", description: "Place not found." };
 

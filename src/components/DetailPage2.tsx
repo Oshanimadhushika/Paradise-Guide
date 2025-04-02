@@ -21,7 +21,7 @@ import PlayStoreQr from "@/assets/svgs/PlayStoreQr";
 import Footer from "./Footer";
 import { ScrollAnimations } from "./animation/ScrollAnimations";
 import AppStoreBlack from "../assets/AppStore.png";
-import PlayStoreBlack from "../assets/GooglePlay.png"
+import PlayStoreBlack from "../assets/GooglePlay.png";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -86,8 +86,6 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const showModal = () => setIsModalVisible(true);
   const handleCancel = () => setIsModalVisible(false);
-  // const appStoreUrl = "https://apps.apple.com/app-url";
-  // const playStoreUrl = "https://play.google.com/store/app-url";
 
   useEffect(() => {
     const fetchPlaceDetails = async () => {
@@ -313,7 +311,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
                 </button>
               </div>
 
-              {/* Attractions Carousel */}
+              {/* slider sec */}
               {/* {isMounted && (
                 <div className="p-2 w-full lg:w-1/2">
                   <h3 className="text-white text-2xl font-anton mb-3 text-center md:text-right pr-0 md:pr-9">
@@ -385,6 +383,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
             </button>
           </div>
 
+          {/* slider sec */}
           {/* {isMounted && (
               <div className="p-2 w-full lg:w-1/2">
                 <h3 className="text-white text-2xl font-anton mb-3 text-center md:text-right pr-0 md:pr-9">
