@@ -1,4 +1,5 @@
 import DetailPage2 from "@/components/DetailPage2";
+import { headers } from "next/headers";
 
 const fetchPost = async (locationCode: string) => {
   if (!locationCode) return null;
@@ -43,13 +44,18 @@ export async function generateMetadata({ params }: any) {
     return { title: "Not Found", description: "Place not found." };
   }
 
+  const headersList = await headers();
+  const origin = headersList.get("origin") ;
+  const fullUrl = `${origin}/place/${locationCode}`;
+
   return {
     title: postData.location_name || "Paradise Guide",
     description: "Explore the beauty of this place.",
     openGraph: {
       title: postData.location_name || "Paradise Guide",
       description: "Explore the beauty of this place.",
-      url: `https://paradiseguide.netlify.app/place/${locationCode}`,
+      // url: `https://paradiseguide.netlify.app/place/${locationCode}`,
+      url: fullUrl,
       site_name: "paradise_guide",
       images: [
         // WhatsApp image
