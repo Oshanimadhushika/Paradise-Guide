@@ -510,7 +510,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
         {/* Grid Layout */}
         <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-8">
           {/* Left QR Code */}
-          <div className="flex flex-col items-center w-[202px] order-1 lg:order-none">
+          <div className="flex flex-col items-center w-[202px] order-1 md:order-none">
             <div className="p-3">
               <AppStoreQr />
             </div>
@@ -520,13 +520,13 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               <Image
                 src={AppStoreBlack}
                 alt="Download on the App Store"
-                className="w-full h-auto"
+                className="w-full h-[50px]"
               />
             </div>
           </div>
 
           {/* Mobile Mockup */}
-          <div className="w-60 md:w-[298px] h-auto flex justify-center order-3 lg:order-none">
+          <div className="w-60 md:w-[298px] h-auto flex justify-center order-3 md:order-none">
             <Image
               src={MobileImg}
               alt="Download on the App Store"
@@ -535,7 +535,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
           </div>
 
           {/* Google Play Button */}
-          <div className="flex flex-col items-center  w-[202px] order-2 lg:order-none">
+          <div className="flex flex-col items-center  w-[202px] order-2 md:order-none">
             <div className="p-3">
               <PlayStoreQr />
             </div>
@@ -545,7 +545,7 @@ const DetailPage2: React.FC<DetailPageProps> = ({ location_code }) => {
               <Image
                 src={PlayStoreBlack}
                 alt="Download on the App Store"
-                className="w-full h-auto"
+                className="w-full h-[50px]"
               />
             </div>
           </div>

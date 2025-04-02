@@ -163,7 +163,7 @@ const Hero = () => {
               className="w-full h-[350px] transition-transform duration-[600ms] ease-in-out transform origin-center hover:scale-110"
             />
             <div className="absolute bottom-0 w-full bg-gradient-to-t from-black via-black/60 to-transparent text-white p-4">
-              <div>
+              <div className="flex-col justify-center items-start max-h-[100px]">
                 <h2 className="text-2xl font-anton">{item.title}</h2>
                 <p className="text-sm mt-2">{item.description}</p>
               </div>

@@ -252,7 +252,6 @@ const SeeAllPage = () => {
               className="bg-white transition-all duration-300 h-[450px] md:h-[570px]"
             >
               <a
-                // href={`/place/${place.location_code}`}
                 className="flex flex-col h-full"
                 onClick={(e) => {
                   trackEvent(
@@ -309,7 +308,6 @@ const SeeAllPage = () => {
               </div>
             ))}
 
-          {/* <div ref={triggerRef} className="h-10 w-full"></div> */}
           {hasMore && <div ref={triggerRef} className="h-10 w-full"></div>}
         </div>
       </div>
@@ -353,7 +351,7 @@ const SeeAllPage = () => {
                 <Image
                   src={AppStoreBlack}
                   alt="Download on the App Store"
-                  className="w-full h-auto"
+                  className="w-full h-[50px]"
                 />
               </div>
             </div>
@@ -378,7 +376,7 @@ const SeeAllPage = () => {
                 <Image
                   src={PlayStoreBlack}
                   alt="Download on the App Store"
-                  className="w-full h-auto"
+                  className="w-full h-[50px]"
                 />
               </div>
             </div>
